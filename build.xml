@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="BeGIC" default="javacc" basedir=".">
+
+	<property name="PARSERDIR" location="src/grammer/"/>
+	
+    <!-- javaソースの出力先 -->
+	<property name="OUTPUTDIR" location="src/java/jp/tolz/begic/prototype/interpreter/parser/"/>
+
+    <!-- javacc.jarを置いているディレクトリ -->
+    <property name="JAVACCHOME" location="lib/build"/>
+
+    <!-- jjtファイルの配置場所 -->
+    <property name="jjt.file" location="${PARSERDIR}/BegicParser.jjt"/>
+    <!-- jjファイルの配置場所 -->
+    <property name="jj.file" location="${OUTPUTDIR}/BegicParser.jj"/>
+	
+	
+
+    <target name="javacc">
+        <delete dir="${OUTPUTDIR}" includes="*.*"/>
+
+        <!-- jjtreeタスクを実行して、jjtからjjファイルとjavaファイルを作成 -->
+        <jjtree target="${jjt.file}"
+            javacchome="${JAVACCHOME}"
+            outputdirectory="${OUTPUTDIR}"/>
+
+        <!-- jjファイルからjavaファイルを作成 -->
+        <javacc target="${jj.file}"
+            javacchome="${JAVACCHOME}"
+            outputdirectory="${OUTPUTDIR}"/>
+    </target> 
+</project>

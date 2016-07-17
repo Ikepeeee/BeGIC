@@ -5,12 +5,12 @@ options {
 }
 
 /** Parserクラスの定義 */
-PARSER_BEGIN(MyParser)
+PARSER_BEGIN(BegicParser)
 package jp.tolz.begic.prototype.interpreter.parser;
-public class MyParser {
+public class BegicParser {
     /* ここに，普通のJavaクラスのようにメソッドを定義できるっぽい */
 }
-PARSER_END(MyParser)
+PARSER_END(BegicParser)
 /** ここまでがParserクラスの定義 */
 /** 以下は文法の定義 */
 

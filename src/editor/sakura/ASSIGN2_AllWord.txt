@@ -1,0 +1,397 @@
+ASSIGN_Source
+ASSIGN_Role
+ASSIGN_Target
+ASSIGN_Assign
+ASSIGN_Iterator
+assign_id
+assign_name
+assign_model_name
+index_ptype_name
+Index_ptype_value
+commit
+sync_aet
+source_model_name
+source_filter
+source_feedback_sync_aet
+source_feedback_mapping
+models_condition
+models_condition_proxy
+initial
+reentrant
+reentrant_filter
+result_session
+result_session_append
+assign
+assign_id
+assign_name
+assign_description
+assign_order_number
+source_model_name
+ignore_remove
+ignore_rollback
+ignore_history
+source_status_ptype_name
+source_apply_status_value
+source_after_status_value
+source_apply_filter
+models_condition
+source_feedback
+group_session
+assign_item_name
+assign_item_description
+assign_item_order_number
+target_model_name
+reentrant
+sync_aet
+commit
+result_session
+result_session_append
+source_dest_apply_filter
+ignore_destination_remove
+ignore_destination_rollback
+ignore_destination_history
+source_proxy
+exist_destination_skip
+source_feedback
+Assign
+assign_process_id
+assign_process_name
+before_condition
+after_condition
+prepare_session
+iterator
+iterator_session
+mapping
+source_reflect_apply_filter
+ignore_reflection_removed
+ignore_reflection_rollback
+ignore_reflection_history
+source_proxy
+source_feedback_proxy
+reflection_target_search_filter
+session_filter
+filter
+error
+operator
+model_name
+exist
+no_duplicate
+keep_assign_target
+iterator_as_assign
+[assign_schema2 ]
+[assign_items ]
+(destination )
+(update )
+(reflection )
+(source_feedback_mapping )
+(source_feedback )
+[assign ]
+(before_condition )
+(after_condition )
+(prepare_session )
+(iterator )
+(iterator_session )
+(mapping )
+(search )
+[filter ]
+(source_reflect_apply_filter )
+(reflection_target_search_filter )
+true
+false
+@ASSIGN_Source
+@ASSIGN_Role
+@ASSIGN_Target
+@ASSIGN_Iterator
+@ASSIGN_Assign
+&Abs:{ p1 }
+&Add:{ s1 }{ s2 }
+&AddAllItem:{ list1 }{ list2 }
+&AddDay:{ date }{ IncValue }
+&AddItem:{ list1 }{ s1 }
+&AddMonth:{ p1 }{ IncValue }
+&AddPortfolio:{ port1 }{ list2 }
+&AddYear:{ date }{ IncValue }
+&ApplyFilter:{ models }{ filter }
+&ApplySessionFilter:{ SessionFilter }
+&AsBytes:{ string }{ encoding }
+&AsDate:{ p1 }
+&AsDateWithFormat:{ format }{ toDateValue }{ locale }
+&AsDecimal:{ p1 } { scale } { round }
+&AsInteger:{ p1 }
+&AsKey:{ p1 }
+&AsLong:{ p1 }
+&AsModel:{ proxy }
+&AsPortfolio:{ p1 }{ filter(optional) }{prefetch(optional) }{ distinct(optional) }
+&AsString:{ p1 }
+&AsYearMonth:{ p1 }
+&AsYear:{ p1 }
+&BeforeDay
+&CheckDateWithFormatLenient:{ format }{ toDateValue }{ locale }
+&CheckStringPattern:{@INP}{Pattern}
+&Cat:{ p1 }...{ pN }
+&ClearTime:{ date }{ position }
+&Clone:{ target }
+&ConnectDateTime:{ date }{ time }
+&CreateFilter:{ filterString }
+&CreateSessionFilter:{ sessionFilterString }
+&DateToString:{ format }{ DateValue }{ locale }
+&DayOfFromTo:{ from }{ to }
+&DayOfWeek:{ date }
+&DayOfWeekInMonth:{ date }
+&DayOfMonth:{ date }
+&DayOfYear:{ date }
+&Dec:{ @p1 }
+&Distinct:{ target }{ item }
+&Div:{ s1 }{ s2 }
+&Div:{ s1 }{ s2 }{ scale }
+&Div:{ s1 }{ s2 }{ scale }{ round }
+&FilterAnd:{ leftFilter }{ rightFilter }
+&FilterOr:{ leftFilter }{ rightFilter }
+&First:{target}
+&FirstDateOfBeforeWeek:{ date }
+&FirstDateOfNextWeek:{ date }
+&FirstDateOfWeek:{ date }
+&FirstDateOfBeforeMonth:{ date }
+&FirstDateOfMonth:{ date }
+&FirstDateOfNextMonth:{ date }
+&Date:{ date }
+&DecimalFormat:{ formatString }{ number }
+&AsValue:{ ptypeName }{ valueString }
+&Get:{ target }{ item }
+&GetAfterBusinessDay:{ calendar_name }{ base }{ offset }{ session_keys }
+&GetBeforeBusinessDay:{ calendar_name }{ base }{ offset }{ session_keys }
+&GetBusinessDayOfFromTo:{ CalendarName }{ from }{ to }{ session_keys }
+&Age:{ birthday }{ evaluate_date }
+&GetObservation:{ TargetModel }{ PhenomenonTypeName }{ Condition(Optional) }
+&GetTime:{ date }{ position }
+&GetValue:{ target }{ item }
+&GroupBy:{ portfolio }{ PhenomenonTypeName1 }{ PhenomenonTypeName2 }....{ PhenomenonTypeNameN }
+&GroupByPhenomenonTypeNames:{ portfolio }{ PhenomenonTypeNames }
+&GroupItem:{ group }{ key }
+&GroupPortfolios:{ group }
+&IdentSeqStr:{ seqName }{ IdentifedFlag }
+&In:{ äÓèÄMODELS }{ ï]âøëŒè€MODELS }{ filter }
+&Inc:{ p1 }
+&IndexOf:{ sourceStirng }{ searchStirng }{ startPos }
+&InsertItem:{ targetList }{ insertItem }{ insertIndex }
+&Last:{ target }
+&LastIndexOf:{ sourceStirng }{ searchStirng }{ startPos }
+&List:{size}
+&Length:{ sourceString }
+&ListIndexOf:{ targetList }{ targetItem }
+&Map:{size}
+&MapKeySet:{ map }
+&MapValues:{ map }
+&Max:{ target }
+&MessageDigest:{ target }{ keyword }{ algorithm }
+&Min:{ target }
+&MonthOfYear:{ date }
+&MonthOfFromTo:{ from }{ to }
+&Much:{ äÓèÄMODELS }{ ï]âøëŒè€MODELS }{ Filter }
+&Mul:{ s1 }{ s2 }
+&Neg:{ p1 }
+&NextDay
+&NotIn:{ äÓèÄMODELS }{ ï]âøëŒè€MODELS }{ filter }
+&NotMuch:{ äÓèÄMODELS }{ ï]âøëŒè€MODELS }{ Filter }
+&Now
+&Null
+&ObservableProxy:{ target_model }
+&Path:{ model(models) }{ path }
+&PhenomenonTypeNameKeys:{ source }
+&Portfolio:{ filter(optional) }{prefetch(optional) }{ distinct(optional) }
+&PortfolioObservables:{ portfolio }
+&PrimaryKeyName:{ target_model }
+&Property:{ propertyKey }
+&Proxy:{ ProxyPtpyeName }{ IdentifiedString }
+&Put:{ TargetMap }{ Key }{ Value }
+&Read:{ file }{ type }{ encoding }
+&Rem:{ s1 }{ s2 }
+&Rem:{ s1 }{ s2 }{ precision }
+&Rem:{ s1 }{ s2 }{ precision }{ round }
+&Remove:{ Source }{ Position }
+&RemoveAllItem:{ target }{ item }
+&RemoveFirst:{ Source }
+&RemoveItem:{ target }{ item }
+&RemoveLast:{ Source }
+&RemovePortfolio:{ target }{ item }
+&Return
+&Search:{ modelName }{ filter }{ ext_filter }{ sortList }
+&SeqMap:{ size }
+&Sequencer:{ seqNqme }
+&SessionFilterAnd:{ leftFilter }{ rightFilter }
+&SessionFilterOr:{ leftFilter }{ rightFilter }
+&Set:{ size }
+&SetObservation:{ TargetModel }{ PhenomenonTypeName }{ Value }{ Condition(Optional) }
+&Size:{ Source }
+&Skip
+&SnapCollection:{ target }{ startPosition }{ endPosition }
+&Sort:{ target }{ PhenomenonTypeName1 }{ PhenomenonTypeName2 }...{ PhenomenonTypeNameN }
+&SortByPhenomenonTypeNames:{ target }{ PhenomenonTypeNames }{ nullIsMinimum }
+&SpecialChar:{ target }
+&SplitStringToList:{ s1 }{ s2 }
+&StartOfBeforeMonth
+&StartOfMonth
+&StartOfNextMonth
+&Sub:{ s1 }{ s2 }
+&Substring:{ sourceString }{ startPos }{ endPos }
+&Sum:{ target }
+&ThisYearMonth
+&ThisYear
+&Time:{ date }{ position }
+&Today
+&Translate:{ target }{ translator }
+&Trim:{ source }
+&TrimUniq:{ source }
+&Write:{ file }{ output }{ encoding }
+&WriteBinaryForWeb:{ output }{ source file name }{ outside path]{web doc root path}
+&AsYearNum:{ date }
+&WeekOfMonth:{ date }
+&WeekOfYear:{ date }
+&Year:{ date }
+&YearOfFromTo:{ from }{ to }
+Abs:{ p1 }
+Add:{ s1 }{ s2 }
+AddAllItem:{ list1 }{ list2 }
+AddDay:{ date }{ IncValue }
+AddItem:{ list1 }{ s1 }
+AddMonth:{ p1 }{ IncValue }
+AddPortfolio:{ port1 }{ list2 }
+AddYear:{ date }{ IncValue }
+ApplyFilter:{ models }{ filter }
+ApplySessionFilter:{ SessionFilter }
+AsBytes:{ string }{ encoding }
+AsDate:{ p1 }
+AsDateWithFormat:{ format }{ toDateValue }{ locale }
+AsDecimal:{ p1 } { scale } { round }
+AsInteger:{ p1 }
+AsKey:{ p1 }
+AsLong:{ p1 }
+AsModel:{ proxy }
+AsPortfolio:{ p1 }{ filter(optional) }{prefetch(optional) }{ distinct(optional) }
+AsString:{ p1 }
+AsYearMonth:{ p1 }
+AsYear:{ p1 }
+BeforeDay
+CheckDateWithFormatLenient:{ format }{ toDateValue }{ locale }
+CheckStringPattern:{@INP}{Pattern}
+Cat:{ p1 }...{ pN }
+ClearTime:{ date }{ position }
+Clone:{ target }
+ConnectDateTime:{ date }{ time }
+CreateFilter:{ filterString }
+CreateSessionFilter:{ sessionFilterString }
+DateToString:{ format }{ DateValue }{ locale }
+DayOfFromTo:{ from }{ to }
+DayOfWeek:{ date }
+DayOfWeekInMonth:{ date }
+DayOfMonth:{ date }
+DayOfYear:{ date }
+Dec:{ @p1 }
+Distinct:{ target }{ item }
+Div:{ s1 }{ s2 }
+Div:{ s1 }{ s2 }{ scale }
+Div:{ s1 }{ s2 }{ scale }{ round }
+FilterAnd:{ leftFilter }{ rightFilter }
+FilterOr:{ leftFilter }{ rightFilter }
+First:{target}
+FirstDateOfBeforeWeek:{ date }
+FirstDateOfNextWeek:{ date }
+FirstDateOfWeek:{ date }
+FirstDateOfBeforeMonth:{ date }
+FirstDateOfMonth:{ date }
+FirstDateOfNextMonth:{ date }
+Date:{ date }
+DecimalFormat:{ formatString }{ number }
+AsValue:{ ptypeName }{ valueString }
+Get:{ target }{ item }
+GetAfterBusinessDay:{ calendar_name }{ base }{ offset }{ session_keys }
+GetBeforeBusinessDay:{ calendar_name }{ base }{ offset }{ session_keys }
+GetBusinessDayOfFromTo:{ CalendarName }{ from }{ to }{ session_keys }
+Age:{ birthday }{ evaluate_date }
+GetObservation:{ TargetModel }{ PhenomenonTypeName }{ Condition(Optional) }
+GetTime:{ date }{ position }
+GetValue:{ target }{ item }
+GroupBy:{ portfolio }{ PhenomenonTypeName1 }{ PhenomenonTypeName2 }....{ PhenomenonTypeNameN }
+GroupByPhenomenonTypeNames:{ portfolio }{ PhenomenonTypeNames }
+GroupItem:{ group }{ key }
+GroupPortfolios:{ group }
+IdentSeqStr:{ seqName }{ IdentifedFlag }
+In:{ äÓèÄMODELS }{ ï]âøëŒè€MODELS }{ filter }
+Inc:{ p1 }
+IndexOf:{ sourceStirng }{ searchStirng }{ startPos }
+InsertItem:{ targetList }{ insertItem }{ insertIndex }
+Last:{ target }
+LastIndexOf:{ sourceStirng }{ searchStirng }{ startPos }
+List:{size}
+Length:{ sourceString }
+ListIndexOf:{ targetList }{ targetItem }
+Map:{size}
+MapKeySet:{ map }
+MapValues:{ map }
+Max:{ target }
+MessageDigest:{ target }{ keyword }{ algorithm }
+Min:{ target }
+MonthOfYear:{ date }
+MonthOfFromTo:{ from }{ to }
+Much:{ äÓèÄMODELS }{ ï]âøëŒè€MODELS }{ Filter }
+Mul:{ s1 }{ s2 }
+Neg:{ p1 }
+NextDay
+NotIn:{ äÓèÄMODELS }{ ï]âøëŒè€MODELS }{ filter }
+NotMuch:{ äÓèÄMODELS }{ ï]âøëŒè€MODELS }{ Filter }
+Now
+Null
+ObservableProxy:{ target_model }
+Path:{ model(models) }{ path }
+PhenomenonTypeNameKeys:{ source }
+Portfolio:{ filter(optional) }{prefetch(optional) }{ distinct(optional) }
+PortfolioObservables:{ portfolio }
+PrimaryKeyName:{ target_model }
+Property:{ propertyKey }
+Proxy:{ ProxyPtpyeName }{ IdentifiedString }
+Put:{ TargetMap }{ Key }{ Value }
+Read:{ file }{ type }{ encoding }
+Rem:{ s1 }{ s2 }
+Rem:{ s1 }{ s2 }{ precision }
+Rem:{ s1 }{ s2 }{ precision }{ round }
+Remove:{ Source }{ Position }
+RemoveAllItem:{ target }{ item }
+RemoveFirst:{ Source }
+RemoveItem:{ target }{ item }
+RemoveLast:{ Source }
+RemovePortfolio:{ target }{ item }
+Return
+Search:{ modelName }{ filter }{ ext_filter }{ sortList }
+SeqMap:{ size }
+Sequencer:{ seqNqme }
+SessionFilterAnd:{ leftFilter }{ rightFilter }
+SessionFilterOr:{ leftFilter }{ rightFilter }
+Set:{ size }
+SetObservation:{ TargetModel }{ PhenomenonTypeName }{ Value }{ Condition(Optional) }
+Size:{ Source }
+Skip
+SnapCollection:{ target }{ startPosition }{ endPosition }
+Sort:{ target }{ PhenomenonTypeName1 }{ PhenomenonTypeName2 }...{ PhenomenonTypeNameN }
+SortByPhenomenonTypeNames:{ target }{ PhenomenonTypeNames }{ nullIsMinimum }
+SpecialChar:{ target }
+SplitStringToList:{ s1 }{ s2 }
+StartOfBeforeMonth
+StartOfMonth
+StartOfNextMonth
+Sub:{ s1 }{ s2 }
+Substring:{ sourceString }{ startPos }{ endPos }
+Sum:{ target }
+ThisYearMonth
+ThisYear
+Time:{ date }{ position }
+Today
+Translate:{ target }{ translator }
+Trim:{ source }
+TrimUniq:{ source }
+Write:{ file }{ output }{ encoding }
+WriteBinaryForWeb:{ output }{ source file name }{ outside path]{web doc root path}
+AsYearNum:{ date }
+WeekOfMonth:{ date }
+WeekOfYear:{ date }
+Year:{ date }
+YearOfFromTo:{ from }{ to }

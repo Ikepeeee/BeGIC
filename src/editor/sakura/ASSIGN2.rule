@@ -1,0 +1,11 @@
+[assign_schema2 /// section
+(group_session /// section2
+[models_condition /// section2
+[assign_items /// section2
+(destination /// section3
+[assign /// section4
+(prepare_session /// section5
+(iterator /// section5
+(model /// section6
+(search /// section7
+(mapping /// section5

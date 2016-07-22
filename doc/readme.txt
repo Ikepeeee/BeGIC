@@ -43,3 +43,8 @@ starx = 100
 stary = 100
 starr = 50
 goto star
+loop 100 do
+	starx = starx + 1
+	stary = stary + 1
+	goto star
+end

@@ -1,5 +1,6 @@
 package jp.tolz.begic.prototype.interpreter.commands;
 
+import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
 import jp.tolz.begic.prototype.interpreter.commands.base.Command;
 
 /**
@@ -13,15 +14,17 @@ import jp.tolz.begic.prototype.interpreter.commands.base.Command;
  */
 public class BWindow extends Command {
 
-	public BWindow(String[] args) {
-		super(args);
+	public BWindow(BArgs bargs) {
+		super(bargs);
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
 	@Override
-	public String[] exec() {
+	public void exec() {
 		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		
 	}
+
+
 
 }

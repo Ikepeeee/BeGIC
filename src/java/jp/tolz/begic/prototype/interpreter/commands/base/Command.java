@@ -1,5 +1,11 @@
 package jp.tolz.begic.prototype.interpreter.commands.base;
 
+import java.applet.Applet;
+import java.awt.Color;
+import java.awt.Graphics;
+
+import jp.tolz.begic.prototype.interpreter.canvas.BCanvas;
+
 /**
  * BeGICで用いるコマンドの基底クラス。
  * 全てのコマンドはCommandを継承する必要がある。
@@ -7,11 +13,14 @@ package jp.tolz.begic.prototype.interpreter.commands.base;
  *
  */
 abstract public class Command{
-	public Command(String[] args){
+	public static BCanvas canvas;
+	
+	public Command(BArgs bargs){
 	}
 	
 	/**
 	 * コマンドの実行メソッド
 	 */
-	abstract public String[] exec();
+	abstract public void exec();
+
 }

@@ -1,5 +1,7 @@
 package jp.tolz.begic.prototype.interpreter.commands;
 
+
+import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
 import jp.tolz.begic.prototype.interpreter.commands.base.Command;
 
 /**
@@ -9,15 +11,13 @@ import jp.tolz.begic.prototype.interpreter.commands.base.Command;
  */
 public class BLine extends Command {
 
-	public BLine(String[] args) {
-		super(args);
-		// TODO 自動生成されたコンストラクター・スタブ
+	public BLine(BArgs bargs) {
+		super(bargs);
 	}
 
 	@Override
-	public String[] exec() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+	public void exec() {
+		canvas.getGraphics().drawLine(0, 0, 100, 100);
 	}
 
 }

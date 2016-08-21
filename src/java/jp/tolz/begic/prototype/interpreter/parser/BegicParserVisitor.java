@@ -4,8 +4,6 @@ package jp.tolz.begic.prototype.interpreter.parser;
 public interface BegicParserVisitor
 {
   public Object visit(SimpleNode node, Object data);
-  public Object visit(ASTterm node, Object data);
-  public Object visit(ASTexpr node, Object data);
-  public Object visit(ASTinteger node, Object data);
+  public Object visit(ASTProgram node, Object data);
 }
-/* JavaCC - OriginalChecksum=2664301ae8ba85bc2bb41f91091225a9 (do not edit this line) */
+/* JavaCC - OriginalChecksum=53e7c2bf81face3b9e63312133d4732e (do not edit this line) */

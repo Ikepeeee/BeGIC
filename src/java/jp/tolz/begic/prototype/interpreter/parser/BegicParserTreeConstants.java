@@ -3,15 +3,11 @@ package jp.tolz.begic.prototype.interpreter.parser;
 
 public interface BegicParserTreeConstants
 {
-  public int JJTTERM = 0;
-  public int JJTEXPR = 1;
-  public int JJTINTEGER = 2;
+  public int JJTPROGRAM = 0;
 
 
   public String[] jjtNodeName = {
-    "term",
-    "expr",
-    "integer",
+    "Program",
   };
 }
-/* JavaCC - OriginalChecksum=f2e3e80bf2688f818973b0ae0329ac75 (do not edit this line) */
+/* JavaCC - OriginalChecksum=7ed959a79713bbd7c3670ecfcf6c7710 (do not edit this line) */

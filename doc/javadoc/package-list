@@ -1,0 +1,12 @@
+jp.tolz.begic.prototype
+jp.tolz.begic.prototype.executer
+jp.tolz.begic.prototype.interpreter
+jp.tolz.begic.prototype.interpreter.canvas
+jp.tolz.begic.prototype.interpreter.commands
+jp.tolz.begic.prototype.interpreter.commands.base
+jp.tolz.begic.prototype.interpreter.namespace
+jp.tolz.begic.prototype.interpreter.parser
+jp.tolz.begic.prototype.interpreter.values
+jp.tolz.begic.prototype.interpreter.values.base
+jp.tolz.begic.prototype.stub
+jp.tolz.begic.test.interpreter.parser

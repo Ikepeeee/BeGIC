@@ -1,42 +1,128 @@
 /** オプション */
-options {
-    /* parserをfor文などで繰り返し使うならfalseにする */
-    STATIC = false;
+options
+{
+  /* parserをfor文などで繰り返し使うならfalseにする */
+  STATIC = false;
+  MULTI = true;
+  VISITOR = true;
+  UNICODE_INPUT = true;
 }
 
 /** Parserクラスの定義 */
 PARSER_BEGIN(BegicParser)
 package jp.tolz.begic.prototype.interpreter.parser;
-public class BegicParser {
-    /* ここに，普通のJavaクラスのようにメソッドを定義できるっぽい */
+
+public class BegicParser
+{
+  /* ここに，普通のJavaクラスのようにメソッドを定義できるっぽい */
 }
+
 PARSER_END(BegicParser)
+
 /** ここまでがParserクラスの定義 */
 /** 以下は文法の定義 */
 
-/** 無視する文字を定義 */
-SKIP:
+/* WHITE SPACE */
+
+SKIP :
 {
-    " " | "\r" | "\t" | "\n"
+  " "
+| "\t"
+| "\n"
+| "\r"
+| "\f"
 }
 
-/** 出現するトークンを定義 */
-TOKEN:
+/* OPERATORS */
+
+TOKEN :
 {
-        <INTEGER: (["0"-"9"])>
+  < EQ : "=" >
+| < GT : ">" >
+| < LT : "<" >
+| < NOT : "not" >
+| < QUESTION : "?" >
+| < OR : "or" >
+| < AND : "and" >
+| < INCR : "++" >
+| < DECR : "--" >
+| < PLUS : "+" >
+| < MINUS : "-" >
+| < STAR : "*" >
+| < SLASH : "/" >
+| < POWER : "^" >
+| < MOD : "mod" >
+| < PLUSASSIGN : "+=" >
+| < MINUSASSIGN : "-=" >
+| < STARASSIGN : "*=" >
+| < SLASHASSIGN : "/=" >
+| < REMASSIGN : "%=" >
 }
 
-/** Parserの実行
- *  このメソッドをMain.javaから呼び出す
- */
-void doParse():
+/* LETTER */
+
+TOKEN :
 {
-    /* ここで使う変数を宣言 */
-    Token integer;
+  < LETTER :
+    [ "a"-"z" ]
+  | [ "A"-"Z" ] >
+| < NUMBER : [ "0"-"9" ] >
 }
+
+/* COMMAND_IDENTIFIER */
+
+TOKEN :
 {
-    /* 入力された文字を表示 */
-    integer = <INTEGER> {
-        System.out.println("inputted: "+integer.image);
-    }
+  < BCOMMAND :
+    "line"
+  | "circle"
+  | "print"
+  | "input" >
 }
+
+/* COMMENTS */
+
+MORE :
+{
+  "//" : IN_SINGLE_LINE_COMMENT
+| 
+  "/*" : IN_MULTI_LINE_COMMENT
+}
+
+< IN_SINGLE_LINE_COMMENT >
+SPECIAL_TOKEN :
+{
+  < SINGLE_LINE_COMMENT :
+    "\n"
+  | "\r"
+  | "\r\n" > : DEFAULT
+}
+
+< IN_FORMAL_COMMENT >
+SPECIAL_TOKEN :
+{
+  < FORMAL_COMMENT : "*/" > : DEFAULT
+}
+
+< IN_MULTI_LINE_COMMENT >
+SPECIAL_TOKEN :
+{
+  < MULTI_LINE_COMMENT : "*/" > : DEFAULT
+}
+
+< IN_SINGLE_LINE_COMMENT, IN_FORMAL_COMMENT, IN_MULTI_LINE_COMMENT >
+/* VALUABLE */
+
+TOKEN :
+{
+  < VALUABLE : (< LETTER >)+ (< NUMBER >)* >
+}
+
+void Program() :
+{}
+{
+    (
+      < BCOMMAND >
+    )
+}
+

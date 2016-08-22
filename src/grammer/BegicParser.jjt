@@ -38,25 +38,22 @@ SKIP :
 TOKEN :
 {
   < EQ : "=" >
+| < NEQ : "=/" >
+| < RIGHT_ASSIGN : "=>" >
+| < LEFT_ASSIGN : "<=" >
+| < EXCHANGE : "<->" >
 | < GT : ">" >
 | < LT : "<" >
 | < NOT : "not" >
 | < QUESTION : "?" >
 | < OR : "or" >
 | < AND : "and" >
-| < INCR : "++" >
-| < DECR : "--" >
 | < PLUS : "+" >
 | < MINUS : "-" >
 | < STAR : "*" >
 | < SLASH : "/" >
 | < POWER : "^" >
 | < MOD : "mod" >
-| < PLUSASSIGN : "+=" >
-| < MINUSASSIGN : "-=" >
-| < STARASSIGN : "*=" >
-| < SLASHASSIGN : "/=" >
-| < REMASSIGN : "%=" >
 }
 
 /* LETTER */
@@ -80,7 +77,7 @@ TOKEN :
   | "input" >
 }
 
-/* COMMENTS */
+/* ----- COMMENTS ----- */
 
 MORE :
 {
@@ -115,10 +112,28 @@ MORE :
   < ~[] >
 }
 
+/* ----- VALUES ----- */
+
 TOKEN :
 {
-  < VALUABLE : (< LETTER >)+ (< NUMBER >)* >
+  < IDENTIFIER : (< LETTER >)+ (< NUMBER >)* >
+| < STRING_LITERAL:
+      "\""
+      (   (~["\"","\\","\n","\r"])
+        | ("\\"
+            ( ["n","t","b","r","f","\\","'","\""]
+            | ["0"-"7"] ( ["0"-"7"] )?
+            | ["0"-"3"] ["0"-"7"] ["0"-"7"]
+            )
+          )
+      )*
+      "\""
+  >
+| < INTEGER : ("+"|"-")*(["0"-"9"])+ >
+| < FROAT :  ("+"|"-")*(["0"-"9"])+"."(["0"-"9"])+ >
+| < COLOR : "#" >
 }
+
 
 void Program() :
 {}
@@ -135,6 +150,6 @@ void Command() :
 void Expression() :
 {}
 {
-  < VALUABLE >
+  < IDENTIFIER > 
 }
 

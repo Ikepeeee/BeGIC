@@ -4,10 +4,22 @@ package jp.tolz.begic.prototype.interpreter.parser;
 public interface BegicParserTreeConstants
 {
   public int JJTPROGRAM = 0;
+  public int JJTCOMMAND = 1;
+  public int JJTASSINGMENT = 2;
+  public int JJTEXPRESSION = 3;
+  public int JJTLIST = 4;
+  public int JJTLISTHASHFACTOR = 5;
+  public int JJTHASH = 6;
 
 
   public String[] jjtNodeName = {
     "Program",
+    "Command",
+    "Assingment",
+    "Expression",
+    "List",
+    "ListHashFactor",
+    "Hash",
   };
 }
-/* JavaCC - OriginalChecksum=7ed959a79713bbd7c3670ecfcf6c7710 (do not edit this line) */
+/* JavaCC - OriginalChecksum=5b0c9ad9a73483f1bed2f0748bcf22f4 (do not edit this line) */

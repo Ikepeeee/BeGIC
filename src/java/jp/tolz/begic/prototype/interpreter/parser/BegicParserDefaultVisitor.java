@@ -12,5 +12,23 @@ public class BegicParserDefaultVisitor implements BegicParserVisitor{
   public Object visit(ASTProgram node, Object data){
     return defaultVisit(node, data);
   }
+  public Object visit(ASTCommand node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTAssingment node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTExpression node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTList node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTListHashFactor node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTHash node, Object data){
+    return defaultVisit(node, data);
+  }
 }
-/* JavaCC - OriginalChecksum=89e1628a94e09f66913a01255605123f (do not edit this line) */
+/* JavaCC - OriginalChecksum=a1bab5b84482dd2cf442f401d0019c6c (do not edit this line) */

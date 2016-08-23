@@ -5,5 +5,11 @@ public interface BegicParserVisitor
 {
   public Object visit(SimpleNode node, Object data);
   public Object visit(ASTProgram node, Object data);
+  public Object visit(ASTCommand node, Object data);
+  public Object visit(ASTAssingment node, Object data);
+  public Object visit(ASTExpression node, Object data);
+  public Object visit(ASTList node, Object data);
+  public Object visit(ASTListHashFactor node, Object data);
+  public Object visit(ASTHash node, Object data);
 }
-/* JavaCC - OriginalChecksum=53e7c2bf81face3b9e63312133d4732e (do not edit this line) */
+/* JavaCC - OriginalChecksum=99b93b8bd40647da8c79d3f6bea092b6 (do not edit this line) */

@@ -12,6 +12,9 @@ options
 PARSER_BEGIN(BegicParser)
 package jp.tolz.begic.prototype.interpreter.parser;
 
+import jp.tolz.begic.prototype.interpreter.values.*;
+import jp.tolz.begic.prototype.interpreter.values.base.*;
+
 public class BegicParser
 {
   /* ここに，普通のJavaクラスのようにメソッドを定義できるっぽい */
@@ -131,7 +134,7 @@ TOKEN :
   >
 | < INTEGER : ("+"|"-")*(["0"-"9"])+ >
 | < FROAT :  ("+"|"-")*(["0"-"9"])+"."(["0"-"9"])+ >
-| < COLOR : "#" >
+| < COLOR : "#"(["0"-"9"]) {6} >
 }
 
 
@@ -147,9 +150,50 @@ void Command() :
   < BCOMMAND > "(" ((",")* Expression()) ")"
 }
 
-void Expression() :
+BValue Assingment() :
 {}
 {
-  < IDENTIFIER > 
+  < IDENTIFIER > <LEFT_ASSIGN > Expression() { return null;}
 }
 
+BValue Expression() :
+{}
+{
+  LOOKAHEAD(2) < IDENTIFIER >
+| < NUMBER >
+| < FROAT >
+| < STRING_LITERAL >
+| < COLOR >
+| List()
+| Hash()
+| ListHashFactor()
+  { return null; }
+}
+
+BValue List() :
+{}
+{
+  "[" (Expression() ("," Expression())*)* "]"
+  {
+    return null;
+  }
+}
+
+BValue ListHashFactor() :
+{}
+{
+  < IDENTIFIER > "[" Expression() "]"
+  {
+    return null;
+  }
+}
+
+
+BValue Hash() :
+{}
+{
+  "{" Expression() ":" Expression() (","  Expression() ":" Expression() )* "}"
+  {
+    return null;
+  }
+}

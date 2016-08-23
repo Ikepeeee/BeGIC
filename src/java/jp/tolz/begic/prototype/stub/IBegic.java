@@ -17,7 +17,7 @@ import java.util.Scanner;
  * @author Toru Ikeda
  *
  */
-public class Begic {
+public class IBegic {
 	private Frame frame = new Frame();
 	private Canvas canvas = new Canvas() {
 		@Override
@@ -55,7 +55,7 @@ public class Begic {
 				e.printStackTrace();
 			}
 		}
-		new Begic(script);
+		new IBegic(script);
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class Begic {
 	 * @param script
 	 *            スクリプトを一行ごとに分割した配列。
 	 */
-	public Begic(ArrayList<String> script) {
+	public IBegic(ArrayList<String> script) {
 		String[] command = null;
 		for (String line : script) {
 			line = line.replaceAll("//.*", "");

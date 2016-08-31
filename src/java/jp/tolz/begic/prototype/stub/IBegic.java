@@ -5,9 +5,13 @@ import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -32,30 +36,22 @@ public class IBegic {
 	 * 
 	 * @param args
 	 *            BeGICソースファイルパス
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) throws FileNotFoundException {
-		FileReader fr = null;
-		Scanner br = null;
-		String srcFile = args[0];
-		ArrayList<String> script = new ArrayList<String>();
-		try {
-			fr = new FileReader(srcFile);
-			br = new Scanner(fr);
-			while(br.hasNextLine()){
-				script.add(br.nextLine());
-			}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				br.close();
-				fr.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	public static void main(String[] args) throws IOException {
+		String line = "";
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		IBegic ib = new IBegic();
+		while (true) {
+			line = "";
+			System.out.print("iBeGIC>");
+			line = reader.readLine();
+			System.out.print("\""+line+"\"");
+			if ("exit".equals(line))
+				break;
+			ib.eval(line);
 		}
-		new IBegic(script);
+		System.exit(0);
 	}
 
 	/**
@@ -64,31 +60,33 @@ public class IBegic {
 	 * @param script
 	 *            スクリプトを一行ごとに分割した配列。
 	 */
-	public IBegic(ArrayList<String> script) {
-		String[] command = null;
-		for (String line : script) {
-			line = line.replaceAll("//.*", "");
-			command = line.split("[(), \t]+");
-			if ("window".equals(command[0])) {
-				window(Integer.valueOf(command[1]), Integer.valueOf(command[2]));
-			} else if ("line".equals(command[0])) {
-				drawList.add(new Line(Integer.valueOf(command[1]), Integer
-						.valueOf(command[2]), Integer.valueOf(command[3]),
-						Integer.valueOf(command[4])));
-			} else if ("write".equals(command[0])) {
-				drawList.add(new Write(command[1].replaceAll("\"", ""), Integer
-						.valueOf(command[2]), Integer.valueOf(command[3])));
-			} else if ("puts".equals(command[0])) {
-				drawList.add(new Puts(command[1].replaceAll("\"", "")));
-			}
-		}
+	public IBegic() {
 		frame.add(canvas);
 		frame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
 		frame.setVisible(true);
+	}
+	
+	public void eval(String line){
+		String[] command = null;
+		line = line.replaceAll("//.*", "");
+		command = line.split("[(), \t]+");
+		if ("window".equals(command[0])) {
+			window(Integer.valueOf(command[1]), Integer.valueOf(command[2]));
+		} else if ("line".equals(command[0])) {
+			drawList.add(new Line(Integer.valueOf(command[1]), Integer
+					.valueOf(command[2]), Integer.valueOf(command[3]), Integer
+					.valueOf(command[4])));
+		} else if ("write".equals(command[0])) {
+			drawList.add(new Write(command[1].replaceAll("\"", ""), Integer
+					.valueOf(command[2]), Integer.valueOf(command[3])));
+		} else if ("puts".equals(command[0])) {
+			drawList.add(new Puts(command[1].replaceAll("\"", "")));
+		}
+		canvas.repaint();
 	}
 
 	private void draw(Graphics g) {

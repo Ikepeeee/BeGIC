@@ -46,7 +46,6 @@ public class IBegic {
 			line = "";
 			System.out.print("iBeGIC>");
 			line = reader.readLine();
-			System.out.print("\""+line+"\"");
 			if ("exit".equals(line))
 				break;
 			ib.eval(line);

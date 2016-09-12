@@ -5,21 +5,55 @@ public interface BegicParserTreeConstants
 {
   public int JJTPROGRAM = 0;
   public int JJTCOMMAND = 1;
-  public int JJTASSINGMENT = 2;
-  public int JJTEXPRESSION = 3;
-  public int JJTLIST = 4;
-  public int JJTLISTHASHFACTOR = 5;
-  public int JJTHASH = 6;
+  public int JJTIFSTATEMENT = 2;
+  public int JJTLOOPSTATEMENT = 3;
+  public int JJTWHILESTATEMENT = 4;
+  public int JJTFORSTATEMENT = 5;
+  public int JJTBLOCK = 6;
+  public int JJTASSINGMENT = 7;
+  public int JJTEXPRESSION = 8;
+  public int JJTADDOP = 9;
+  public int JJTMNSOP = 10;
+  public int JJTMULOP = 11;
+  public int JJTDIVOP = 12;
+  public int JJTMODOP = 13;
+  public int JJTPOWOP = 14;
+  public int JJTABS = 15;
+  public int JJTLIST = 16;
+  public int JJTHASH = 17;
+  public int JJTLISTHASHFACTOR = 18;
+  public int JJTIDENTIGIER = 19;
+  public int JJTBOOLEAN = 20;
+  public int JJTFLOAT = 21;
+  public int JJTSTRING = 22;
+  public int JJTCOLOR = 23;
 
 
   public String[] jjtNodeName = {
     "Program",
     "Command",
+    "IfStatement",
+    "LoopStatement",
+    "WhileStatement",
+    "ForStatement",
+    "Block",
     "Assingment",
     "Expression",
+    "addOp",
+    "mnsOp",
+    "mulOp",
+    "divOp",
+    "modOp",
+    "powOp",
+    "Abs",
     "List",
-    "ListHashFactor",
     "Hash",
+    "ListHashFactor",
+    "Identigier",
+    "Boolean",
+    "Float",
+    "String",
+    "Color",
   };
 }
-/* JavaCC - OriginalChecksum=5b0c9ad9a73483f1bed2f0748bcf22f4 (do not edit this line) */
+/* JavaCC - OriginalChecksum=9e715467807cf643dc86dbfea3152710 (do not edit this line) */

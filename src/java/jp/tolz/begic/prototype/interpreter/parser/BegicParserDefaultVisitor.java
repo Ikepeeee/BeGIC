@@ -15,20 +15,71 @@ public class BegicParserDefaultVisitor implements BegicParserVisitor{
   public Object visit(ASTCommand node, Object data){
     return defaultVisit(node, data);
   }
+  public Object visit(ASTIfStatement node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTLoopStatement node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTWhileStatement node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTForStatement node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTBlock node, Object data){
+    return defaultVisit(node, data);
+  }
   public Object visit(ASTAssingment node, Object data){
     return defaultVisit(node, data);
   }
   public Object visit(ASTExpression node, Object data){
     return defaultVisit(node, data);
   }
-  public Object visit(ASTList node, Object data){
+  public Object visit(ASTaddOp node, Object data){
     return defaultVisit(node, data);
   }
-  public Object visit(ASTListHashFactor node, Object data){
+  public Object visit(ASTmnsOp node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTmulOp node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTdivOp node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTmodOp node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTpowOp node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTAbs node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTList node, Object data){
     return defaultVisit(node, data);
   }
   public Object visit(ASTHash node, Object data){
     return defaultVisit(node, data);
   }
+  public Object visit(ASTListHashFactor node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTIdentigier node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTBoolean node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTFloat node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTString node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTColor node, Object data){
+    return defaultVisit(node, data);
+  }
 }
-/* JavaCC - OriginalChecksum=a1bab5b84482dd2cf442f401d0019c6c (do not edit this line) */
+/* JavaCC - OriginalChecksum=060c09565d9ef2c18f4c0c43f71e1c8b (do not edit this line) */

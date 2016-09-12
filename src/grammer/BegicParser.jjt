@@ -12,12 +12,15 @@ options
 PARSER_BEGIN(BegicParser)
 package jp.tolz.begic.prototype.interpreter.parser;
 
+import java.util.ArrayList;
+
 import jp.tolz.begic.prototype.interpreter.values.*;
 import jp.tolz.begic.prototype.interpreter.values.base.*;
 
-public class BegicParser
-{
-  /* ここに，普通のJavaクラスのようにメソッドを定義できるっぽい */
+public class BegicParser{
+	private void log(String info) {
+		System.out.println("[BegicParser]" + info);
+	}
 }
 
 PARSER_END(BegicParser)
@@ -40,13 +43,14 @@ SKIP :
 
 TOKEN :
 {
-  < EQ : "=" >
-| < NEQ : "=/" >
-| < RIGHT_ASSIGN : "=>" >
-| < LEFT_ASSIGN : "<=" >
+  < EQ : "==" >
+| < NEQ : "!=" >
+| < ASSIGN : "=" >
 | < EXCHANGE : "<->" >
 | < GT : ">" >
 | < LT : "<" >
+| < LE: "<=" >
+| < GE: ">=" >
 | < NOT : "not" >
 | < QUESTION : "?" >
 | < OR : "or" >
@@ -59,17 +63,8 @@ TOKEN :
 | < MOD : "mod" >
 }
 
-/* LETTER */
 
-TOKEN :
-{
-  < LETTER :
-    [ "a"-"z" ]
-  | [ "A"-"Z" ] >
-| < NUMBER : [ "0"-"9" ] >
-}
-
-/* COMMAND_IDENTIFIER */
+/* ----- COMMAND ----- */
 
 TOKEN :
 {
@@ -79,6 +74,38 @@ TOKEN :
   | "print"
   | "input" >
 }
+
+/* ----- STATEMENTS ----- */
+TOKEN :
+{
+  < IF : "if" >
+| < WHILE : "while" >
+| < LOOP : "loop" >
+| < FOR : "for" >
+| < BREAK : "break" >
+| < NEXT : "next" >
+| < TO : "to" >
+| < STEP : "step" >
+| < DO : "do" >
+| < END : "end" >
+}
+
+/* FUNCTION */
+
+TOKEN :
+{
+  < BFUNCTION :
+  "sin"
+| "cos"
+| "tan"
+| "log"
+| "sinh"
+| "cosh"
+| "tanh"
+| "sqrt"
+| "exp" >
+}
+
 
 /* ----- COMMENTS ----- */
 
@@ -119,8 +146,8 @@ MORE :
 
 TOKEN :
 {
-  < IDENTIFIER : (< LETTER >)+ (< NUMBER >)* >
-| < STRING_LITERAL:
+  < IDENTIFIER : (["a"-"z","A"-"Z"])+ (["0"-"9"])* >
+| < STRING:
       "\""
       (   (~["\"","\\","\n","\r"])
         | ("\\"
@@ -132,68 +159,179 @@ TOKEN :
       )*
       "\""
   >
-| < INTEGER : ("+"|"-")*(["0"-"9"])+ >
-| < FROAT :  ("+"|"-")*(["0"-"9"])+"."(["0"-"9"])+ >
+| < FLOAT :  ("+"|"-")*(["0"-"9"])+("."(["0"-"9"])+)* >
 | < COLOR : "#"(["0"-"9"]) {6} >
+| < BOOLEAN : "true" | "false" >
 }
 
 
-void Program() :
-{}
+SimpleNode Program() :
+{ Token prog = null; }
 {
-    ( Command() )*
+  (       Command()
+    |  Block()
+    |  IfStatement()
+    |  LoopStatement()
+    |  WhileStatement()
+    |  ForStatement()
+  )*
+  {
+	return jjtThis;
+  }
 }
 
+// いまのところふつうの引数の形式にする。
 void Command() :
 {}
 {
-  < BCOMMAND > "(" ((",")* Expression()) ")"
+  LOOKAHEAD(2) < BCOMMAND > "(" Expression() ("," Expression())* ")"
+| LOOKAHEAD(2) < BCOMMAND > Expression() ("," Expression())*
+| < BCOMMAND >
 }
 
-BValue Assingment() :
+void IfStatement() :
 {}
 {
-  < IDENTIFIER > <LEFT_ASSIGN > Expression() { return null;}
+  < IF > Expression() Block()
 }
 
-BValue Expression() :
+void LoopStatement() :
 {}
 {
-  LOOKAHEAD(2) < IDENTIFIER >
-| < NUMBER >
-| < FROAT >
-| < STRING_LITERAL >
-| < COLOR >
+  < LOOP > Block()
+}
+
+void WhileStatement() :
+{}
+{
+  < WHILE > Expression() Block()
+}
+
+void ForStatement() :
+{ Token t = null; }
+{
+  < FOR > t = < IDENTIFIER > < ASSIGN > Expression() < TO > Expression() < STEP > Expression() Block()
+  {
+    jjtThis.jjtSetValue(t.image);
+  }
+}
+
+void Block() :
+{}
+{
+  "{" Program() "}"
+| < DO > Program() < END >
+}
+
+void Assingment() :
+{ Token t = null; }
+{
+  t = < IDENTIFIER > < ASSIGN > Expression()
+  {
+    jjtThis.jjtSetValue(t.image);
+  }
+}
+
+void Expression() :
+{ Token expr = null; }
+{
+  LOOKAHEAD(2) Identigier()
+| Float()
+| String()
+| Color()
+| Boolean()
+| Abs()
 | List()
 | Hash()
 | ListHashFactor()
-  { return null; }
 }
 
-BValue List() :
+void addOp() :
 {}
 {
-  "[" (Expression() ("," Expression())*)* "]"
-  {
-    return null;
-  }
+  Expression() < PLUS > Expression()
 }
 
-BValue ListHashFactor() :
+void mnsOp() :
 {}
 {
-  < IDENTIFIER > "[" Expression() "]"
-  {
-    return null;
-  }
+  Expression() < MINUS > Expression()
 }
 
+void mulOp() :
+{}
+{
+  Expression() < STAR > Expression()
+}
 
-BValue Hash() :
+void divOp() :
+{}
+{
+  Expression() < SLASH > Expression()
+}
+
+void modOp() :
+{}
+{
+  Expression() < MOD > Expression()
+}
+
+void powOp() :
+{}
+{
+  Expression() < POWER > Expression()
+}
+
+void Abs() :
+{}
+{
+  "|" Float() "|"
+}
+
+void List() :
+{}
+{
+  "[" ( Expression() ("," Expression())*)* "]"
+}
+
+void Hash() :
 {}
 {
   "{" Expression() ":" Expression() (","  Expression() ":" Expression() )* "}"
-  {
-    return null;
-  }
+}
+
+void ListHashFactor() :
+{}
+{
+  Identigier() "[" Expression() "]"
+}
+
+void Identigier() :
+{ Token t = null; }
+{
+  t = < IDENTIFIER > { jjtThis.jjtSetValue(t.image); }
+}
+
+void Boolean() :
+{ Token t = null; }
+{
+  t = < BOOLEAN > { jjtThis.jjtSetValue(t.image); }
+}
+
+void Float() :
+{ Token t = null; }
+{
+  t = < FLOAT > { jjtThis.jjtSetValue(t.image); }  
+}
+
+void String() :
+{ Token t = null; }
+{
+  t = < STRING > { jjtThis.jjtSetValue(t.image); }
+}
+
+void Color() :
+{ Token t = null; }
+{
+  t = < COLOR > { jjtThis.jjtSetValue(t.image); }  
 }

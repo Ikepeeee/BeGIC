@@ -464,7 +464,7 @@ void Expression() :
   ASTExpression jjtn000 = new ASTExpression(JJTEXPRESSION);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-/*@egen*/ Token expr = null; }
+/*@egen*/}
 {/*@bgen(jjtree) Expression */
   try {
 /*@egen*/
@@ -476,7 +476,40 @@ void Expression() :
 | Abs()
 | List()
 | Hash()
-| ListHashFactor()/*@bgen(jjtree)*/
+| ListHashFactor()
+| "(" Operation() ")"/*@bgen(jjtree)*/
+  } catch (Throwable jjte000) {
+    if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+    if (jjte000 instanceof RuntimeException) {
+      throw (RuntimeException)jjte000;
+    }
+    if (jjte000 instanceof ParseException) {
+      throw (ParseException)jjte000;
+    }
+    throw (Error)jjte000;
+  } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+  }
+/*@egen*/
+}
+
+void Operation() :
+{/*@bgen(jjtree) Operation */
+  ASTOperation jjtn000 = new ASTOperation(JJTOPERATION);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/}
+{/*@bgen(jjtree) Operation */
+  try {
+/*@egen*/
+  addOp()/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);

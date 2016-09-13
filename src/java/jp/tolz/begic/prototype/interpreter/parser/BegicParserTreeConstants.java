@@ -12,21 +12,22 @@ public interface BegicParserTreeConstants
   public int JJTBLOCK = 6;
   public int JJTASSINGMENT = 7;
   public int JJTEXPRESSION = 8;
-  public int JJTADDOP = 9;
-  public int JJTMNSOP = 10;
-  public int JJTMULOP = 11;
-  public int JJTDIVOP = 12;
-  public int JJTMODOP = 13;
-  public int JJTPOWOP = 14;
-  public int JJTABS = 15;
-  public int JJTLIST = 16;
-  public int JJTHASH = 17;
-  public int JJTLISTHASHFACTOR = 18;
-  public int JJTIDENTIGIER = 19;
-  public int JJTBOOLEAN = 20;
-  public int JJTFLOAT = 21;
-  public int JJTSTRING = 22;
-  public int JJTCOLOR = 23;
+  public int JJTOPERATION = 9;
+  public int JJTADDOP = 10;
+  public int JJTMNSOP = 11;
+  public int JJTMULOP = 12;
+  public int JJTDIVOP = 13;
+  public int JJTMODOP = 14;
+  public int JJTPOWOP = 15;
+  public int JJTABS = 16;
+  public int JJTLIST = 17;
+  public int JJTHASH = 18;
+  public int JJTLISTHASHFACTOR = 19;
+  public int JJTIDENTIGIER = 20;
+  public int JJTBOOLEAN = 21;
+  public int JJTFLOAT = 22;
+  public int JJTSTRING = 23;
+  public int JJTCOLOR = 24;
 
 
   public String[] jjtNodeName = {
@@ -39,6 +40,7 @@ public interface BegicParserTreeConstants
     "Block",
     "Assingment",
     "Expression",
+    "Operation",
     "addOp",
     "mnsOp",
     "mulOp",
@@ -56,4 +58,4 @@ public interface BegicParserTreeConstants
     "Color",
   };
 }
-/* JavaCC - OriginalChecksum=9e715467807cf643dc86dbfea3152710 (do not edit this line) */
+/* JavaCC - OriginalChecksum=3902821f4382a1d274a64d35ce052a6c (do not edit this line) */

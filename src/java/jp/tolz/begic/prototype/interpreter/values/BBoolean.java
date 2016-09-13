@@ -22,8 +22,13 @@ public class BBoolean extends BValue {
 
 	@Override
 	public int type() {
+		return BBOOLEAN;
+	}
+
+	@Override
+	public String toString() {
 		// TODO 自動生成されたメソッド・スタブ
-		return 0;
+		return null;
 	}
 
 }

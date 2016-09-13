@@ -7,8 +7,10 @@ public abstract class BValue {
 	public static final int BFLOAT = 1004;
 	public static final int BSTRING = 1005;
 	public static final int BLIST = 1006;
+	public static final int BHASH = 1007;
 	
 	public abstract void setValue(String value);
 	public abstract BValue getValue();
 	public abstract int type();
+	public abstract String toString();
 }

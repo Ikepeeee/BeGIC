@@ -22,8 +22,12 @@ public class BString extends BValue {
 
 	@Override
 	public int type() {
-		// TODO 自動生成されたメソッド・スタブ
-		return 0;
+		return BSTRING;
+	}
+
+	@Override
+	public String toString() {
+		return value.replaceAll("^\"|\"$", "");
 	}
 
 }

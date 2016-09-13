@@ -44,7 +44,12 @@ public class BColor extends BValue {
 
 	@Override
 	public int type() {
+		return BCOLOR;
+	}
+
+	@Override
+	public String toString() {
 		// TODO 自動生成されたメソッド・スタブ
-		return 0;
+		return null;
 	}
 }

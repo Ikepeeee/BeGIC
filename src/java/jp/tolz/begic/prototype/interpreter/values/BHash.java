@@ -18,8 +18,13 @@ public class BHash extends BValue {
 
 	@Override
 	public int type() {
+		return BHASH;
+	}
+
+	@Override
+	public String toString() {
 		// TODO 自動生成されたメソッド・スタブ
-		return 0;
+		return null;
 	}
 
 }

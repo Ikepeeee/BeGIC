@@ -8,6 +8,10 @@ public class BFloat extends BValue {
 		val = Double.valueOf(value);
 	}
 	
+	public BFloat(double i) {
+		val = i;
+	}
+
 	@Override
 	public String toString(){
 		return String.valueOf(val);
@@ -27,7 +31,6 @@ public class BFloat extends BValue {
 
 	@Override
 	public int type() {
-		// TODO 自動生成されたメソッド・スタブ
-		return 0;
+		return BFLOAT;
 	}
 }

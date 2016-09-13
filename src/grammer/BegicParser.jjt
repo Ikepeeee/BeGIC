@@ -233,7 +233,7 @@ void Assingment() :
 }
 
 void Expression() :
-{ Token expr = null; }
+{}
 {
   LOOKAHEAD(2) Identigier()
 | Float()
@@ -244,6 +244,13 @@ void Expression() :
 | List()
 | Hash()
 | ListHashFactor()
+| "(" Operation() ")"
+}
+
+void Operation() :
+{}
+{
+  addOp()
 }
 
 void addOp() :

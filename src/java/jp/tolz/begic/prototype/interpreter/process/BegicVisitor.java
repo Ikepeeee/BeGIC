@@ -17,6 +17,7 @@ import jp.tolz.begic.prototype.interpreter.parser.ASTIfStatement;
 import jp.tolz.begic.prototype.interpreter.parser.ASTList;
 import jp.tolz.begic.prototype.interpreter.parser.ASTListHashFactor;
 import jp.tolz.begic.prototype.interpreter.parser.ASTLoopStatement;
+import jp.tolz.begic.prototype.interpreter.parser.ASTOperation;
 import jp.tolz.begic.prototype.interpreter.parser.ASTProgram;
 import jp.tolz.begic.prototype.interpreter.parser.ASTString;
 import jp.tolz.begic.prototype.interpreter.parser.ASTWhileStatement;
@@ -120,7 +121,7 @@ public class BegicVisitor implements BegicParserVisitor {
 	public Object visit(ASTExpression node, Object data) {
 		int num = node.jjtGetNumChildren();
 		for(int i = 0; i < num; i++){
-			node.jjtGetChild(i).jjtAccept(this, null);
+			data = node.jjtGetChild(i).jjtAccept(this, null);
 		}
 		return data;
 	}
@@ -168,7 +169,7 @@ public class BegicVisitor implements BegicParserVisitor {
 
 	@Override
 	public Object visit(ASTFloat node, Object data) {
-		return new BFloat((String)node.jjtGetValue());
+		return new BFloat((String) node.jjtGetValue());
 	}
 
 	@Override
@@ -188,22 +189,12 @@ public class BegicVisitor implements BegicParserVisitor {
 
 	@Override
 	public Object visit(ASTaddOp node, Object data){
-		BValue val1 = (BValue) node.jjtGetChild(0);
-		BValue val2 = (BValue) node.jjtGetChild(1);
-		if(val1.type() == BValue.BFLOAT && val2.type() == BValue.BFLOAT){
-			
-		}else if(val1.type() == BValue.BSTRING && val2.type() == BValue.BSTRING){
-			
-		}else if(val1.type() == BValue.BSTRING && val2.type() == BValue.BFLOAT){
-			
-		}else if(val1.type() == BValue.BFLOAT && val2.type() == BValue.BSTRING){
-			
-		}else if(val1.type() == BValue.BLIST && val2.type() == BValue.BLIST){
-			
-		}else{
-			System.err.println("定義されない演算です。");
-		}
-		return null;
+		BValue val1 = (BValue) node.jjtGetChild(0).jjtAccept(this, null);
+		BValue val2 = (BValue) node.jjtGetChild(1).jjtAccept(this, null);
+		System.out.println(val1);
+		System.out.println(val2);
+		System.out.println(AddOp.eval(val1, val2).toString());
+		return AddOp.eval(val1, val2);
 	}
 
 	@Override
@@ -234,6 +225,15 @@ public class BegicVisitor implements BegicParserVisitor {
 	public Object visit(ASTpowOp node, Object data) {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
+	}
+
+	@Override
+	public Object visit(ASTOperation node, Object data) {
+		int num = node.jjtGetNumChildren();
+		for(int i = 0; i < num; i++){
+			node.jjtGetChild(i).jjtAccept(this, null);
+		}
+		return data;
 	}
 	
 }

@@ -71,7 +71,9 @@ TOKEN :
   < BCOMMAND :
     "line"
   | "circle"
+  | "box"
   | "print"
+  | "write"
   | "input" >
 }
 
@@ -159,7 +161,7 @@ TOKEN :
       )*
       "\""
   >
-| < FLOAT :  ("+"|"-")*(["0"-"9"])+("."(["0"-"9"])+)* >
+| < FLOAT : (["0"-"9"])+("."(["0"-"9"])+)* >
 | < COLOR : "#"(["0"-"9"]) {6} >
 | < BOOLEAN : "true" | "false" >
 }
@@ -182,17 +184,17 @@ SimpleNode Program() :
 
 // Ç¢Ç‹ÇÃÇ∆Ç±ÇÎÇ”Ç¬Ç§ÇÃà¯êîÇÃå`éÆÇ…Ç∑ÇÈÅB
 void Command() :
-{}
+{ Token t = null; }
 {
-  LOOKAHEAD(2) < BCOMMAND > "(" Expression() ("," Expression())* ")"
-| LOOKAHEAD(2) < BCOMMAND > Expression() ("," Expression())*
-| < BCOMMAND >
+  LOOKAHEAD(2) t = < BCOMMAND > "(" Operation() ("," Operation())* ")" { jjtThis.jjtSetValue(t.image); }
+| LOOKAHEAD(2) t = < BCOMMAND > Operation() ("," Operation())* { jjtThis.jjtSetValue(t.image); }
+| t = < BCOMMAND > { jjtThis.jjtSetValue(t.image); }
 }
 
 void IfStatement() :
 {}
 {
-  < IF > Expression() Block()
+  < IF > Operation() Block()
 }
 
 void LoopStatement() :
@@ -204,13 +206,13 @@ void LoopStatement() :
 void WhileStatement() :
 {}
 {
-  < WHILE > Expression() Block()
+  < WHILE > Operation() Block()
 }
 
 void ForStatement() :
 { Token t = null; }
 {
-  < FOR > t = < IDENTIFIER > < ASSIGN > Expression() < TO > Expression() < STEP > Expression() Block()
+  < FOR > t = < IDENTIFIER > < ASSIGN > Operation() < TO > Operation() < STEP > Operation() Block()
   {
     jjtThis.jjtSetValue(t.image);
   }
@@ -226,10 +228,38 @@ void Block() :
 void Assingment() :
 { Token t = null; }
 {
-  t = < IDENTIFIER > < ASSIGN > Expression()
+  t = < IDENTIFIER > < ASSIGN > Operation()
   {
     jjtThis.jjtSetValue(t.image);
   }
+}
+
+void Operation() :
+{}
+{
+  AddMnsOp()
+}
+
+void AddMnsOp() :
+{ Token t = null; }
+{
+  LOOKAHEAD(3) MulDivOp() ( t = < PLUS >  MulDivOp() )*
+| MulDivOp() ( t = < MINUS >   MulDivOp() )*
+}
+
+void MulDivOp() :
+{ Token t = null; }
+{
+  LOOKAHEAD(3) ModPowAbsOp() ( t = < STAR > ModPowAbsOp() )*
+| ModPowAbsOp() ( t = < SLASH > ModPowAbsOp() )*
+}
+
+void ModPowAbsOp() :
+{}
+{
+  LOOKAHEAD(3) Expression() (< MOD > Expression())*
+| Expression() ( < POWER > Expression() )*
+|  "|" Expression() "|"
 }
 
 void Expression() :
@@ -240,59 +270,10 @@ void Expression() :
 | String()
 | Color()
 | Boolean()
-| Abs()
 | List()
 | Hash()
 | ListHashFactor()
 | "(" Operation() ")"
-}
-
-void Operation() :
-{}
-{
-  addOp()
-}
-
-void addOp() :
-{}
-{
-  Expression() < PLUS > Expression()
-}
-
-void mnsOp() :
-{}
-{
-  Expression() < MINUS > Expression()
-}
-
-void mulOp() :
-{}
-{
-  Expression() < STAR > Expression()
-}
-
-void divOp() :
-{}
-{
-  Expression() < SLASH > Expression()
-}
-
-void modOp() :
-{}
-{
-  Expression() < MOD > Expression()
-}
-
-void powOp() :
-{}
-{
-  Expression() < POWER > Expression()
-}
-
-void Abs() :
-{}
-{
-  "|" Float() "|"
 }
 
 void List() :

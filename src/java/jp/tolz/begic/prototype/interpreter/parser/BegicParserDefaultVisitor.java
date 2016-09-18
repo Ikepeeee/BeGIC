@@ -15,6 +15,9 @@ public class BegicParserDefaultVisitor implements BegicParserVisitor{
   public Object visit(ASTCommand node, Object data){
     return defaultVisit(node, data);
   }
+  public Object visit(ASTArgs node, Object data){
+    return defaultVisit(node, data);
+  }
   public Object visit(ASTIfStatement node, Object data){
     return defaultVisit(node, data);
   }
@@ -33,31 +36,43 @@ public class BegicParserDefaultVisitor implements BegicParserVisitor{
   public Object visit(ASTAssingment node, Object data){
     return defaultVisit(node, data);
   }
-  public Object visit(ASTExpression node, Object data){
-    return defaultVisit(node, data);
-  }
   public Object visit(ASTOperation node, Object data){
     return defaultVisit(node, data);
   }
-  public Object visit(ASTaddOp node, Object data){
+  public Object visit(ASTOrOp node, Object data){
     return defaultVisit(node, data);
   }
-  public Object visit(ASTmnsOp node, Object data){
+  public Object visit(ASTAndOp node, Object data){
     return defaultVisit(node, data);
   }
-  public Object visit(ASTmulOp node, Object data){
+  public Object visit(ASTNotOp node, Object data){
     return defaultVisit(node, data);
   }
-  public Object visit(ASTdivOp node, Object data){
+  public Object visit(ASTCompOp node, Object data){
     return defaultVisit(node, data);
   }
-  public Object visit(ASTmodOp node, Object data){
+  public Object visit(ASTComp node, Object data){
     return defaultVisit(node, data);
   }
-  public Object visit(ASTpowOp node, Object data){
+  public Object visit(ASTAddMnsOp node, Object data){
     return defaultVisit(node, data);
   }
-  public Object visit(ASTAbs node, Object data){
+  public Object visit(ASTAddMns node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTMulDivOp node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTMulDiv node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTModPowOp node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTModPow node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTExpression node, Object data){
     return defaultVisit(node, data);
   }
   public Object visit(ASTList node, Object data){
@@ -69,7 +84,7 @@ public class BegicParserDefaultVisitor implements BegicParserVisitor{
   public Object visit(ASTListHashFactor node, Object data){
     return defaultVisit(node, data);
   }
-  public Object visit(ASTIdentigier node, Object data){
+  public Object visit(ASTIdentifier node, Object data){
     return defaultVisit(node, data);
   }
   public Object visit(ASTBoolean node, Object data){
@@ -85,4 +100,4 @@ public class BegicParserDefaultVisitor implements BegicParserVisitor{
     return defaultVisit(node, data);
   }
 }
-/* JavaCC - OriginalChecksum=d60303bb5adb2124ee6632a4fa4fbd7d (do not edit this line) */
+/* JavaCC - OriginalChecksum=dae78803462030fa3e6fdd2f2ec402f3 (do not edit this line) */

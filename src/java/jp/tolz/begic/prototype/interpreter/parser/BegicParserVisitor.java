@@ -6,28 +6,33 @@ public interface BegicParserVisitor
   public Object visit(SimpleNode node, Object data);
   public Object visit(ASTProgram node, Object data);
   public Object visit(ASTCommand node, Object data);
+  public Object visit(ASTArgs node, Object data);
   public Object visit(ASTIfStatement node, Object data);
   public Object visit(ASTLoopStatement node, Object data);
   public Object visit(ASTWhileStatement node, Object data);
   public Object visit(ASTForStatement node, Object data);
   public Object visit(ASTBlock node, Object data);
   public Object visit(ASTAssingment node, Object data);
-  public Object visit(ASTExpression node, Object data);
   public Object visit(ASTOperation node, Object data);
-  public Object visit(ASTaddOp node, Object data);
-  public Object visit(ASTmnsOp node, Object data);
-  public Object visit(ASTmulOp node, Object data);
-  public Object visit(ASTdivOp node, Object data);
-  public Object visit(ASTmodOp node, Object data);
-  public Object visit(ASTpowOp node, Object data);
-  public Object visit(ASTAbs node, Object data);
+  public Object visit(ASTOrOp node, Object data);
+  public Object visit(ASTAndOp node, Object data);
+  public Object visit(ASTNotOp node, Object data);
+  public Object visit(ASTCompOp node, Object data);
+  public Object visit(ASTComp node, Object data);
+  public Object visit(ASTAddMnsOp node, Object data);
+  public Object visit(ASTAddMns node, Object data);
+  public Object visit(ASTMulDivOp node, Object data);
+  public Object visit(ASTMulDiv node, Object data);
+  public Object visit(ASTModPowOp node, Object data);
+  public Object visit(ASTModPow node, Object data);
+  public Object visit(ASTExpression node, Object data);
   public Object visit(ASTList node, Object data);
   public Object visit(ASTHash node, Object data);
   public Object visit(ASTListHashFactor node, Object data);
-  public Object visit(ASTIdentigier node, Object data);
+  public Object visit(ASTIdentifier node, Object data);
   public Object visit(ASTBoolean node, Object data);
   public Object visit(ASTFloat node, Object data);
   public Object visit(ASTString node, Object data);
   public Object visit(ASTColor node, Object data);
 }
-/* JavaCC - OriginalChecksum=5e7a1ef7088f4a9cbc3c87560339595b (do not edit this line) */
+/* JavaCC - OriginalChecksum=8a8c37950e844c3ed52ddba10694a7d0 (do not edit this line) */

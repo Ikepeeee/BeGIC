@@ -148,8 +148,7 @@ MORE :
 
 TOKEN :
 {
-  < IDENTIFIER : (["a"-"z","A"-"Z"])+ (["0"-"9"])* >
-| < STRING:
+  < STRING:
       "\""
       (   (~["\"","\\","\n","\r"])
         | ("\\"
@@ -164,6 +163,7 @@ TOKEN :
 | < FLOAT : (["0"-"9"])+("."(["0"-"9"])+)* >
 | < COLOR : "#"(["0"-"9"]) {6} >
 | < BOOLEAN : "true" | "false" >
+| < IDENTIFIER : (["a"-"z","A"-"Z"])+ (["0"-"9"])* >
 }
 
 
@@ -171,6 +171,8 @@ SimpleNode Program() :
 { Token prog = null; }
 {
   (       Command()
+    |  LOOKAHEAD(2) Assingment()
+    |  LOOKAHEAD(3) Operation()
     |  Block()
     |  IfStatement()
     |  LoopStatement()
@@ -186,9 +188,15 @@ SimpleNode Program() :
 void Command() :
 { Token t = null; }
 {
-  LOOKAHEAD(2) t = < BCOMMAND > "(" Operation() ("," Operation())* ")" { jjtThis.jjtSetValue(t.image); }
-| LOOKAHEAD(2) t = < BCOMMAND > Operation() ("," Operation())* { jjtThis.jjtSetValue(t.image); }
+  LOOKAHEAD(2) t = < BCOMMAND >  Args() { jjtThis.jjtSetValue(t.image); }
 | t = < BCOMMAND > { jjtThis.jjtSetValue(t.image); }
+}
+
+void Args() :
+{}
+{
+  LOOKAHEAD(2) "(" ( Operation() ("," Operation())* )* ")"
+| Operation() ("," Operation())*
 }
 
 void IfStatement() :
@@ -226,46 +234,92 @@ void Block() :
 }
 
 void Assingment() :
-{ Token t = null; }
+{}
 {
-  t = < IDENTIFIER > < ASSIGN > Operation()
-  {
-    jjtThis.jjtSetValue(t.image);
-  }
+  Identifier() < ASSIGN > Operation()
 }
 
 void Operation() :
 {}
 {
-  AddMnsOp()
+  OrOp() 
+}
+
+void OrOp() :
+{}
+{
+  AndOp() ( < OR > AndOp() )*
+}
+
+void AndOp() :
+{}
+{
+  NotOp() ( < AND > NotOp() )*
+}
+
+void NotOp() :
+{}
+{
+  ( < NOT > )* CompOp()
+}
+
+void CompOp() :
+{}
+{
+  AddMnsOp() ( Comp() AddMnsOp() )*
+}
+
+void Comp() :
+{}
+{
+  < EQ > | < LT > | < GT > | < LE > | < GE > | < NEQ >
 }
 
 void AddMnsOp() :
-{ Token t = null; }
-{
-  LOOKAHEAD(3) MulDivOp() ( t = < PLUS >  MulDivOp() )*
-| MulDivOp() ( t = < MINUS >   MulDivOp() )*
-}
-
-void MulDivOp() :
-{ Token t = null; }
-{
-  LOOKAHEAD(3) ModPowAbsOp() ( t = < STAR > ModPowAbsOp() )*
-| ModPowAbsOp() ( t = < SLASH > ModPowAbsOp() )*
-}
-
-void ModPowAbsOp() :
 {}
 {
-  LOOKAHEAD(3) Expression() (< MOD > Expression())*
-| Expression() ( < POWER > Expression() )*
-|  "|" Expression() "|"
+  MulDivOp() ( AddMns() MulDivOp() )*
+}
+
+void AddMns() :
+{}
+{
+  < PLUS > 
+| < MINUS >
+}
+
+
+void MulDivOp() :
+{}
+{
+  ModPowOp() ( MulDiv() ModPowOp() )*
+}
+
+void MulDiv() :
+{}
+{
+  < STAR >
+| < SLASH > 
+}
+
+void ModPowOp() :
+{}
+{
+  Expression() ( ModPow() Expression())*
+}
+
+void ModPow() :
+{}
+{
+  < MOD >
+| < POWER >
 }
 
 void Expression() :
 {}
 {
-  LOOKAHEAD(2) Identigier()
+  LOOKAHEAD(3) Block()
+| LOOKAHEAD(2) Identifier()
 | Float()
 | String()
 | Color()
@@ -279,22 +333,22 @@ void Expression() :
 void List() :
 {}
 {
-  "[" ( Expression() ("," Expression())*)* "]"
+  "[" ( Operation() ("," Operation())*)* "]"
 }
 
 void Hash() :
 {}
 {
-  "{" Expression() ":" Expression() (","  Expression() ":" Expression() )* "}"
+  "{" Operation() ":" Operation() (","  Operation() ":" Operation() )* "}"
 }
 
 void ListHashFactor() :
 {}
 {
-  Identigier() "[" Expression() "]"
+  Identifier() "[" Operation() "]"
 }
 
-void Identigier() :
+void Identifier() :
 { Token t = null; }
 {
   t = < IDENTIFIER > { jjtThis.jjtSetValue(t.image); }

@@ -5,57 +5,67 @@ public interface BegicParserTreeConstants
 {
   public int JJTPROGRAM = 0;
   public int JJTCOMMAND = 1;
-  public int JJTIFSTATEMENT = 2;
-  public int JJTLOOPSTATEMENT = 3;
-  public int JJTWHILESTATEMENT = 4;
-  public int JJTFORSTATEMENT = 5;
-  public int JJTBLOCK = 6;
-  public int JJTASSINGMENT = 7;
-  public int JJTEXPRESSION = 8;
+  public int JJTARGS = 2;
+  public int JJTIFSTATEMENT = 3;
+  public int JJTLOOPSTATEMENT = 4;
+  public int JJTWHILESTATEMENT = 5;
+  public int JJTFORSTATEMENT = 6;
+  public int JJTBLOCK = 7;
+  public int JJTASSINGMENT = 8;
   public int JJTOPERATION = 9;
-  public int JJTADDOP = 10;
-  public int JJTMNSOP = 11;
-  public int JJTMULOP = 12;
-  public int JJTDIVOP = 13;
-  public int JJTMODOP = 14;
-  public int JJTPOWOP = 15;
-  public int JJTABS = 16;
-  public int JJTLIST = 17;
-  public int JJTHASH = 18;
-  public int JJTLISTHASHFACTOR = 19;
-  public int JJTIDENTIGIER = 20;
-  public int JJTBOOLEAN = 21;
-  public int JJTFLOAT = 22;
-  public int JJTSTRING = 23;
-  public int JJTCOLOR = 24;
+  public int JJTOROP = 10;
+  public int JJTANDOP = 11;
+  public int JJTNOTOP = 12;
+  public int JJTCOMPOP = 13;
+  public int JJTCOMP = 14;
+  public int JJTADDMNSOP = 15;
+  public int JJTADDMNS = 16;
+  public int JJTMULDIVOP = 17;
+  public int JJTMULDIV = 18;
+  public int JJTMODPOWOP = 19;
+  public int JJTMODPOW = 20;
+  public int JJTEXPRESSION = 21;
+  public int JJTLIST = 22;
+  public int JJTHASH = 23;
+  public int JJTLISTHASHFACTOR = 24;
+  public int JJTIDENTIFIER = 25;
+  public int JJTBOOLEAN = 26;
+  public int JJTFLOAT = 27;
+  public int JJTSTRING = 28;
+  public int JJTCOLOR = 29;
 
 
   public String[] jjtNodeName = {
     "Program",
     "Command",
+    "Args",
     "IfStatement",
     "LoopStatement",
     "WhileStatement",
     "ForStatement",
     "Block",
     "Assingment",
-    "Expression",
     "Operation",
-    "addOp",
-    "mnsOp",
-    "mulOp",
-    "divOp",
-    "modOp",
-    "powOp",
-    "Abs",
+    "OrOp",
+    "AndOp",
+    "NotOp",
+    "CompOp",
+    "Comp",
+    "AddMnsOp",
+    "AddMns",
+    "MulDivOp",
+    "MulDiv",
+    "ModPowOp",
+    "ModPow",
+    "Expression",
     "List",
     "Hash",
     "ListHashFactor",
-    "Identigier",
+    "Identifier",
     "Boolean",
     "Float",
     "String",
     "Color",
   };
 }
-/* JavaCC - OriginalChecksum=3902821f4382a1d274a64d35ce052a6c (do not edit this line) */
+/* JavaCC - OriginalChecksum=f22d081bcdf1a3e338c4f84079dcbe49 (do not edit this line) */

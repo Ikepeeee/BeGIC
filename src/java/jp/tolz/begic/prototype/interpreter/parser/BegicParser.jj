@@ -85,6 +85,8 @@ TOKEN :
 TOKEN :
 {
   < IF : "if" >
+| < ELSIF : "elsif" >
+| < ELSE : "else" >
 | < WHILE : "while" >
 | < LOOP : "loop" >
 | < FOR : "for" >
@@ -94,6 +96,7 @@ TOKEN :
 | < STEP : "step" >
 | < DO : "do" >
 | < END : "end" >
+| < CALL : "call" >
 }
 
 /* FUNCTION */
@@ -165,7 +168,16 @@ TOKEN :
       "\""
   >
 | < FLOAT : (["0"-"9"])+("."(["0"-"9"])+)* >
-| < COLOR : "#"(["0"-"9"]) {6} >
+| < COLOR :
+      ( "#"(["0"-"9"]) {6}
+      | "red"
+      | "blue"
+      | "yellow"
+      | "green"
+      | "white"
+      | "black"
+      )
+  >
 | < BOOLEAN : "true" | "false" >
 | < IDENTIFIER : (["a"-"z","A"-"Z"])+ (["0"-"9"])* >
 }
@@ -180,14 +192,15 @@ SimpleNode Program() :
 {/*@bgen(jjtree) Program */
   try {
 /*@egen*/
-  (       Command()
-    |  LOOKAHEAD(2) Assingment()
-    |  LOOKAHEAD(3) Operation()
-    |  Block()
-    |  IfStatement()
-    |  LoopStatement()
-    |  WhileStatement()
-    |  ForStatement()
+  (    (         Command()
+      |  LOOKAHEAD(2) Assingment()
+      |  LOOKAHEAD(3) Operation()
+      |  Call()
+      |  IfStatement()
+      |  LoopStatement()
+      |  WhileStatement()
+      |  ForStatement()
+    ) (";")?
   )*/*@bgen(jjtree)*/
   {
     jjtree.closeNodeScope(jjtn000, true);
@@ -219,7 +232,7 @@ SimpleNode Program() :
 /*@egen*/
 }
 
-// \u3044\u307e\u306e\u3068\u3053\u308d\u3075\u3064\u3046\u306e\u5f15\u6570\u306e\u5f62\u5f0f\u306b\u3059\u308b\u3002
+// \u3044\u307e\u306e\u3068\u3053\u308d\u3075\u3064\u3046\u306e\u5f15\u6570\u306e\u5f62\u5f0f\u306b\u3059\u308b\u3002\u62ec\u5f27\u306e\u7701\u7565\u306f\u53ef\u80fd\u3002
 void Command() :
 {/*@bgen(jjtree) Command */
   ASTCommand jjtn000 = new ASTCommand(JJTCOMMAND);
@@ -296,6 +309,38 @@ void Args() :
 /*@egen*/
 }
 
+void Call() :
+{/*@bgen(jjtree) Call */
+  ASTCall jjtn000 = new ASTCall(JJTCALL);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/}
+{/*@bgen(jjtree) Call */
+  try {
+/*@egen*/
+  < CALL > Operation()/*@bgen(jjtree)*/
+  } catch (Throwable jjte000) {
+    if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+    if (jjte000 instanceof RuntimeException) {
+      throw (RuntimeException)jjte000;
+    }
+    if (jjte000 instanceof ParseException) {
+      throw (ParseException)jjte000;
+    }
+    throw (Error)jjte000;
+  } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+  }
+/*@egen*/
+}
+
 void IfStatement() :
 {/*@bgen(jjtree) IfStatement */
   ASTIfStatement jjtn000 = new ASTIfStatement(JJTIFSTATEMENT);
@@ -305,7 +350,7 @@ void IfStatement() :
 {/*@bgen(jjtree) IfStatement */
   try {
 /*@egen*/
-  < IF > Operation() Block()/*@bgen(jjtree)*/
+  < IF > Operation() Block() ( < ELSIF > Operation() Block() )* ( < ELSE > Block() )?/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -441,8 +486,20 @@ void Block() :
 {/*@bgen(jjtree) Block */
   try {
 /*@egen*/
-  "{" Program() "}"
-| < DO > Program() < END >/*@bgen(jjtree)*/
+  ("{"|"do")
+  ((
+       Command()
+    |  LOOKAHEAD(2) Assingment()
+    |  LOOKAHEAD(3) Operation()
+    |  Call()
+    |  Break()
+    |  Next()
+    |  IfStatement()
+    |  LoopStatement()
+    |  WhileStatement()
+    |  ForStatement()
+  ) (";")?)*
+  ("}"|"end")/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -457,6 +514,42 @@ void Block() :
       throw (ParseException)jjte000;
     }
     throw (Error)jjte000;
+  } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+  }
+/*@egen*/
+}
+
+void Break() :
+{/*@bgen(jjtree) Break */
+  ASTBreak jjtn000 = new ASTBreak(JJTBREAK);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/}
+{/*@bgen(jjtree) Break */
+  try {
+/*@egen*/
+  < BREAK >/*@bgen(jjtree)*/
+  } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+  }
+/*@egen*/
+}
+
+void Next() :
+{/*@bgen(jjtree) Next */
+  ASTNext jjtn000 = new ASTNext(JJTNEXT);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/}
+{/*@bgen(jjtree) Next */
+  try {
+/*@egen*/
+  < NEXT >/*@bgen(jjtree)*/
   } finally {
     if (jjtc000) {
       jjtree.closeNodeScope(jjtn000, true);

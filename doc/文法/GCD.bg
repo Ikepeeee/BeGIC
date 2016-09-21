@@ -1,0 +1,20 @@
+// ユークリッド互除法を行います。
+// 言語仕様固め
+
+gcd <- {
+	if a < b then a <=> b
+	loop (b =/ 1) {
+		c <= a mod b
+		a <= b
+		b <= c
+	}
+}
+
+puts "aとbの最小公倍数を求めます。\n"
+print "a = "
+input a
+print "b = "
+input b
+gcd
+puts "最小公倍数は ",b," です。"
+

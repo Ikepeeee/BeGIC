@@ -1,0 +1,70 @@
+/*
+ * Create Date   : 2016/09/18
+ * First Creator : Toru Ikeda
+ * Description   : BeGICの文法受理テストです。
+*/
+
+blue
+#000000
+do end
+
+if 1 do end
+if true do end
+if true and true do end
+if true do
+	line
+	line()
+	line(1,2)
+end
+
+// 入れ子になったif文
+if true do
+	if false {
+		line
+		break
+	}
+end
+
+if false {
+}elsif true {
+}elsif true {
+}else{
+}
+
+"日本語"
+"日本語\n"
+"日本語\""
+
+while 1 do end
+
+loop do end
+
+
+a = []
+a = a + [1,2,3]
+
+gcd = {
+	if a < b do a = b end
+	while (b != 1) {
+		c = a mod b
+		a = b
+		b = c
+	}
+}
+
+// ブロックの演算
+gcd = gcd + do
+	print(a,b);
+end
+
+gcd = gcd * 3
+
+call gcd
+
+// 複雑なif文のチェック
+if a {
+	if 1 {
+	}else{
+	}
+}else{
+}

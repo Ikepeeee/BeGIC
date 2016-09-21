@@ -7,11 +7,14 @@ public interface BegicParserVisitor
   public Object visit(ASTProgram node, Object data);
   public Object visit(ASTCommand node, Object data);
   public Object visit(ASTArgs node, Object data);
+  public Object visit(ASTCall node, Object data);
   public Object visit(ASTIfStatement node, Object data);
   public Object visit(ASTLoopStatement node, Object data);
   public Object visit(ASTWhileStatement node, Object data);
   public Object visit(ASTForStatement node, Object data);
   public Object visit(ASTBlock node, Object data);
+  public Object visit(ASTBreak node, Object data);
+  public Object visit(ASTNext node, Object data);
   public Object visit(ASTAssingment node, Object data);
   public Object visit(ASTOperation node, Object data);
   public Object visit(ASTOrOp node, Object data);
@@ -35,4 +38,4 @@ public interface BegicParserVisitor
   public Object visit(ASTString node, Object data);
   public Object visit(ASTColor node, Object data);
 }
-/* JavaCC - OriginalChecksum=8a8c37950e844c3ed52ddba10694a7d0 (do not edit this line) */
+/* JavaCC - OriginalChecksum=f118a9f31eee5900d037b2a5f4506c4b (do not edit this line) */

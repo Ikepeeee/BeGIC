@@ -37,5 +37,19 @@ class AddOp {
 		}
 		return null;
 	}
+	
+	/**
+	 * 単項演算子のときの処理を行います。
+	 * @param val
+	 * @return
+	 */
+	public static BValue eval(BValue val){
+		if(val.type() == BValue.BFLOAT){
+			return val;
+		}else{
+			System.err.println("定義されない演算です。");
+		}
+		return null;
+	}
 
 }

@@ -81,6 +81,8 @@ TOKEN :
 TOKEN :
 {
   < IF : "if" >
+| < ELSIF : "elsif" >
+| < ELSE : "else" >
 | < WHILE : "while" >
 | < LOOP : "loop" >
 | < FOR : "for" >
@@ -90,6 +92,7 @@ TOKEN :
 | < STEP : "step" >
 | < DO : "do" >
 | < END : "end" >
+| < CALL : "call" >
 }
 
 /* FUNCTION */
@@ -161,7 +164,16 @@ TOKEN :
       "\""
   >
 | < FLOAT : (["0"-"9"])+("."(["0"-"9"])+)* >
-| < COLOR : "#"(["0"-"9"]) {6} >
+| < COLOR :
+      ( "#"(["0"-"9"]) {6}
+      | "red"
+      | "blue"
+      | "yellow"
+      | "green"
+      | "white"
+      | "black"
+      )
+  >
 | < BOOLEAN : "true" | "false" >
 | < IDENTIFIER : (["a"-"z","A"-"Z"])+ (["0"-"9"])* >
 }
@@ -170,21 +182,22 @@ TOKEN :
 SimpleNode Program() :
 { Token prog = null; }
 {
-  (       Command()
-    |  LOOKAHEAD(2) Assingment()
-    |  LOOKAHEAD(3) Operation()
-    |  Block()
-    |  IfStatement()
-    |  LoopStatement()
-    |  WhileStatement()
-    |  ForStatement()
+  (    (         Command()
+      |  LOOKAHEAD(2) Assingment()
+      |  LOOKAHEAD(3) Operation()
+      |  Call()
+      |  IfStatement()
+      |  LoopStatement()
+      |  WhileStatement()
+      |  ForStatement()
+    ) (";")?
   )*
   {
 	return jjtThis;
   }
 }
 
-// いまのところふつうの引数の形式にする。
+// いまのところふつうの引数の形式にする。括弧の省略は可能。
 void Command() :
 { Token t = null; }
 {
@@ -199,10 +212,16 @@ void Args() :
 | Operation() ("," Operation())*
 }
 
+void Call() :
+{}
+{
+  < CALL > Operation()
+}
+
 void IfStatement() :
 {}
 {
-  < IF > Operation() Block()
+  < IF > Operation() Block() ( < ELSIF > Operation() Block() )* ( < ELSE > Block() )?
 }
 
 void LoopStatement() :
@@ -229,8 +248,32 @@ void ForStatement() :
 void Block() :
 {}
 {
-  "{" Program() "}"
-| < DO > Program() < END >
+  ("{"|"do")
+  ((
+       Command()
+    |  LOOKAHEAD(2) Assingment()
+    |  LOOKAHEAD(3) Operation()
+    |  Call()
+    |  Break()
+    |  Next()
+    |  IfStatement()
+    |  LoopStatement()
+    |  WhileStatement()
+    |  ForStatement()
+  ) (";")?)*
+  ("}"|"end")
+}
+
+void Break() :
+{}
+{
+  < BREAK >
+}
+
+void Next() :
+{}
+{
+  < NEXT >
 }
 
 void Assingment() :

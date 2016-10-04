@@ -7,7 +7,7 @@
 使えるコマンドは
 window width,height
 line x1,y1,x2,y2
-write "string" // キャンパスに表示
+write "string",x,y // キャンパスに表示
 puts "string" // コンソールに表示
 の4つのみです。
 制御構文はありません。スタブのため、機能が非常に少ないです。

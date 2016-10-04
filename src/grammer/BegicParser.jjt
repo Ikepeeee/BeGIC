@@ -18,9 +18,6 @@ import jp.tolz.begic.prototype.interpreter.values.*;
 import jp.tolz.begic.prototype.interpreter.values.base.*;
 
 public class BegicParser{
-	private void log(String info) {
-		System.out.println("[BegicParser]" + info);
-	}
 }
 
 PARSER_END(BegicParser)
@@ -208,7 +205,7 @@ void Command() :
 void Args() :
 {}
 {
-  LOOKAHEAD(2) "(" ( Operation() ("," Operation())* )* ")"
+  LOOKAHEAD(2) "(" ( Operation() ("," Operation())* )* ")" ( "," "(" ( Operation() ("," Operation())* )* ")" )*
 | Operation() ("," Operation())*
 }
 
@@ -313,22 +310,27 @@ void CompOp() :
 }
 
 void Comp() :
-{}
+{ Token t = null; }
 {
-  < EQ > | < LT > | < GT > | < LE > | < GE > | < NEQ >
+  t = < EQ > { jjtThis.jjtSetValue(t.image); }
+| t = < LT > { jjtThis.jjtSetValue(t.image); }
+| t = < GT > { jjtThis.jjtSetValue(t.image); }
+| t = < LE > { jjtThis.jjtSetValue(t.image); }
+| t = < GE > { jjtThis.jjtSetValue(t.image); }
+| t = < NEQ > { jjtThis.jjtSetValue(t.image); }
 }
 
 void AddMnsOp() :
 {}
 {
-  MulDivOp() ( AddMns() MulDivOp() )*
+  LOOKAHEAD(3) MulDivOp() ( AddMns() MulDivOp() )*
 }
 
 void AddMns() :
-{}
+{ Token t = null; }
 {
-  < PLUS > 
-| < MINUS >
+  t = < PLUS > { jjtThis.jjtSetValue(t.image); }
+| t = < MINUS > { jjtThis.jjtSetValue(t.image); }
 }
 
 
@@ -339,23 +341,30 @@ void MulDivOp() :
 }
 
 void MulDiv() :
-{}
+{ Token t = null; }
 {
-  < STAR >
-| < SLASH > 
+  t = < STAR > { jjtThis.jjtSetValue(t.image); }
+| t = < SLASH > { jjtThis.jjtSetValue(t.image); }
 }
 
 void ModPowOp() :
 {}
 {
-  Expression() ( ModPow() Expression())*
+  SingleAddMnsOp() ( ModPow() SingleAddMnsOp())*
 }
 
 void ModPow() :
+{ Token t = null; }
+{
+  t = < MOD > { jjtThis.jjtSetValue(t.image); }
+| t = < POWER > { jjtThis.jjtSetValue(t.image); }
+}
+
+void SingleAddMnsOp() :
 {}
 {
-  < MOD >
-| < POWER >
+  AddMns() Expression
+| Expression()
 }
 
 void Expression() :
@@ -373,16 +382,22 @@ void Expression() :
 | "(" Operation() ")"
 }
 
+void Function() :
+{}
+{
+  < BFUNCTION > "(" ( Operation() ( "," Operation() )* )? ")"
+}
+
 void List() :
 {}
 {
-  "[" ( Operation() ("," Operation())*)* "]"
+  "[" ( Operation() ("," Operation())* )? "]"
 }
 
 void Hash() :
 {}
 {
-  "{" Operation() ":" Operation() (","  Operation() ":" Operation() )* "}"
+  "{" ( Operation() ":" Operation() (","  Operation() ":" Operation() )* )? "}"
 }
 
 void ListHashFactor() :

@@ -27,15 +27,17 @@ public interface BegicParserTreeConstants
   public int JJTMULDIV = 21;
   public int JJTMODPOWOP = 22;
   public int JJTMODPOW = 23;
-  public int JJTEXPRESSION = 24;
-  public int JJTLIST = 25;
-  public int JJTHASH = 26;
-  public int JJTLISTHASHFACTOR = 27;
-  public int JJTIDENTIFIER = 28;
-  public int JJTBOOLEAN = 29;
-  public int JJTFLOAT = 30;
-  public int JJTSTRING = 31;
-  public int JJTCOLOR = 32;
+  public int JJTSINGLEADDMNSOP = 24;
+  public int JJTEXPRESSION = 25;
+  public int JJTFUNCTION = 26;
+  public int JJTLIST = 27;
+  public int JJTHASH = 28;
+  public int JJTLISTHASHFACTOR = 29;
+  public int JJTIDENTIFIER = 30;
+  public int JJTBOOLEAN = 31;
+  public int JJTFLOAT = 32;
+  public int JJTSTRING = 33;
+  public int JJTCOLOR = 34;
 
 
   public String[] jjtNodeName = {
@@ -63,7 +65,9 @@ public interface BegicParserTreeConstants
     "MulDiv",
     "ModPowOp",
     "ModPow",
+    "SingleAddMnsOp",
     "Expression",
+    "Function",
     "List",
     "Hash",
     "ListHashFactor",
@@ -74,4 +78,4 @@ public interface BegicParserTreeConstants
     "Color",
   };
 }
-/* JavaCC - OriginalChecksum=441da9164ef2f05b9b099d1554faeacc (do not edit this line) */
+/* JavaCC - OriginalChecksum=f9e435d8579cba278d3d4d750bddaf5f (do not edit this line) */

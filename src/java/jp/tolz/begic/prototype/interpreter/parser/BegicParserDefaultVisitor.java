@@ -81,7 +81,13 @@ public class BegicParserDefaultVisitor implements BegicParserVisitor{
   public Object visit(ASTModPow node, Object data){
     return defaultVisit(node, data);
   }
+  public Object visit(ASTSingleAddMnsOp node, Object data){
+    return defaultVisit(node, data);
+  }
   public Object visit(ASTExpression node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTFunction node, Object data){
     return defaultVisit(node, data);
   }
   public Object visit(ASTList node, Object data){
@@ -109,4 +115,4 @@ public class BegicParserDefaultVisitor implements BegicParserVisitor{
     return defaultVisit(node, data);
   }
 }
-/* JavaCC - OriginalChecksum=90d39f4004d9389cfea857f84470d109 (do not edit this line) */
+/* JavaCC - OriginalChecksum=6ddda1ef85ac87e9a1d570963e49fc64 (do not edit this line) */

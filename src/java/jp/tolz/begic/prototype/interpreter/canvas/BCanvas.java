@@ -4,9 +4,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import jp.tolz.begic.prototype.interpreter.commands.BLine;
 import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
-import jp.tolz.begic.prototype.interpreter.commands.base.Command;
+import jp.tolz.begic.prototype.interpreter.commands.base.BCommand;
 
 /**
  * BeGIC用のキャンパスです。
@@ -17,8 +16,6 @@ import jp.tolz.begic.prototype.interpreter.commands.base.Command;
 public class BCanvas extends Canvas{
 	
 	public void paint(Graphics g){
-		g.setColor(Color.BLACK);
-		Command line = new BLine(new BArgs(new Object[]{}));
-		line.exec();
+		// 描写の呼び出し
 	}
 }

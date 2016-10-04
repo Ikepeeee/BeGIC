@@ -1,7 +1,7 @@
 package jp.tolz.begic.prototype.interpreter.commands;
 
 import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
-import jp.tolz.begic.prototype.interpreter.commands.base.Command;
+import jp.tolz.begic.prototype.interpreter.commands.base.BCommand;
 
 /**
  * 描画用のウインドウのサイズの変更を行います。
@@ -12,7 +12,7 @@ import jp.tolz.begic.prototype.interpreter.commands.base.Command;
  * @author toru ikeda
  *
  */
-public class BWindow extends Command {
+class BWindow extends BCommand {
 
 	public BWindow(BArgs bargs) {
 		super(bargs);

@@ -18,6 +18,7 @@ import jp.tolz.begic.prototype.interpreter.parser.ASTCompOp;
 import jp.tolz.begic.prototype.interpreter.parser.ASTExpression;
 import jp.tolz.begic.prototype.interpreter.parser.ASTFloat;
 import jp.tolz.begic.prototype.interpreter.parser.ASTForStatement;
+import jp.tolz.begic.prototype.interpreter.parser.ASTFunction;
 import jp.tolz.begic.prototype.interpreter.parser.ASTHash;
 import jp.tolz.begic.prototype.interpreter.parser.ASTIdentifier;
 import jp.tolz.begic.prototype.interpreter.parser.ASTIfStatement;
@@ -33,6 +34,7 @@ import jp.tolz.begic.prototype.interpreter.parser.ASTNotOp;
 import jp.tolz.begic.prototype.interpreter.parser.ASTOperation;
 import jp.tolz.begic.prototype.interpreter.parser.ASTOrOp;
 import jp.tolz.begic.prototype.interpreter.parser.ASTProgram;
+import jp.tolz.begic.prototype.interpreter.parser.ASTSingleAddMnsOp;
 import jp.tolz.begic.prototype.interpreter.parser.ASTString;
 import jp.tolz.begic.prototype.interpreter.parser.ASTWhileStatement;
 import jp.tolz.begic.prototype.interpreter.parser.BegicParserVisitor;
@@ -41,7 +43,7 @@ import jp.tolz.begic.prototype.interpreter.values.BBoolean;
 import jp.tolz.begic.prototype.interpreter.values.BColor;
 import jp.tolz.begic.prototype.interpreter.values.BFloat;
 import jp.tolz.begic.prototype.interpreter.values.BString;
-import jp.tolz.begic.prototype.interpreter.values.base.BValue;
+import jp.tolz.begic.prototype.interpreter.values.BValue;
 
 /**
  * 
@@ -50,9 +52,9 @@ import jp.tolz.begic.prototype.interpreter.values.base.BValue;
  */
 public class BegicVisitor implements BegicParserVisitor {
 
+	// 通常は使われない。
 	@Override
 	public Object visit(SimpleNode node, Object data) {
-		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
 
@@ -70,8 +72,24 @@ public class BegicVisitor implements BegicParserVisitor {
 		// 引数の有無を確認。
 		int num = node.jjtGetNumChildren();
 		String command = (String) node.jjtGetValue();
-
+		if(num == 2){
+			BValue[] args = (BValue[]) node.jjtGetChild(1).jjtAccept(this, data);
+			
+		}else{
+			
+		}
 		return data;
+	}
+	
+
+	@Override
+	public Object visit(ASTArgs node, Object data) {
+		int num = node.jjtGetNumChildren();
+		BValue[] args = new BValue[num];
+		for(int i = 0; i < num; i++){
+			args[i] = (BValue) node.jjtGetChild(i).jjtAccept(this, data);
+		}
+		return args;
 	}
 
 	@Override
@@ -274,12 +292,6 @@ public class BegicVisitor implements BegicParserVisitor {
 	}
 
 	@Override
-	public Object visit(ASTArgs node, Object data) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
-
-	@Override
 	public Object visit(ASTIdentifier node, Object data) {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
@@ -293,6 +305,18 @@ public class BegicVisitor implements BegicParserVisitor {
 
 	@Override
 	public Object visit(ASTNext node, Object data) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public Object visit(ASTSingleAddMnsOp node, Object data) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public Object visit(ASTFunction node, Object data) {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}

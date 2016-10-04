@@ -1,9 +1,5 @@
 package jp.tolz.begic.prototype.interpreter.commands.base;
 
-import java.applet.Applet;
-import java.awt.Color;
-import java.awt.Graphics;
-
 import jp.tolz.begic.prototype.interpreter.canvas.BCanvas;
 
 /**
@@ -12,15 +8,15 @@ import jp.tolz.begic.prototype.interpreter.canvas.BCanvas;
  * @author toru ikeda
  *
  */
-abstract public class Command{
+public abstract class BCommand{
 	public static BCanvas canvas;
 	
-	public Command(BArgs bargs){
+	public BCommand(BArgs bargs){
 	}
 	
 	/**
 	 * コマンドの実行メソッド
 	 */
-	abstract public void exec();
+	public abstract void exec();
 
 }

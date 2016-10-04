@@ -1,14 +1,14 @@
 package jp.tolz.begic.prototype.interpreter.commands;
 
 import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
-import jp.tolz.begic.prototype.interpreter.commands.base.Command;
+import jp.tolz.begic.prototype.interpreter.commands.base.BCommand;
 
 /**
  * GeGIC‚Ì•W€“ü—Í–½—ß‚Å‚·B
  * @author toru ikeda
  *
  */
-public class BInput extends Command {
+class BInput extends BCommand {
 
 	public BInput(BArgs bargs) {
 		super(bargs);

@@ -2,14 +2,14 @@ package jp.tolz.begic.prototype.interpreter.commands;
 
 
 import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
-import jp.tolz.begic.prototype.interpreter.commands.base.Command;
+import jp.tolz.begic.prototype.interpreter.commands.base.BCommand;
 
 /**
  * ü‚Ì•`Ê‚ğs‚¢‚Ü‚·B
  * @author toru
  *
  */
-public class BLine extends Command {
+class BLine extends BCommand {
 
 	public BLine(BArgs bargs) {
 		super(bargs);

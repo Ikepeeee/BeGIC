@@ -1,6 +1,7 @@
 package jp.tolz.begic.prototype.interpreter.values;
 
-import jp.tolz.begic.prototype.interpreter.values.base.BValue;
+import jp.tolz.begic.prototype.interpreter.exception.BegicRunTimeException;
+
 
 public class BColor extends BValue {
 	static BColor RED, BLUE, YELLOW, GREEN, BLACK, WHITE;
@@ -32,23 +33,108 @@ public class BColor extends BValue {
 	}
 
 	@Override
-	public void setValue(String value) {
-		
-	}
-
-	@Override
-	public BValue getValue() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
-
-	@Override
 	public int type() {
 		return BCOLOR;
 	}
 
 	@Override
 	public String toString() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue and(BValue other) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue or(BValue other) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue not() throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue eq(BValue other) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue neq(BValue other) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue ge(BValue other) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue le(BValue other) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue gt(BValue other) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue lt(BValue other) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue add(BValue other) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue sub(BValue other) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue mul(BValue other) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue div(BValue other) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue mod(BValue other) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue pow(BValue other) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue abs() throws BegicRunTimeException {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}

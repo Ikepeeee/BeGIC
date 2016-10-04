@@ -1,5 +1,5 @@
 package jp.tolz.begic.prototype.interpreter.values.base;
 
-public class BValueFactory {
-	
+public interface IBValueFactory {
+
 }

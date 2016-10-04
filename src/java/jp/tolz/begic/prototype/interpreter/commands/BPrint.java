@@ -1,7 +1,7 @@
 package jp.tolz.begic.prototype.interpreter.commands;
 
 import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
-import jp.tolz.begic.prototype.interpreter.commands.base.Command;
+import jp.tolz.begic.prototype.interpreter.commands.base.BCommand;
 
 /**
  * BeGICÇÃïWèÄèoóÕñΩóﬂÇ≈Ç∑ÅB<br>
@@ -11,7 +11,7 @@ import jp.tolz.begic.prototype.interpreter.commands.base.Command;
  * @author toru ikeda
  *
  */
-public class BPrint extends Command {
+class BPrint extends BCommand {
 	private BArgs args;
 
 	public BPrint(BArgs args) {

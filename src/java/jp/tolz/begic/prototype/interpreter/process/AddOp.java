@@ -2,7 +2,7 @@ package jp.tolz.begic.prototype.interpreter.process;
 
 import jp.tolz.begic.prototype.interpreter.values.BFloat;
 import jp.tolz.begic.prototype.interpreter.values.BString;
-import jp.tolz.begic.prototype.interpreter.values.base.BValue;
+import jp.tolz.begic.prototype.interpreter.values.BValue;
 
 /**
  * ‰ÁZ‰‰Z‚Ìˆ—‚ğs‚¢‚Ü‚·B

@@ -2,7 +2,7 @@ package jp.tolz.begic.prototype.interpreter.namespace;
 
 import java.util.HashMap;
 
-import jp.tolz.begic.prototype.interpreter.values.BValue;
+import jp.tolz.begic.prototype.interpreter.values.base.IBValue;
 
 /**
  * コマンドおよび変数の名前を管理します。
@@ -11,22 +11,21 @@ import jp.tolz.begic.prototype.interpreter.values.BValue;
  *
  */
 public class NameSpace {
-	private static final Class<BValue> BLine = null;
-	private static HashMap<String, BValue> values = new HashMap<String, BValue>();
+	private HashMap<String, IBValue> values = new HashMap<String, IBValue>();
 	
-	public static boolean hasName(String identifier){
+	public boolean hasName(String identifier){
 		return values.containsKey(identifier);
 	}
 	
-	public static BValue getValue(String identifier){
+	public IBValue getValue(String identifier){
 		return values.get(identifier);
 	}
 	
-	public static void register(String identifier){
+	public void register(String identifier){
 		values.put(identifier, null);
 	}
 	
-	public static void register(String identifier, BValue value){
+	public void setValue(String identifier, IBValue value){
 		values.put(identifier, value);
 	}
 	

@@ -9,9 +9,11 @@ import jp.tolz.begic.prototype.interpreter.canvas.BCanvas;
  *
  */
 public abstract class BCommand{
-	public static BCanvas canvas;
+	public static BCanvas canvas = null;
+	public BArgs bargs = null;
 	
 	public BCommand(BArgs bargs){
+		this.bargs = bargs;
 	}
 	
 	/**

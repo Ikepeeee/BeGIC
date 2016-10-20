@@ -12,9 +12,9 @@ public class BHash extends BValue<LinkedHashMap<BValue, BValue>> implements IBCo
 		setValue(new LinkedHashMap<BValue, BValue>());
 	}
 
-	public BHash(BValue[] values) {
+	public BHash(BValue[] keys ,BValue[] values) throws BegicRunTimeException {
 		setValue(new LinkedHashMap<BValue, BValue>());
-		this.push(values);
+		this.push(keys, values);
 	}
 
 	@Override
@@ -130,29 +130,7 @@ public class BHash extends BValue<LinkedHashMap<BValue, BValue>> implements IBCo
 		throw new BegicRunTimeException();
 	}
 
-	@Override
-	public BValue push(BValue[] values) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
-
-	@Override
-	public BValue push(BValue value) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
-
-	@Override
-	public BValue unshift(BValue value) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
-
-	@Override
-	public BValue unshift(BValue[] values) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
+	
 
 	@Override
 	public BValue pop() {
@@ -179,9 +157,53 @@ public class BHash extends BValue<LinkedHashMap<BValue, BValue>> implements IBCo
 	}
 
 	@Override
-	public BValue get(int i) {
+	public BValue push(BValue key, BValue value) throws BegicRunTimeException {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
+	
+	public void push(BValue[] keys, BValue[] values) throws BegicRunTimeException {
+		if(keys.length != values.length)
+			throw new BegicRunTimeException();
+		int size = keys.length;
+		for(int i = 0; i < size; i++){
+			push(keys[i], values[i]);
+		}
+	}
+
+	@Override
+	public BValue unshift(BValue key, BValue value)
+			throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+	
+	public void unshift(BValue[] keys, BValue[] values) throws BegicRunTimeException{
+		if(keys.length != values.length)
+			throw new BegicRunTimeException();
+		int size = keys.length;
+		for(int i = 0; i < size; i++){
+			unshift(keys[i], values[i]);
+		}
+	}
+
+	@Override
+	public BValue get(BValue key) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue set(BValue key, BValue value) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue size() throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
 
 }

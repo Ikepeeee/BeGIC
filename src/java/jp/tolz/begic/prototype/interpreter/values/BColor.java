@@ -4,7 +4,7 @@ import jp.tolz.begic.prototype.interpreter.exception.BegicRunTimeException;
 
 
 public class BColor extends BValue {
-	static BColor RED, BLUE, YELLOW, GREEN, BLACK, WHITE;
+	public static BColor RED, BLUE, YELLOW, GREEN, BLACK, WHITE;
 	
 	public BColor(int r, int g, int b) {
 

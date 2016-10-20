@@ -9,6 +9,7 @@ import jp.tolz.begic.prototype.interpreter.values.base.IBValue;
  * @param <T>
  */
 public abstract class BValue<T> implements IBValue {
+	public static final int BVALUE = 1000;
 	public static final int BBLOCK = 1001;
 	public static final int BBOOLEAN = 1002;
 	public static final int BCOLOR = 1003;

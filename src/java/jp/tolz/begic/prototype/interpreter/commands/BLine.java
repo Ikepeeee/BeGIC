@@ -17,7 +17,8 @@ class BLine extends BCommand {
 
 	@Override
 	public void exec() {
-		canvas.getGraphics().drawLine(0, 0, 100, 100);
+		
+//		canvas.getGraphics().drawLine(bargs.get(0).toString(), 0, 100, 100);
 	}
 
 }

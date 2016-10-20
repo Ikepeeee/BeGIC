@@ -18,16 +18,18 @@ public class BList extends BValue<ArrayList<BValue>> implements IBCollection {
 	}
 
 	public BValue push(BValue[] values) {
-		Arrays.asList(values).forEach(this::push);
+		Arrays.asList(values).forEach(val -> this.push(null ,val));
 		return new BList(values);
 	}
 
-	public BValue push(BValue value) {
+	@Override
+	public BValue push(BValue key, BValue value) {
 		this.value.add(value);
 		return value;
 	}
 
-	public BValue unshift(BValue value) {
+	@Override
+	public BValue unshift(BValue key, BValue value) {
 		this.value.add(0, value);
 		return value;
 	}
@@ -37,34 +39,54 @@ public class BList extends BValue<ArrayList<BValue>> implements IBCollection {
 		return new BList(values);
 	}
 
+	@Override
 	public BValue pop() {
 		BValue t = this.value.get(this.value.size() - 1);
 		this.value.remove(this.value.size() - 1);
 		return t;
 	}
 
+	@Override
 	public BValue shift() {
 		BValue t = this.value.get(0);
 		this.value.remove(0);
 		return t;
 	}
 
+	@Override
 	public BValue last() {
 		return this.value.get(this.value.size());
 	}
 
+	@Override
 	public BValue first() {
 		return this.value.get(0);
 	}
 
-	public BValue get(int i) {
+	public BValue get(int i){
 		return this.value.get(i);
 	}
+	
+	@Override
+	public BValue get(BValue i) throws BegicRunTimeException {
+		if(i.type() != BFLOAT)
+			throw new BegicRunTimeException();
+		return this.get(Integer.valueOf(i.toString()));
+	}
+	
+	@Override
+	public BValue set(BValue key, BValue value) throws BegicRunTimeException {
+		if(key.type() != BFLOAT)
+			throw new BegicRunTimeException();
+		this.value.set(Integer.valueOf(key.toString()), value);
+		return value;
+	}
 
+	@Override
 	public BValue size() {
 		return new BFloat(this.value.size());
 	}
-
+	
 	@Override
 	public int type() {
 		return BLIST;

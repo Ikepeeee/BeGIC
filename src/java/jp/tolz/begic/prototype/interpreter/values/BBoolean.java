@@ -2,14 +2,19 @@ package jp.tolz.begic.prototype.interpreter.values;
 
 import jp.tolz.begic.prototype.interpreter.exception.BegicRunTimeException;
 
-public class BBoolean extends BValue {
+public class BBoolean extends BValue<Boolean> {
 
-	public BBoolean(String bool){
-		
+	public BBoolean(String bool) throws BegicRunTimeException{
+		if(bool.equals("true"))
+			setValue(true);
+		else if(bool.equals("false"))
+			setValue(false);
+		else 
+			throw new BegicRunTimeException();
 	}
-	
+
 	public BBoolean(boolean b) {
-		setValue(b ? "true" : "false");
+		setValue(b);
 	}
 
 	@Override
@@ -19,36 +24,26 @@ public class BBoolean extends BValue {
 
 	@Override
 	public String toString() {
-		return (String) value;
+		return value.toString();
 	}
 
 	@Override
 	public BValue and(BValue other) throws BegicRunTimeException {
-		if(other.type() != BBOOLEAN)
+		if (other.type() != BBOOLEAN)
 			throw new BegicRunTimeException();
-		if(((String) this.value).equals("false")){
-			return new BBoolean("false");
-		}else if (((String) other.value).equals("false")){
-			return new BBoolean("false");
-		}
-		return new BBoolean("true");
+		return new BBoolean(this.value && ((BBoolean) other).value);
 	}
 
 	@Override
 	public BValue or(BValue other) throws BegicRunTimeException {
-		if(other.type() != BBOOLEAN)
+		if (other.type() != BBOOLEAN)
 			throw new BegicRunTimeException();
-		if(((String) this.value).equals("true")){
-			return new BBoolean("true");
-		}else if (((String) other.value).equals("true")){
-			return new BBoolean("true");
-		}
-		return new BBoolean("false");
+		return new BBoolean(this.value || ((BBoolean) other).value);
 	}
 
 	@Override
 	public BValue not() throws BegicRunTimeException {
-		return new BBoolean(((String) value).equals("false"));
+		return new BBoolean(!this.value);
 	}
 
 	@Override
@@ -108,14 +103,16 @@ public class BBoolean extends BValue {
 
 	@Override
 	public BValue eq(BValue other) throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		if(other.type() != BBOOLEAN)
+			return new BBoolean(false);
+		return new BBoolean(this.value.equals(other.value));
 	}
 
 	@Override
 	public BValue neq(BValue other) throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		if(other.type() != BBOOLEAN)
+			return new BBoolean(true);
+		return new BBoolean(!this.value.equals(other.value));
 	}
 
 }

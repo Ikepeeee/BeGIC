@@ -1,5 +1,7 @@
 package jp.tolz.begic.prototype.interpreter.commands.base;
 
+import jp.tolz.begic.prototype.interpreter.values.BValue;
+
 /**
  * Commandの引数受け渡し用クラスです。
  * 
@@ -7,9 +9,18 @@ package jp.tolz.begic.prototype.interpreter.commands.base;
  *
  */
 final public class BArgs {
-	public Object[] args;
+	private BValue<?>[] args;
 	
-	public BArgs(Object[] args){
+	public BArgs(BValue<?>[] args){
 		this.args = args;
 	}
+	
+	public BValue<?> get(int i){
+		return args[i];
+	}
+	
+	public int size(){
+		return args.length;
+	}
+	
 }

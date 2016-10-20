@@ -45,6 +45,9 @@ public class BegicParserDefaultVisitor implements BegicParserVisitor{
   public Object visit(ASTAssingment node, Object data){
     return defaultVisit(node, data);
   }
+  public Object visit(ASTExchange node, Object data){
+    return defaultVisit(node, data);
+  }
   public Object visit(ASTOperation node, Object data){
     return defaultVisit(node, data);
   }
@@ -55,6 +58,9 @@ public class BegicParserDefaultVisitor implements BegicParserVisitor{
     return defaultVisit(node, data);
   }
   public Object visit(ASTNotOp node, Object data){
+    return defaultVisit(node, data);
+  }
+  public Object visit(ASTNot node, Object data){
     return defaultVisit(node, data);
   }
   public Object visit(ASTCompOp node, Object data){
@@ -79,9 +85,6 @@ public class BegicParserDefaultVisitor implements BegicParserVisitor{
     return defaultVisit(node, data);
   }
   public Object visit(ASTModPow node, Object data){
-    return defaultVisit(node, data);
-  }
-  public Object visit(ASTSingleAddMnsOp node, Object data){
     return defaultVisit(node, data);
   }
   public Object visit(ASTExpression node, Object data){
@@ -115,4 +118,4 @@ public class BegicParserDefaultVisitor implements BegicParserVisitor{
     return defaultVisit(node, data);
   }
 }
-/* JavaCC - OriginalChecksum=6ddda1ef85ac87e9a1d570963e49fc64 (do not edit this line) */
+/* JavaCC - OriginalChecksum=76bc45daff0aa047ec273811b1ceb29f (do not edit this line) */

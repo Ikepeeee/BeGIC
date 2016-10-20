@@ -181,6 +181,7 @@ SimpleNode Program() :
 {
   (    (         Command()
       |  LOOKAHEAD(2) Assingment()
+	  |  LOOKAHEAD(2) Exchange()
       |  LOOKAHEAD(3) Operation()
       |  Call()
       |  IfStatement()
@@ -198,8 +199,8 @@ SimpleNode Program() :
 void Command() :
 { Token t = null; }
 {
-  LOOKAHEAD(2) t = < BCOMMAND >  Args() { jjtThis.jjtSetValue(t.image); }
-| t = < BCOMMAND > { jjtThis.jjtSetValue(t.image); }
+  LOOKAHEAD(2) t = < BCOMMAND >  Args() { jjtThis.jjtSetValue(t); }
+| t = < BCOMMAND > { jjtThis.jjtSetValue(t); }
 }
 
 void Args() :
@@ -238,7 +239,7 @@ void ForStatement() :
 {
   < FOR > t = < IDENTIFIER > < ASSIGN > Operation() < TO > Operation() < STEP > Operation() Block()
   {
-    jjtThis.jjtSetValue(t.image);
+    jjtThis.jjtSetValue(t);
   }
 }
 
@@ -249,6 +250,7 @@ void Block() :
   ((
        Command()
     |  LOOKAHEAD(2) Assingment()
+    |  LOOKAHEAD(2) Exchange() 
     |  LOOKAHEAD(3) Operation()
     |  Call()
     |  Break()
@@ -279,6 +281,12 @@ void Assingment() :
   Identifier() < ASSIGN > Operation()
 }
 
+void Exchange() :
+{}
+{
+  Identifier() < EXCHANGE > Identifier()
+}
+
 void Operation() :
 {}
 {
@@ -298,39 +306,45 @@ void AndOp() :
 }
 
 void NotOp() :
-{}
+{ Token t = null; }
 {
-  ( < NOT > )* CompOp()
+  ( Not() )* CompOp()
+}
+
+void Not() :
+{ Token t = null; }
+{
+  t = < NOT > { jjtThis.jjtSetValue(t); }
 }
 
 void CompOp() :
 {}
 {
-  AddMnsOp() ( Comp() AddMnsOp() )*
+  AddMnsOp() ( Comp() AddMnsOp() )?
 }
 
 void Comp() :
 { Token t = null; }
 {
-  t = < EQ > { jjtThis.jjtSetValue(t.image); }
-| t = < LT > { jjtThis.jjtSetValue(t.image); }
-| t = < GT > { jjtThis.jjtSetValue(t.image); }
-| t = < LE > { jjtThis.jjtSetValue(t.image); }
-| t = < GE > { jjtThis.jjtSetValue(t.image); }
-| t = < NEQ > { jjtThis.jjtSetValue(t.image); }
+  t = < EQ > { jjtThis.jjtSetValue(t); }
+| t = < LT > { jjtThis.jjtSetValue(t); }
+| t = < GT > { jjtThis.jjtSetValue(t); }
+| t = < LE > { jjtThis.jjtSetValue(t); }
+| t = < GE > { jjtThis.jjtSetValue(t); }
+| t = < NEQ > { jjtThis.jjtSetValue(t); }
 }
 
 void AddMnsOp() :
 {}
 {
-  LOOKAHEAD(3) MulDivOp() ( AddMns() MulDivOp() )*
+  ( AddMns() )? MulDivOp() ( AddMns() MulDivOp() )*
 }
 
 void AddMns() :
 { Token t = null; }
 {
-  t = < PLUS > { jjtThis.jjtSetValue(t.image); }
-| t = < MINUS > { jjtThis.jjtSetValue(t.image); }
+  t = < PLUS > { jjtThis.jjtSetValue(t); }
+| t = < MINUS > { jjtThis.jjtSetValue(t); }
 }
 
 
@@ -343,28 +357,21 @@ void MulDivOp() :
 void MulDiv() :
 { Token t = null; }
 {
-  t = < STAR > { jjtThis.jjtSetValue(t.image); }
-| t = < SLASH > { jjtThis.jjtSetValue(t.image); }
+  t = < STAR > { jjtThis.jjtSetValue(t); }
+| t = < SLASH > { jjtThis.jjtSetValue(t); }
 }
 
 void ModPowOp() :
 {}
 {
-  SingleAddMnsOp() ( ModPow() SingleAddMnsOp())*
+  Expression() ( ModPow() Expression())*
 }
 
 void ModPow() :
 { Token t = null; }
 {
-  t = < MOD > { jjtThis.jjtSetValue(t.image); }
-| t = < POWER > { jjtThis.jjtSetValue(t.image); }
-}
-
-void SingleAddMnsOp() :
-{}
-{
-  AddMns() Expression
-| Expression()
+  t = < MOD > { jjtThis.jjtSetValue(t); }
+| t = < POWER > { jjtThis.jjtSetValue(t); }
 }
 
 void Expression() :
@@ -379,13 +386,16 @@ void Expression() :
 | List()
 | Hash()
 | ListHashFactor()
+| Function()
 | "(" Operation() ")"
 }
 
 void Function() :
-{}
+{ Token t = null; }
 {
-  < BFUNCTION > "(" ( Operation() ( "," Operation() )* )? ")"
+  t = < BFUNCTION > "(" ( Operation() ( "," Operation() )* )? ")"
+  { jjtThis.jjtSetValue(t); }
+    
 }
 
 void List() :
@@ -409,29 +419,29 @@ void ListHashFactor() :
 void Identifier() :
 { Token t = null; }
 {
-  t = < IDENTIFIER > { jjtThis.jjtSetValue(t.image); }
+  t = < IDENTIFIER > { jjtThis.jjtSetValue(t); }
 }
 
 void Boolean() :
 { Token t = null; }
 {
-  t = < BOOLEAN > { jjtThis.jjtSetValue(t.image); }
+  t = < BOOLEAN > { jjtThis.jjtSetValue(t); }
 }
 
 void Float() :
 { Token t = null; }
 {
-  t = < FLOAT > { jjtThis.jjtSetValue(t.image); }  
+  t = < FLOAT > { jjtThis.jjtSetValue(t); }  
 }
 
 void String() :
 { Token t = null; }
 {
-  t = < STRING > { jjtThis.jjtSetValue(t.image); }
+  t = < STRING > { jjtThis.jjtSetValue(t); }
 }
 
 void Color() :
 { Token t = null; }
 {
-  t = < COLOR > { jjtThis.jjtSetValue(t.image); }  
+  t = < COLOR > { jjtThis.jjtSetValue(t); }  
 }

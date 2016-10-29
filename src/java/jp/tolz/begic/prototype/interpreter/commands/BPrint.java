@@ -1,7 +1,6 @@
 package jp.tolz.begic.prototype.interpreter.commands;
 
 import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
-import jp.tolz.begic.prototype.interpreter.commands.base.BCommand;
 
 /**
  * BeGICの標準出力命令です。<br>
@@ -12,14 +11,14 @@ import jp.tolz.begic.prototype.interpreter.commands.base.BCommand;
  *
  */
 class BPrint extends BCommand {
-	private BArgs args;
 
-	public BPrint(BArgs args) {
-		super(args);
-		this.args = args;
+	public BPrint() {
+		super();
+		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
-	public void exec() {
+	@Override
+	public void exec(BArgs args) {
 		System.out.print(args);
 	}
 

@@ -1,6 +1,7 @@
-package jp.tolz.begic.prototype.interpreter.commands.base;
+package jp.tolz.begic.prototype.interpreter.commands;
 
 import jp.tolz.begic.prototype.interpreter.canvas.BCanvas;
+import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
 
 /**
  * BeGICで用いるコマンドの基底クラス。
@@ -9,16 +10,11 @@ import jp.tolz.begic.prototype.interpreter.canvas.BCanvas;
  *
  */
 public abstract class BCommand{
-	public static BCanvas canvas = null;
-	public BArgs bargs = null;
-	
-	public BCommand(BArgs bargs){
-		this.bargs = bargs;
-	}
+	protected static BCanvas canvas = null;
 	
 	/**
 	 * コマンドの実行メソッド
 	 */
-	public abstract void exec();
+	public abstract void exec(BArgs bargs);
 
 }

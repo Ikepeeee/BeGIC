@@ -4,8 +4,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import jp.tolz.begic.prototype.interpreter.commands.BCommand;
 import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
-import jp.tolz.begic.prototype.interpreter.commands.base.BCommand;
 
 /**
  * BeGIC用のキャンパスです。

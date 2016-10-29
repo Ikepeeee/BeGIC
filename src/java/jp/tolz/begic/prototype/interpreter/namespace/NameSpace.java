@@ -6,7 +6,8 @@ import jp.tolz.begic.prototype.interpreter.values.base.IBValue;
 
 /**
  * コマンドおよび変数の名前を管理します。
- * 文字列からコマンドおよび変数を呼び出せます。
+ * 文字列から変数を呼び出せます。
+ * またコマンドと値が1対1対応であることを保証し、値のアドレスから識別子を呼び出せます。
  * @author Toru Ikeda
  *
  */

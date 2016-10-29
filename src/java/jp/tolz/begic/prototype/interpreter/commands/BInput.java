@@ -1,7 +1,6 @@
 package jp.tolz.begic.prototype.interpreter.commands;
 
 import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
-import jp.tolz.begic.prototype.interpreter.commands.base.BCommand;
 
 /**
  * GeGICの標準入力命令です。
@@ -10,15 +9,9 @@ import jp.tolz.begic.prototype.interpreter.commands.base.BCommand;
  */
 class BInput extends BCommand {
 
-	public BInput(BArgs bargs) {
-		super(bargs);
-		// TODO 自動生成されたコンストラクター・スタブ
-	}
-
 	@Override
-	public void exec() {
-		// TODO 自動生成されたメソッド・スタブ
-		
+	public void exec(BArgs bargs) {
+
 	}
 
 }

@@ -1,5 +1,6 @@
 package jp.tolz.begic.prototype.interpreter.values;
 
+import java.math.BigDecimal;
 import jp.tolz.begic.prototype.interpreter.exception.BegicRunTimeException;
 
 public class BString extends BValue<String> {
@@ -15,7 +16,14 @@ public class BString extends BValue<String> {
 
 	@Override
 	public String toString() {
-		return value.replaceAll("^\"|\"$", "");
+		return replaceEscape(value.replaceAll("^\"|\"$", ""));
+	}
+
+	private String replaceEscape(String s) {
+		return s.replaceAll("\\\\n", "\n").replaceAll("\\\\t", "\t")
+				.replaceAll("\\\\b", "\b").replaceAll("\\\\r", "\r")
+				.replaceAll("\\\\f", "\f").replaceAll("\\\\\\\\", "\\\\")
+				.replaceAll("\\\\'", "'").replaceAll("\\\\\"", "\"");
 	}
 
 	@Override
@@ -79,7 +87,7 @@ public class BString extends BValue<String> {
 	public BValue add(BValue other) throws BegicRunTimeException {
 		if (other.type() != BValue.BSTRING)
 			throw new BegicRunTimeException();
-		return new BString(this.value.concat(((String) other.value)));
+		return new BString(this.toString().concat(other.toString()));
 	}
 
 	/**
@@ -97,8 +105,8 @@ public class BString extends BValue<String> {
 		if (other.type() != BValue.BFLOAT)
 			throw new BegicRunTimeException();
 		String ret = "";
-		for (int i = 0; i < (Integer) other.value; i++)
-			ret = ret.concat((String) value);
+		for (BFloat i = new BFloat(0); (Boolean) i.lt(((BFloat) other)).getValue(); i = (BFloat) i.add(BFloat.ONE))
+			ret = ret.concat(toString());
 		return new BString(ret);
 	}
 

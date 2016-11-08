@@ -67,6 +67,7 @@ TOKEN :
 {
   < BCOMMAND :
     "line"
+  | "puts"
   | "circle"
   | "box"
   | "print"
@@ -153,8 +154,6 @@ TOKEN :
       (   (~["\"","\\","\n","\r"])
         | ("\\"
             ( ["n","t","b","r","f","\\","'","\""]
-            | ["0"-"7"] ( ["0"-"7"] )?
-            | ["0"-"3"] ["0"-"7"] ["0"-"7"]
             )
           )
       )*
@@ -162,7 +161,7 @@ TOKEN :
   >
 | < FLOAT : (["0"-"9"])+("."(["0"-"9"])+)* >
 | < COLOR :
-      ( "#"(["0"-"9"]) {6}
+      ( "#"(["0"-"9","A"-"F"]) {6}
       | "red"
       | "blue"
       | "yellow"
@@ -172,7 +171,7 @@ TOKEN :
       )
   >
 | < BOOLEAN : "true" | "false" >
-| < IDENTIFIER : (["a"-"z","A"-"Z"])+ (["0"-"9"])* >
+| < IDENTIFIER : (["a"-"z","A"-"Z","_","."])+ (["0"-"9"])* >
 }
 
 
@@ -182,7 +181,6 @@ SimpleNode Program() :
   (    (         Command()
       |  LOOKAHEAD(2) Assingment()
 	  |  LOOKAHEAD(2) Exchange()
-      |  LOOKAHEAD(3) Operation()
       |  Call()
       |  IfStatement()
       |  LoopStatement()
@@ -190,6 +188,7 @@ SimpleNode Program() :
       |  ForStatement()
     ) (";")?
   )*
+  < EOF >
   {
 	return jjtThis;
   }
@@ -251,7 +250,6 @@ void Block() :
        Command()
     |  LOOKAHEAD(2) Assingment()
     |  LOOKAHEAD(2) Exchange() 
-    |  LOOKAHEAD(3) Operation()
     |  Call()
     |  Break()
     |  Next()
@@ -264,21 +262,21 @@ void Block() :
 }
 
 void Break() :
-{}
+{ Token t = null; }
 {
-  < BREAK >
+  t = < BREAK > { jjtThis.jjtSetValue(t); }
 }
 
 void Next() :
-{}
+{ Token t = null;}
 {
-  < NEXT >
+  t = < NEXT > { jjtThis.jjtSetValue(t); }
 }
 
 void Assingment() :
-{}
+{ Token t = null; }
 {
-  Identifier() < ASSIGN > Operation()
+  t = < IDENTIFIER >  < ASSIGN > Operation() { jjtThis.jjtSetValue(t); }
 }
 
 void Exchange() :
@@ -293,19 +291,19 @@ void Operation() :
   OrOp() 
 }
 
-void OrOp() :
+void OrOp() #OrOp(>1) :
 {}
 {
   AndOp() ( < OR > AndOp() )*
 }
 
-void AndOp() :
+void AndOp() #AndOp(>1) :
 {}
 {
   NotOp() ( < AND > NotOp() )*
 }
 
-void NotOp() :
+void NotOp() #NotOp(>1) :
 { Token t = null; }
 {
   ( Not() )* CompOp()
@@ -317,7 +315,7 @@ void Not() :
   t = < NOT > { jjtThis.jjtSetValue(t); }
 }
 
-void CompOp() :
+void CompOp() #CompOp(>1):
 {}
 {
   AddMnsOp() ( Comp() AddMnsOp() )?
@@ -334,7 +332,7 @@ void Comp() :
 | t = < NEQ > { jjtThis.jjtSetValue(t); }
 }
 
-void AddMnsOp() :
+void AddMnsOp() #AddMnsOp(>1):
 {}
 {
   ( AddMns() )? MulDivOp() ( AddMns() MulDivOp() )*
@@ -348,7 +346,7 @@ void AddMns() :
 }
 
 
-void MulDivOp() :
+void MulDivOp() #MulDivOp(>1):
 {}
 {
   ModPowOp() ( MulDiv() ModPowOp() )*
@@ -361,7 +359,7 @@ void MulDiv() :
 | t = < SLASH > { jjtThis.jjtSetValue(t); }
 }
 
-void ModPowOp() :
+void ModPowOp() #ModPowOp(>1):
 {}
 {
   Expression() ( ModPow() Expression())*
@@ -377,7 +375,8 @@ void ModPow() :
 void Expression() :
 {}
 {
-  LOOKAHEAD(3) Block()
+  LOOKAHEAD(2) ListHashFactor()
+| LOOKAHEAD(3) Block()
 | LOOKAHEAD(2) Identifier()
 | Float()
 | String()
@@ -385,7 +384,6 @@ void Expression() :
 | Boolean()
 | List()
 | Hash()
-| ListHashFactor()
 | Function()
 | "(" Operation() ")"
 }
@@ -413,7 +411,7 @@ void Hash() :
 void ListHashFactor() :
 {}
 {
-  Identifier() "[" Operation() "]"
+  Identifier() ( "[" Operation() "]" )+
 }
 
 void Identifier() :

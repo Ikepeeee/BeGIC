@@ -1,5 +1,7 @@
 package jp.tolz.begic.prototype.interpreter.values;
 
+import java.io.Serializable;
+
 import jp.tolz.begic.prototype.interpreter.values.base.IBValue;
 
 /**
@@ -8,7 +10,7 @@ import jp.tolz.begic.prototype.interpreter.values.base.IBValue;
  *
  * @param <T>
  */
-public abstract class BValue<T> implements IBValue {
+public abstract class BValue<T> implements IBValue, Serializable {
 	public static final int BVALUE = 1000;
 	public static final int BBLOCK = 1001;
 	public static final int BBOOLEAN = 1002;

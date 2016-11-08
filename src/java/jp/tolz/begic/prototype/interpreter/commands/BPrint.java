@@ -14,12 +14,13 @@ class BPrint extends BCommand {
 
 	public BPrint() {
 		super();
-		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
 	@Override
 	public void exec(BArgs args) {
-		System.out.print(args);
+		for(int i = 0; i < args.size(); i++){
+			System.out.print(args.get(i));
+		}
 	}
 
 }

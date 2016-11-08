@@ -1,7 +1,12 @@
 package jp.tolz.begic.prototype.interpreter.process;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jp.tolz.begic.prototype.interpreter.commands.BCommandFactory;
 import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
 import jp.tolz.begic.prototype.interpreter.exception.BegicRunTimeException;
+import jp.tolz.begic.prototype.interpreter.functions.BFunction;
 import jp.tolz.begic.prototype.interpreter.functions.BFunctionFactory;
 import jp.tolz.begic.prototype.interpreter.namespace.NameSpace;
 import jp.tolz.begic.prototype.interpreter.parser.ASTAddMns;
@@ -42,8 +47,10 @@ import jp.tolz.begic.prototype.interpreter.parser.ASTString;
 import jp.tolz.begic.prototype.interpreter.parser.ASTWhileStatement;
 import jp.tolz.begic.prototype.interpreter.parser.BegicParser;
 import jp.tolz.begic.prototype.interpreter.parser.BegicParserVisitor;
+import jp.tolz.begic.prototype.interpreter.parser.Node;
 import jp.tolz.begic.prototype.interpreter.parser.SimpleNode;
 import jp.tolz.begic.prototype.interpreter.parser.Token;
+import jp.tolz.begic.prototype.interpreter.values.BBlock;
 import jp.tolz.begic.prototype.interpreter.values.BBoolean;
 import jp.tolz.begic.prototype.interpreter.values.BColor;
 import jp.tolz.begic.prototype.interpreter.values.BFloat;
@@ -74,33 +81,44 @@ public class BegicVisitor implements BegicParserVisitor {
 	@Override
 	public Object visit(ASTIfStatement node, Object data) {
 		int num = node.jjtGetNumChildren();
-		for (int i = 0; i < num; i += 2) {
-			if (((BBoolean) node.jjtGetChild(i).jjtAccept(this, null))
-					.toString().equals("true")) {
-				node.jjtGetChild(i + 1).jjtAccept(this, data);
-				return null;
+		for (int i = 1; i < num; i += 2) {
+			if (((BBoolean) node.jjtGetChild(i - 1).jjtAccept(this, null))
+					.getValue()) {
+				return node.jjtGetChild(i).jjtAccept(this, true);
+
 			}
 		}
 		if (num % 2 == 1) {
-			node.jjtGetChild(num - 1).jjtAccept(this, data);
+			return node.jjtGetChild(num - 1).jjtAccept(this, true);
 		}
 		return null;
 	}
 
 	@Override
 	public Object visit(ASTLoopStatement node, Object data) {
-		Integer sign = BegicParser.NEXT;
-		while (sign == BegicParser.NEXT)
-			sign = (Integer) node.jjtGetChild(0).jjtAccept(this, data);
+		while (true) {
+			Token sign = (Token) node.jjtGetChild(0).jjtAccept(this, true);
+			if (sign != null) {
+				if (sign.kind == BegicParser.BREAK)
+					break;
+				else if (sign.kind == BegicParser.NEXT)
+					continue;
+			}
+		}
 		return null;
 	}
 
 	@Override
 	public Object visit(ASTWhileStatement node, Object data) {
-		while (((BBoolean) node.jjtGetChild(0)).toString().equals("true")) {
-			Integer sign = (Integer) node.jjtGetChild(1).jjtAccept(this, data);
-			if (sign == BegicParser.BREAK)
-				break;
+		while (((BBoolean) node.jjtGetChild(0).jjtAccept(this, data))
+				.toString().equals("true")) {
+			Token sign = (Token) node.jjtGetChild(1).jjtAccept(this, true);
+			if (sign != null) {
+				if (sign.kind == BegicParser.BREAK)
+					break;
+				else if (sign.kind == BegicParser.NEXT)
+					continue;
+			}
 		}
 		return null;
 	}
@@ -108,22 +126,25 @@ public class BegicVisitor implements BegicParserVisitor {
 	@Override
 	public Object visit(ASTForStatement node, Object data) {
 		Token i = (Token) node.jjtGetValue();
-		BValue<?> first = (BValue<?>) node.jjtGetChild(0);
-		BValue<?> last = (BValue<?>) node.jjtGetChild(1);
-		BValue<?> step = (BValue<?>) node.jjtGetChild(2);
+		BValue<?> first = (BValue<?>) node.jjtGetChild(0).jjtAccept(this, data);
+		BValue<?> last = (BValue<?>) node.jjtGetChild(1).jjtAccept(this, data);
+		BValue<?> step = (BValue<?>) node.jjtGetChild(2).jjtAccept(this, data);
 		try {
 			for (nameSpace.setValue(i.image, first); ((String) nameSpace
-					.getValue(i.image).lt(last).getValue()).equals("true"); nameSpace
-					.getValue(i.image).add(step)) {
-				Integer sign = (Integer) node.jjtGetChild(3).jjtAccept(this,
-						data);
-				if (sign == BegicParser.NEXT)
-					continue;
-				if (sign == BegicParser.BREAK)
-					break;
+					.getValue(i.image).neq(last).getValue().toString())
+					.equals("true"); nameSpace.setValue(i.image, nameSpace
+					.getValue(i.image).add(step))) {
+				Token sign = (Token) node.jjtGetChild(3).jjtAccept(this, true);
+				if (sign != null) {
+					if (sign.kind == BegicParser.NEXT)
+						continue;
+					if (sign.kind == BegicParser.BREAK)
+						break;
+				}
 			}
 		} catch (BegicRunTimeException e) {
 			e.printStackTrace();
+			System.exit(1);
 		}
 		return data;
 	}
@@ -132,12 +153,17 @@ public class BegicVisitor implements BegicParserVisitor {
 	public Object visit(ASTCommand node, Object data) {
 		// 引数の有無を確認。
 		int num = node.jjtGetNumChildren();
-		String command = (String) node.jjtGetValue();
-		if (num == 2) {
-			BArgs args = (BArgs) node.jjtGetChild(1).jjtAccept(this, data);
-
-		} else if (num == 1) {
-
+		String command = ((Token) node.jjtGetValue()).image;
+		try {
+			if (num == 1) {
+				BArgs args = (BArgs) node.jjtGetChild(0).jjtAccept(this, data);
+				BCommandFactory.getInstance().getCommand(command).exec(args);
+			} else if (num == 0) {
+				BCommandFactory.getInstance().getCommand(command).exec(null);
+			}
+		} catch (BegicRunTimeException e) {
+			e.printStackTrace();
+			System.exit(1);
 		}
 		return null;
 	}
@@ -149,27 +175,34 @@ public class BegicVisitor implements BegicParserVisitor {
 		for (int i = 0; i < num; i++) {
 			args[i] = (BValue<?>) node.jjtGetChild(i).jjtAccept(this, data);
 		}
-		return args;
+		return new BArgs(args);
 	}
 
 	@Override
 	public Object visit(ASTCall node, Object data) {
-		ASTBlock block = (ASTBlock) node.jjtGetChild(0).jjtAccept(this, data);
-		block.jjtAccept(this, data);
+		BBlock block = (BBlock) node.jjtGetChild(0).jjtAccept(this, false);
+		((Node) block.getValue()).jjtAccept(this, true);
 		return null;
 	}
 
 	@Override
 	public Object visit(ASTBlock node, Object data) {
-		int num = node.jjtGetNumChildren();
-		for (int i = 0; i < num; i++) {
-			Object o = node.jjtGetChild(i).jjtAccept(this, data);
-			if (o.getClass() == Token.class) {
-				if (((Token) o).kind == BegicParser.BREAK)
-					return BegicParser.BREAK;
-				if (((Token) o).kind == BegicParser.NEXT)
-					return BegicParser.NEXT;
+		// dataにより実行するかしないかを決める。
+		if ((Boolean) data) {
+			int num = node.jjtGetNumChildren();
+			for (int i = 0; i < num; i++) {
+				Object o = node.jjtGetChild(i).jjtAccept(this, data);
+				if (o != null) {
+					if (o.getClass() == Token.class) {
+						if (((Token) o).kind == BegicParser.BREAK)
+							return o;
+						if (((Token) o).kind == BegicParser.NEXT)
+							return o;
+					}
+				}
 			}
+		} else {
+			return new BBlock(node);
 		}
 		return null;
 	}
@@ -187,21 +220,20 @@ public class BegicVisitor implements BegicParserVisitor {
 	@Override
 	public Object visit(ASTAssingment node, Object data) {
 		Token t = (Token) node.jjtGetValue();
-		BValue<?> value = (BValue<?>) node.jjtGetChild(1).jjtAccept(this, data);
+		BValue<?> value = (BValue<?>) node.jjtGetChild(0)
+				.jjtAccept(this, false);
 		nameSpace.setValue(t.image, value);
 		return value;
 	}
 
 	@Override
 	public Object visit(ASTExchange node, Object data) {
-		String right = (String) ((Token) node.jjtGetChild(0).jjtAccept(this,
-				data)).image;
-		String left = (String) ((Token) node.jjtGetChild(1).jjtAccept(this,
-				data)).image;
-		IBValue rv = nameSpace.getValue(right);
-		IBValue lv = nameSpace.getValue(left);
-		nameSpace.setValue(left, rv);
-		nameSpace.setValue(right, lv);
+		BValue<?> right = (BValue<?>) node.jjtGetChild(0).jjtAccept(this, data);
+		BValue<?> left = (BValue<?>) node.jjtGetChild(1).jjtAccept(this, data);
+		String ri = nameSpace.getIdentifer(right);
+		String li = nameSpace.getIdentifer(left);
+		nameSpace.setValue(ri, left);
+		nameSpace.setValue(li, right);
 		return null;
 	}
 
@@ -220,7 +252,7 @@ public class BegicVisitor implements BegicParserVisitor {
 			}
 		} catch (BegicRunTimeException e) {
 			e.printStackTrace();
-			System.exit(0);
+			System.exit(1);
 		}
 		return v;
 	}
@@ -235,7 +267,7 @@ public class BegicVisitor implements BegicParserVisitor {
 			}
 		} catch (BegicRunTimeException e) {
 			e.printStackTrace();
-			System.exit(0);
+			System.exit(1);
 		}
 		return v;
 	}
@@ -251,7 +283,7 @@ public class BegicVisitor implements BegicParserVisitor {
 			}
 		} catch (BegicRunTimeException e) {
 			e.printStackTrace();
-			System.exit(0);
+			System.exit(1);
 		}
 		return v;
 	}
@@ -286,7 +318,7 @@ public class BegicVisitor implements BegicParserVisitor {
 			}
 		} catch (BegicRunTimeException e) {
 			e.printStackTrace();
-			System.exit(0);
+			System.exit(1);
 		}
 		return v;
 	}
@@ -313,6 +345,7 @@ public class BegicVisitor implements BegicParserVisitor {
 			}
 		} catch (BegicRunTimeException e) {
 			e.printStackTrace();
+			System.exit(1);
 		}
 		return value;
 	}
@@ -339,6 +372,7 @@ public class BegicVisitor implements BegicParserVisitor {
 			}
 		} catch (BegicRunTimeException e) {
 			e.printStackTrace();
+			System.exit(1);
 		}
 		return value;
 	}
@@ -365,6 +399,7 @@ public class BegicVisitor implements BegicParserVisitor {
 			}
 		} catch (BegicRunTimeException e) {
 			e.printStackTrace();
+			System.exit(1);
 		}
 		return value;
 	}
@@ -401,13 +436,27 @@ public class BegicVisitor implements BegicParserVisitor {
 
 	@Override
 	public Object visit(ASTIdentifier node, Object data) {
-		return node.jjtGetValue();
+		return nameSpace.getValue(((Token) node.jjtGetValue()).image);
 	}
 
 	@Override
 	public Object visit(ASTFunction node, Object data) {
-		String func = ((Token) node.jjtGetValue()).image;
-		return BFunctionFactory.getInstance().getFunction(func);
+		int num = node.jjtGetNumChildren();
+		String funcName = ((Token) node.jjtGetValue()).image;
+		BFunction func = BFunctionFactory.getInstance().getFunction(funcName);
+		List<BValue<?>> args = new ArrayList<BValue<?>>();
+		for (int i = 1; i < num; i++) {
+			args.add((BValue<?>) node.jjtGetChild(i).jjtAccept(this, data));
+		}
+		BValue<?> ret = null;
+		try {
+			ret = func
+					.calc(new BArgs(args.toArray(new BValue<?>[args.size()])));
+		} catch (BegicRunTimeException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+		return ret;
 	}
 
 	@Override
@@ -434,42 +483,50 @@ public class BegicVisitor implements BegicParserVisitor {
 								null));
 			} catch (BegicRunTimeException e) {
 				e.printStackTrace();
-				System.exit(0);
+				System.exit(1);
 			}
 		}
-		return data;
+		return hash;
 	}
 
 	@Override
 	public Object visit(ASTListHashFactor node, Object data) {
-		IBCollection col = (IBCollection) node.jjtGetChild(1).jjtAccept(this,
+		int num = node.jjtGetNumChildren();
+
+		IBCollection col = (IBCollection) node.jjtGetChild(0).jjtAccept(this,
 				data);
-		BValue<?> key = (BValue<?>) node.jjtGetChild(1).jjtAccept(this, data);
 		BValue<?> val = null;
-		try {
-			val = col.get(key);
-		} catch (BegicRunTimeException e) {
-			e.printStackTrace();
-			System.exit(0);
+		for (int i = 1; i < num; i++) {
+			BValue<?> key = (BValue<?>) node.jjtGetChild(i).jjtAccept(this,
+					data);
+
+			try {
+				val = col.get(key);
+			} catch (BegicRunTimeException e) {
+				e.printStackTrace();
+				System.exit(0);
+			}
+			if (i < num - 1)
+				col = (IBCollection) val;
 		}
 		return val;
 	}
 
 	@Override
 	public Object visit(ASTFloat node, Object data) {
-		return new BFloat((String) node.jjtGetValue());
+		return new BFloat((((Token) node.jjtGetValue()).image));
 	}
 
 	@Override
 	public Object visit(ASTString node, Object data) {
-		return new BString((String) node.jjtGetValue());
+		return new BString(((Token) node.jjtGetValue()).image);
 	}
 
 	@Override
 	public Object visit(ASTBoolean node, Object data) {
 		BValue<?> value = null;
 		try {
-			value = new BBoolean((String) node.jjtGetValue());
+			value = new BBoolean(((Token) node.jjtGetValue()).image);
 		} catch (BegicRunTimeException e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -479,7 +536,7 @@ public class BegicVisitor implements BegicParserVisitor {
 
 	@Override
 	public Object visit(ASTColor node, Object data) {
-		return new BColor((String) node.jjtGetValue());
+		return new BColor(((Token) node.jjtGetValue()).image);
 	}
 
 	// 通常は使われない。

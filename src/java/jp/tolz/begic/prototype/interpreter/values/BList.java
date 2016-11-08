@@ -71,7 +71,8 @@ public class BList extends BValue<ArrayList<BValue>> implements IBCollection {
 	public BValue get(BValue i) throws BegicRunTimeException {
 		if(i.type() != BFLOAT)
 			throw new BegicRunTimeException();
-		return this.get(Integer.valueOf(i.toString()));
+		System.out.println(value);
+		return this.value.get(Integer.valueOf(i.toString()));
 	}
 	
 	@Override
@@ -164,11 +165,14 @@ public class BList extends BValue<ArrayList<BValue>> implements IBCollection {
 	public BValue add(BValue other) throws BegicRunTimeException {
 		if (other.type() != BLIST)
 			throw new BegicRunTimeException();
-		BList newBList = new BList(this.value.toArray(new BValue[this.value
-				.size()]));
-		newBList.push((((ArrayList<BValue>) other.value)
-				.toArray(new BValue[((ArrayList<BValue>) other.value).size()])));
-		return newBList;
+		if (this.value.size() != ((BList) other).value.size())
+			throw new BegicRunTimeException("定義されない配列の演算です。");
+		int size = this.value.size();
+		BList newlist = new BList();
+		for(int i = 0; i < size; i++){
+			newlist.push(null, this.get(i).add(((BList) other).get(i)));
+		}
+		return newlist;
 	}
 
 	@Override
@@ -178,7 +182,16 @@ public class BList extends BValue<ArrayList<BValue>> implements IBCollection {
 
 	@Override
 	public BValue mul(BValue other) throws BegicRunTimeException {
-		throw new BegicRunTimeException();
+		if (other.type() != BLIST)
+			throw new BegicRunTimeException();
+		if (this.value.size() != ((BList) other).value.size())
+			throw new BegicRunTimeException("定義されない配列の演算です。");
+		int size = this.value.size();
+		BList newlist = new BList();
+		for(int i = 0; i < size; i++){
+			newlist.push(null, this.get(i).mul(((BList) other).get(i)));
+		}
+		return newlist;
 	}
 
 	@Override

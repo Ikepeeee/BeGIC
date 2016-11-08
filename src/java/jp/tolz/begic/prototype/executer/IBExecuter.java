@@ -1,5 +1,7 @@
 package jp.tolz.begic.prototype.executer;
 
+import java.io.InputStream;
+
 import jp.tolz.begic.prototype.interpreter.canvas.BCanvas;
 
 /**
@@ -9,12 +11,11 @@ import jp.tolz.begic.prototype.interpreter.canvas.BCanvas;
  *
  */
 public class IBExecuter implements Executer {
-	private static BCanvas canvas = new BCanvas();
-	
-	@Override
-	public void exec(String code) {
-		// TODO 自動生成されたメソッド・スタブ
 
+	@Override
+	public void exec(InputStream code) {
+		// TODO 自動生成されたメソッド・スタブ
+		
 	}
 
 }

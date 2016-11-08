@@ -1,11 +1,11 @@
 package jp.tolz.begic.prototype.interpreter;
 
-import java.awt.Color;
-import java.awt.Frame;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
-import jp.tolz.begic.prototype.interpreter.canvas.BCanvas;
-import jp.tolz.begic.prototype.interpreter.commands.BCommand;
-import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
+import jp.tolz.begic.prototype.executer.BExecuter;
 
 /**
  * ファイルから実行用のクラスです。 ソースファイルを読み込みます。
@@ -16,20 +16,26 @@ import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
 public class Begic {
 
 	public static void main(String[] args) {
-		new Begic();
+
+		switch (args[0]) {
+		case "-v":
+		case "--version":
+			System.out.println("BeGIC 0.0.0 (2016/11/01) [jdk1.8.0_91]");
+			System.exit(0);
+			break;
+		}
+		String path = args[0];
+		try {
+			new Begic(path);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
-	public Begic() {
-		BCanvas bcanvas = new BCanvas();
-
-		Frame frame = new Frame();// Frameを作成
-		frame.add(bcanvas);
-		bcanvas.setSize(100, 100);
-		frame.setSize(bcanvas.getWidth(), bcanvas.getHeight());
-		//frame.setSize(240, 240);// サイズを指定
-		frame.setVisible(true);// 表示
-
-		bcanvas.repaint();
+	public Begic(String path) throws FileNotFoundException {
+		InputStream code = new FileInputStream(new File(path));
+		BExecuter exe = new BExecuter();
+		exe.exec(code);
 	}
 
 }

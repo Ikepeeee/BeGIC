@@ -6,13 +6,14 @@ import java.util.LinkedHashMap;
 import jp.tolz.begic.prototype.interpreter.exception.BegicRunTimeException;
 import jp.tolz.begic.prototype.interpreter.values.base.IBCollection;
 
-public class BHash extends BValue<LinkedHashMap<BValue, BValue>> implements IBCollection {
+public class BHash extends BValue<LinkedHashMap<BValue, BValue>> implements
+		IBCollection {
 
 	public BHash() {
 		setValue(new LinkedHashMap<BValue, BValue>());
 	}
 
-	public BHash(BValue[] keys ,BValue[] values) throws BegicRunTimeException {
+	public BHash(BValue[] keys, BValue[] values) throws BegicRunTimeException {
 		setValue(new LinkedHashMap<BValue, BValue>());
 		this.push(keys, values);
 	}
@@ -48,10 +49,10 @@ public class BHash extends BValue<LinkedHashMap<BValue, BValue>> implements IBCo
 			return new BBoolean("false");
 		if (this.value.size() != (((BHash) other).value.size()))
 			return new BBoolean("false");
-		
+
 		for (BValue<?> key : this.value.keySet()) {
-			if (((String) this.value.get(key).neq(((BHash) other).value.get(key)).value)
-					.equals("false"))
+			if (((String) this.value.get(key).neq(
+					((BHash) other).value.get(key)).value).equals("false"))
 				return new BBoolean("false");
 		}
 		return new BBoolean("true");
@@ -63,10 +64,10 @@ public class BHash extends BValue<LinkedHashMap<BValue, BValue>> implements IBCo
 			return new BBoolean("true");
 		if (this.value.size() != (((BHash) other).value.size()))
 			return new BBoolean("true");
-		
+
 		for (BValue<?> key : this.value.keySet()) {
-			if (((String) this.value.get(key).neq(((BHash) other).value.get(key)).value)
-					.equals("true"))
+			if (((String) this.value.get(key).neq(
+					((BHash) other).value.get(key)).value).equals("true"))
 				return new BBoolean("true");
 		}
 		return new BBoolean("false");
@@ -95,7 +96,7 @@ public class BHash extends BValue<LinkedHashMap<BValue, BValue>> implements IBCo
 	// 未実装!!
 	@Override
 	public BValue add(BValue other) throws BegicRunTimeException {
-		if(other.type() != BValue.BHASH)
+		if (other.type() != BValue.BHASH)
 			throw new BegicRunTimeException();
 		return null;
 	}
@@ -130,12 +131,11 @@ public class BHash extends BValue<LinkedHashMap<BValue, BValue>> implements IBCo
 		throw new BegicRunTimeException();
 	}
 
-	
-
 	@Override
 	public BValue pop() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		BValue<?> t = value.get(value.keySet().toArray()[value.size() - 1]);
+		value.remove(value.keySet().toArray()[value.size() - 1]);
+		return t;
 	}
 
 	@Override
@@ -146,27 +146,29 @@ public class BHash extends BValue<LinkedHashMap<BValue, BValue>> implements IBCo
 
 	@Override
 	public BValue last() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		return value.get(value.keySet().toArray()[value.size() - 1]);
 	}
 
 	@Override
 	public BValue first() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		if (value.size() > 0)
+			return value.get(value.keySet().toArray()[0]);
+		else
+			return null;
 	}
 
 	@Override
 	public BValue push(BValue key, BValue value) throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		this.value.put(key, value);
+		return value;
 	}
-	
-	public void push(BValue[] keys, BValue[] values) throws BegicRunTimeException {
-		if(keys.length != values.length)
+
+	public void push(BValue[] keys, BValue[] values)
+			throws BegicRunTimeException {
+		if (keys.length != values.length)
 			throw new BegicRunTimeException();
 		int size = keys.length;
-		for(int i = 0; i < size; i++){
+		for (int i = 0; i < size; i++) {
 			push(keys[i], values[i]);
 		}
 	}
@@ -177,19 +179,23 @@ public class BHash extends BValue<LinkedHashMap<BValue, BValue>> implements IBCo
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
-	
-	public void unshift(BValue[] keys, BValue[] values) throws BegicRunTimeException{
-		if(keys.length != values.length)
+
+	public void unshift(BValue[] keys, BValue[] values)
+			throws BegicRunTimeException {
+		if (keys.length != values.length)
 			throw new BegicRunTimeException();
 		int size = keys.length;
-		for(int i = 0; i < size; i++){
+		for (int i = 0; i < size; i++) {
 			unshift(keys[i], values[i]);
 		}
 	}
 
 	@Override
 	public BValue get(BValue key) throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
+		for (BValue k : value.keySet()) {
+			if (((BBoolean) k.eq(key)).value)
+				return value.get(k);
+		}
 		return null;
 	}
 
@@ -204,6 +210,5 @@ public class BHash extends BValue<LinkedHashMap<BValue, BValue>> implements IBCo
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
-
 
 }

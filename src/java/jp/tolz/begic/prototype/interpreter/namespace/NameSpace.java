@@ -1,5 +1,10 @@
 package jp.tolz.begic.prototype.interpreter.namespace;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
 import jp.tolz.begic.prototype.interpreter.values.base.IBValue;
@@ -22,12 +27,50 @@ public class NameSpace {
 		return values.get(identifier);
 	}
 	
+	/**
+	 * 値から識別子を取得します。値はIBValue::eqではなく、Javaのアドレスが一致したときです。
+	 * @param value
+	 * @return 該当の識別子の文字列。見つからない場合はnull。
+	 */
+	public String getIdentifer(IBValue value){
+		for(String iden : values.keySet()){
+			if(value == values.get(iden)){
+				return iden;
+			}
+		}
+		return null;
+	}
+	
 	public void register(String identifier){
 		values.put(identifier, null);
 	}
 	
 	public void setValue(String identifier, IBValue value){
+		if(values.containsValue(value))
+			values.put(identifier, (IBValue) deepCopy(value));
 		values.put(identifier, value);
+	}
+	
+	private static Object deepCopy(Object o) {
+		Object copy = null;
+
+		try {
+			// オブジェクトを符号化し、バイト配列に書き込み
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ObjectOutputStream oos = new ObjectOutputStream(baos);
+			oos.writeObject(o);
+
+			// 符号化されたオブジェクトのデータを保持する配列を取得
+			byte[] buff = baos.toByteArray();
+			// バイト配列から、オブジェクトを複合化
+			ByteArrayInputStream bais = new ByteArrayInputStream(buff);
+			ObjectInputStream os = new ObjectInputStream(bais);
+			copy = os.readObject();
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return copy;
+
 	}
 	
 }

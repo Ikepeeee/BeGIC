@@ -10,7 +10,7 @@ import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
  *
  */
 public abstract class BCommand{
-	protected static BCanvas canvas = null;
+	public static BCanvas canvas = null;
 	
 	/**
 	 * コマンドの実行メソッド

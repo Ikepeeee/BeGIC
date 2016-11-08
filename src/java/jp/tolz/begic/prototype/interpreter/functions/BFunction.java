@@ -11,7 +11,7 @@ import jp.tolz.begic.prototype.interpreter.values.BValue;
  * @author Toru Ikeda
  *
  */
-interface BFunction {
+public interface BFunction {
 	BValue<?> calc(BArgs args) throws BegicRunTimeException;
 	public int[] argsType();
 	public int returnType();

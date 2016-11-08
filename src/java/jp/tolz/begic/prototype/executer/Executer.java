@@ -1,5 +1,7 @@
 package jp.tolz.begic.prototype.executer;
 
+import java.io.InputStream;
+
 /**
  * 実行者が実装すべきインターフェイスです。
  * コードを受け取って実行します。
@@ -7,5 +9,5 @@ package jp.tolz.begic.prototype.executer;
  *
  */
 public interface Executer {
-	public void exec(String code);
+	public void exec(InputStream code);
 }

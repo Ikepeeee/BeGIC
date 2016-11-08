@@ -1,35 +1,39 @@
 package jp.tolz.begic.prototype.interpreter.values;
 
+import java.awt.Color;
+
 import jp.tolz.begic.prototype.interpreter.exception.BegicRunTimeException;
 
+public class BColor extends BValue<Color> {
+	private Integer amount = null;
 
-public class BColor extends BValue {
-	public static BColor RED, BLUE, YELLOW, GREEN, BLACK, WHITE;
-	
 	public BColor(int r, int g, int b) {
+		setValue(new Color(r, g, b));
+	}
 
-	}
-	
-	public BColor(String color){
-		
-	}
-	
-	/**
-	 * 色の足し算を行います。
-	 * @param other 足す色
-	 * @return
-	 */
-	public BColor add(BColor other){
-		return null;
-	}
-	
-	/**
-	 * 色の引き算を行います。
-	 * @param other 引く色
-	 * @return 引いた色
-	 */
-	public BColor sub(BColor other){
-		return null;
+	public BColor(String color) {
+		// 初期の量を1とする。
+		amount = 1;
+
+		switch (color) {
+		case "red":
+			setValue(Color.RED);
+		case "blue":
+			setValue(Color.BLUE);
+		case "yellow":
+			setValue(Color.YELLOW);
+		case "green":
+			setValue(Color.GREEN);
+		case "black":
+			setValue(Color.BLACK);
+		case "white":
+			setValue(Color.WHITE);
+		default:
+			int r = Integer.parseUnsignedInt(color.substring(1, 3), 16);
+			int g = Integer.parseUnsignedInt(color.substring(2, 4), 16);
+			int b = Integer.parseUnsignedInt(color.substring(4, 6), 16);
+			setValue(new Color(r, g, b));
+		}
 	}
 
 	@Override
@@ -39,26 +43,22 @@ public class BColor extends BValue {
 
 	@Override
 	public String toString() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		return value.toString();
 	}
 
 	@Override
 	public BValue and(BValue other) throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		throw new BegicRunTimeException();
 	}
 
 	@Override
 	public BValue or(BValue other) throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		throw new BegicRunTimeException();
 	}
 
 	@Override
 	public BValue not() throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		throw new BegicRunTimeException();
 	}
 
 	@Override
@@ -75,67 +75,85 @@ public class BColor extends BValue {
 
 	@Override
 	public BValue ge(BValue other) throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		throw new BegicRunTimeException();
 	}
 
 	@Override
 	public BValue le(BValue other) throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		throw new BegicRunTimeException();
 	}
 
 	@Override
 	public BValue gt(BValue other) throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		throw new BegicRunTimeException();
 	}
 
 	@Override
 	public BValue lt(BValue other) throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		throw new BegicRunTimeException();
 	}
 
 	@Override
 	public BValue add(BValue other) throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		switch (other.type()) {
+		case BCOLOR:
+			double rate = ((double) this.amount)
+					/ (this.amount + ((BColor) other).amount);
+			int r = (int) (rate * ((double) this.value.getRed()) + ((1.0 - rate) * (double) ((BColor) other).value
+					.getRed()));
+			int g = this.value.getGreen() + ((BColor) other).value.getGreen();
+			int b = this.value.getBlue() + ((BColor) other).value.getBlue();
+			return new BColor(r, g, b);
+		default:
+			throw new BegicRunTimeException();
+		}
 	}
 
 	@Override
 	public BValue sub(BValue other) throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		if (other.type() != BCOLOR)
+			throw new BegicRunTimeException();
+		int r = this.value.getRed() - ((BColor) other).value.getRed();
+		int g = this.value.getGreen() - ((BColor) other).value.getGreen();
+		int b = this.value.getBlue() - ((BColor) other).value.getBlue();
+		return new BColor(r, g, b);
 	}
 
 	@Override
 	public BValue mul(BValue other) throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		if (other.type() != BCOLOR)
+			throw new BegicRunTimeException();
+
+		int r = this.value.getRed() * ((BColor) other).value.getRed();
+		int g = this.value.getGreen() * ((BColor) other).value.getGreen();
+		int b = this.value.getBlue() * ((BColor) other).value.getBlue();
+		return new BColor(r, g, b);
 	}
 
 	@Override
 	public BValue div(BValue other) throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		if (other.type() != BCOLOR)
+			throw new BegicRunTimeException();
+
+		int r = this.value.getRed() / ((BColor) other).value.getRed();
+		int g = this.value.getGreen() / ((BColor) other).value.getGreen();
+		int b = this.value.getBlue() / ((BColor) other).value.getBlue();
+		return new BColor(r, g, b);
 	}
 
 	@Override
 	public BValue mod(BValue other) throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		throw new BegicRunTimeException();
 	}
 
 	@Override
 	public BValue pow(BValue other) throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		throw new BegicRunTimeException();
 	}
 
 	@Override
 	public BValue abs() throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		throw new BegicRunTimeException();
 	}
+
 }

@@ -1,6 +1,4 @@
+window
 line
-box
-circle
-point
-input
 print
+puts

@@ -1,0 +1,29 @@
+/*
+ * No:					RV000001
+ * Name:				数値に関する基本的テスト1
+ * Description:			数値同士の加算(整数と小数の各組合せ)
+ * First Creator:		tolz
+ * First Create Date:	2016/11/12
+ * Last Updater:		
+ * Last Update Date:
+*/
+
+a = 8
+b = 12
+puts "a = 8, b = 12"
+print "a + b = ", a + b, "\n"
+
+a = 8.0
+b = 12.00
+puts "a = 8.0, b = 12.00"
+print "a + b = ", a + b, "\n"
+
+a = 1
+b = 0.000000000000000000000000000001
+puts "a = 1, b = 0.000000000000000000000000000001"
+print "a + b = ", a + b, "\n"
+
+a = 1
+b = 99999999999999999999999999999999
+puts "a = 1, b = 99999999999999999999999999999999"
+print "a + b = ", a + b, "\n"

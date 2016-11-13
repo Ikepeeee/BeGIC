@@ -1,0 +1,14 @@
+/*
+ * No:					RS000002
+ * Name:				if文に関する基本的テスト2
+ * Description:			falseなら内部の処理が実行されない
+ * First Creator:		tolz
+ * First Create Date:	2016/11/07
+ * Last Updater:		
+ * Last Update Date:
+*/
+
+if true {
+	puts "S000002"
+}
+puts "S000002が表示されていないこと"

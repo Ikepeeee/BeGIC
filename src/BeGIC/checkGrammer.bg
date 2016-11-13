@@ -4,14 +4,15 @@
  * Description   : BeGICの文法受理テストです。
 */
 
-line(1)-(3)
+sin(3)
+
+line(1),(3)
 a=-1+2
+a=1+2;
 blue
 #000000
 do end
-line(1,2,3)-(-10,20)
-
-
+line(1,2,3),(-10,20)
 
 if 1 do end
 if true do end
@@ -47,6 +48,10 @@ loop do end
 
 a = []
 a = a + [1,2,3]
+a[0] // # 1
+
+hash = {"dog" : "わんわん", "cat" : "にゃー"} 
+hash["dog"] // # "わんわん"
 
 gcd = {
 	if a < b do a = b end

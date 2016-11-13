@@ -1,0 +1,89 @@
+// 演算に関するテスト用コード
+
+// 実数の演算
+// 単純な演算
+a = 12.0000
+b = 7.000
+puts a + b
+puts a - b
+puts a * b
+puts a / b
+puts a ^ b
+puts a mod b
+
+// 桁あふれしないこと
+a = 10000000000000000000000000
+b = 20
+puts a^b
+
+// 情報落ちしないこと
+a = 0.000000000000000000000000009
+b = 1
+puts a + b
+
+// 文字列
+a = "BeGIC" * 3
+puts a
+a = a + "BeGIC!!!"
+puts a
+a = 3 * "BeGIC"
+puts a
+
+// ハッシュ
+hash = {"猫":"にゃーにゃー", "犬":"わんわん"}
+puts hash
+puts hash["猫"]
+// hash["猫"] = "ニャーニャー"
+puts hash
+
+// リスト
+list = [4,2,3,1]
+puts list[0]
+list = list + list
+puts list
+list = list * list
+puts list
+
+// 2次元リスト
+list = [[1,2],[3,4]]
+puts list[1][0]
+
+// ブロックの代入と演算
+a = { puts "ブロック1" }
+b = { puts "ブロック2" }
+call a + b * 3
+
+// ブロックの多重呼び出し(Multiple Call)
+i = 0
+a = {
+	if i < 10 {
+		print i
+		i = i + 1
+		call a
+	} else {
+		puts "end"
+	}
+}
+
+call a
+
+// ユークリッド互除法
+gcd = {
+	if gcd.a < gcd.b do
+		gcd.a <-> gcd.b
+	end
+	if(gcd.b == 0)do
+		gcd.ans = gcd.a
+		break
+	end
+	tmp.a = gcd.a tmp.b = gcd.b
+	gcd.a = tmp.b
+	gcd.b = tmp.a mod tmp.b
+	call gcd
+}
+
+gcd.a = 16
+gcd.b = 24
+call gcd
+puts gcd.ans
+

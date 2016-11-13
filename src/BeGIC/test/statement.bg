@@ -1,0 +1,168 @@
+// 制御構文のテスト用コード
+
+// 1. if文(最も単純なif文に関するテスト1)
+if true {
+	puts "1.if"
+}
+puts "1.ifが表示されていること"
+
+// 2. if文(最も単純なあif文に関するテスト2)
+if false {
+	puts "2.if"
+}
+puts "2.ifが表示されていないこと"
+
+// 3. if文(条件式を含む)
+if 2 == 1 + 1 do
+	puts "3.if"
+end
+puts "3.ifが表示されること"
+
+// 4. if文(elseを伴う)
+if true {
+	puts "4.if:if"
+} else {
+	puts "4.if:else"
+}
+puts "4.if:ifが表示されること"
+
+// 5. if文(elseを伴う)
+if false {
+	puts "5.if:if"
+} else {
+	puts "5.if:else"
+}
+puts "5.if:elseが表示されること"
+
+// 6. if文(elsifを伴う)
+if true {
+	puts "6.if:if"
+} elsif true {
+	puts "6.if:elsif"
+}
+puts "6.if:ifが表示され,6.if:elsifが表示されないこと"
+
+// 7. if文(elsifを伴う)
+if false {
+	puts "7.if:if"
+} elsif true {
+	puts "7.if:elsif"
+}
+puts "7.if:elsifが表示され,7if:ifが表示されないこと"
+
+// 8. if文(elsifを伴う)
+if false {
+	puts "8.if:if"
+} elsif false {
+	puts "8.if:elsif"
+}
+puts "8.*が表示されないこと"
+
+// 9. if文(入れ子)
+if true {
+	if true {
+		puts "9.if"
+	}
+}
+puts "9.ifが表示されること"
+
+// 10. while文
+i = 0
+while i < 10 do
+	print i
+	i = i + 1
+end
+puts "","0123456789と表示されること"
+
+// 11. while文(break)
+while true {
+	puts "11.while"
+	break
+}
+puts "11.whileが1度表示されること"
+
+// 12. while文(if文を含む)
+while true {
+	puts "12.while"
+	if true { break }
+	puts "12.while:after"
+}
+puts "12.whileが一度表示され、12.while:afterが表示されないこと"
+
+// 13. while文(多重if文)
+while true {
+	puts "13.while"
+	if true { if true { break } }
+	puts "13.while:after"
+}
+puts "13.whileが1度だけ表示され、13.while:afterが表示されないこと"
+
+// 14. while文(nextを含む)
+i = 0
+while i <= 9 {
+	if i < 5 do
+		i = i + 1
+		next
+	end
+	print i
+	i = i + 1
+}
+puts "","56789と表示されること"
+
+// 15. for文
+for i = 0 to 9 step 1 {
+	print i
+}
+puts "","0123456789と表示されること"
+
+// 16. for文(break)
+for i = 0 to 9 step 1 {
+	print i 
+	break
+}
+puts "","0と表示されること"
+
+// 17. for文(next)
+for i = 0 to 9 step 1 {
+	print i 
+	next
+	print i
+}
+puts "","0123456789と表示されること"
+
+// 18. for文(ifを含む)
+for i = 0 to 9 step 1 {
+	if i < 5 do
+		next
+	end
+	print i
+}
+puts "","56789と表示されること"
+
+// 19. loop文
+loop {
+	puts "19.loop"
+	break
+}
+puts "19.loopが表示されること"
+
+// 20. loop文(ifを含む)
+loop {
+	puts "20.loop"
+	if true { break }
+	puts "20.loop:after"
+}
+puts "20.loopが表示され、20.loop:afterが表示されないこと"
+
+// 21. loop文(next)
+i = 0
+loop {
+	print i
+	if i < 10 do
+		i = i + 1
+		next
+	end
+	break
+	print i 
+}
+puts "","012345678910と表示されること"

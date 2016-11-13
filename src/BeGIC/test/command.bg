@@ -1,0 +1,5 @@
+window 500,500
+p = [250, 50]
+for x = 50 to 450 step 10 do
+	line(p[0], p[1]),(x, 450)
+end

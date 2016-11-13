@@ -71,7 +71,6 @@ public class BList extends BValue<ArrayList<BValue>> implements IBCollection {
 	public BValue get(BValue i) throws BegicRunTimeException {
 		if(i.type() != BFLOAT)
 			throw new BegicRunTimeException();
-		System.out.println(value);
 		return this.value.get(Integer.valueOf(i.toString()));
 	}
 	

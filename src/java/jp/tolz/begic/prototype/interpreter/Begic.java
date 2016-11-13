@@ -14,21 +14,30 @@ import jp.tolz.begic.prototype.executer.BExecuter;
  *
  */
 public class Begic {
+	private static final String releaseDate = "2016/11/13";
+	private static final String version = "0.0.0";
+	private static final String buildBy = "jdk1.8.0_91";
+	private static final String name = "BeGIC";
 
 	public static void main(String[] args) {
 
-		switch (args[0]) {
-		case "-v":
-		case "--version":
-			System.out.println("BeGIC 0.0.0 (2016/11/01) [jdk1.8.0_91]");
-			System.exit(0);
-			break;
-		}
-		String path = args[0];
-		try {
-			new Begic(path);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		if (args[0].matches("-.*")) {
+			switch (args[0]) {
+			case "-v":
+			case "--version":
+				System.out.println(version());
+				System.exit(0);
+				break;
+			default:
+				System.out.println("Unrecognized option: " + args[0]);
+				break;
+			}
+		} else {
+			try {
+				new Begic(args[0]);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -36,6 +45,10 @@ public class Begic {
 		InputStream code = new FileInputStream(new File(path));
 		BExecuter exe = new BExecuter();
 		exe.exec(code);
+	}
+	
+	public static String version(){
+		return name + " version " + version + " (" + releaseDate + ") [" + buildBy + "]";
 	}
 
 }

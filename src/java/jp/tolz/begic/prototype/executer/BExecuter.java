@@ -17,7 +17,7 @@ public class BExecuter implements Executer {
 	@Override
 	public void exec(InputStream code) {
 		JFrame frame = new JFrame("BeGIC Canvas");
-		BCanvas canvas = new BCanvas(code);
+		BCanvas canvas = new BCanvas(frame, code);
 		frame.add(canvas);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(300, 250);

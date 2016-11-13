@@ -56,6 +56,10 @@ public class BCommandFactory {
 			if (!commands.containsKey("line"))
 				commands.put("line", new BLine());
 			return commands.get("line");
+		case "window":
+			if (!commands.containsKey("window"))
+				commands.put("window", new BWindow());
+			return commands.get("window");
 		default:
 			break;
 		}

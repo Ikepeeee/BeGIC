@@ -1,5 +1,9 @@
 package jp.tolz.begic.prototype.interpreter.commands;
 
+import java.awt.Graphics;
+
+import javax.swing.JFrame;
+
 import jp.tolz.begic.prototype.interpreter.canvas.BCanvas;
 import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
 
@@ -10,7 +14,15 @@ import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
  *
  */
 public abstract class BCommand{
-	public static BCanvas canvas = null;
+	protected static JFrame frame = null;
+	protected static BCanvas canvas = null;
+	protected static Graphics g = null;
+	
+	public static void set(JFrame frame, BCanvas canvas, Graphics g){
+		BCommand.frame = frame;
+		BCommand.canvas = canvas;
+		BCommand.g = g;
+	}
 	
 	/**
 	 * コマンドの実行メソッド

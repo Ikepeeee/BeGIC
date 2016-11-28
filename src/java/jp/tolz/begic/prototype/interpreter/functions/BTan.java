@@ -7,18 +7,18 @@ import jp.tolz.begic.prototype.interpreter.exception.BegicRunTimeException;
 import jp.tolz.begic.prototype.interpreter.values.BFloat;
 import jp.tolz.begic.prototype.interpreter.values.BValue;
 
-class BCos implements BFunction {
+public class BTan implements BFunction {
 
 	private int[] types = new int[] { BValue.BFLOAT };
 
 	@Override
 	public BValue<?> calc(BArgs args) throws BegicRunTimeException {
 		if (args.size() != types.length) 
-			throw new BegicRunTimeException("cosの引数の数が不正です。");
+			throw new BegicRunTimeException("tanの引数の数が不正です。");
 		if (args.get(0).type() != types[0])
-			throw new BegicRunTimeException("cosの引数の型が不正です。");
+			throw new BegicRunTimeException("tanの引数の型が不正です。");
 		BigDecimal arg = (BigDecimal) args.get(0).getValue();
-		return new BFloat(new BigDecimal(Math.cos(arg.doubleValue())));
+		return new BFloat(new BigDecimal(Math.tan(arg.doubleValue())));
 	}
 
 	@Override

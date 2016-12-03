@@ -2,7 +2,6 @@ package jp.tolz.begic.prototype.executer;
 
 import java.io.InputStream;
 
-import jp.tolz.begic.prototype.interpreter.canvas.BCanvas;
 
 /**
  * BeGICé¿çsé“Ç≈Ç∑ÅB

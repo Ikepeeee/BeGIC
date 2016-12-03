@@ -13,7 +13,7 @@ import jp.tolz.begic.prototype.interpreter.parser.ASTAddMns;
 import jp.tolz.begic.prototype.interpreter.parser.ASTAddMnsOp;
 import jp.tolz.begic.prototype.interpreter.parser.ASTAndOp;
 import jp.tolz.begic.prototype.interpreter.parser.ASTArgs;
-import jp.tolz.begic.prototype.interpreter.parser.ASTAssingment;
+import jp.tolz.begic.prototype.interpreter.parser.ASTAssignment;
 import jp.tolz.begic.prototype.interpreter.parser.ASTBlock;
 import jp.tolz.begic.prototype.interpreter.parser.ASTBoolean;
 import jp.tolz.begic.prototype.interpreter.parser.ASTBreak;
@@ -22,6 +22,8 @@ import jp.tolz.begic.prototype.interpreter.parser.ASTColor;
 import jp.tolz.begic.prototype.interpreter.parser.ASTCommand;
 import jp.tolz.begic.prototype.interpreter.parser.ASTComp;
 import jp.tolz.begic.prototype.interpreter.parser.ASTCompOp;
+import jp.tolz.begic.prototype.interpreter.parser.ASTConstantAssignment;
+//import jp.tolz.begic.prototype.interpreter.parser.ASTEnpty;
 import jp.tolz.begic.prototype.interpreter.parser.ASTExchange;
 import jp.tolz.begic.prototype.interpreter.parser.ASTExpression;
 import jp.tolz.begic.prototype.interpreter.parser.ASTFloat;
@@ -53,13 +55,13 @@ import jp.tolz.begic.prototype.interpreter.parser.Token;
 import jp.tolz.begic.prototype.interpreter.values.BBlock;
 import jp.tolz.begic.prototype.interpreter.values.BBoolean;
 import jp.tolz.begic.prototype.interpreter.values.BColor;
+import jp.tolz.begic.prototype.interpreter.values.BEnpty;
 import jp.tolz.begic.prototype.interpreter.values.BFloat;
 import jp.tolz.begic.prototype.interpreter.values.BHash;
 import jp.tolz.begic.prototype.interpreter.values.BList;
 import jp.tolz.begic.prototype.interpreter.values.BString;
 import jp.tolz.begic.prototype.interpreter.values.BValue;
 import jp.tolz.begic.prototype.interpreter.values.base.IBCollection;
-import jp.tolz.begic.prototype.interpreter.values.base.IBValue;
 
 /**
  * 
@@ -218,12 +220,38 @@ public class BegicVisitor implements BegicParserVisitor {
 	}
 
 	@Override
-	public Object visit(ASTAssingment node, Object data) {
-		Token t = (Token) node.jjtGetValue();
-		BValue<?> value = (BValue<?>) node.jjtGetChild(0)
-				.jjtAccept(this, false);
-		nameSpace.setValue(t.image, value);
+	public Object visit(ASTAssignment node, Object data) {
+		int num = node.jjtGetNumChildren();
+		Token t = (Token) ((ASTIdentifier) node.jjtGetChild(0)).jjtGetValue();
+		BValue<?> value = (BValue<?>) node.jjtGetChild(num - 1).jjtAccept(this,
+				false);
+
+		if (num == 2) {
+			// 変数に代入。
+			nameSpace.setValue(t.image, value);
+		} else {
+			// 添え字付きコレクションに代入。
+			try {
+				IBCollection col = (IBCollection) nameSpace.getValue(t.image);
+				for (int i = 1; i < num - 2; i++) {
+					col = (IBCollection) col.get((BValue<?>) node.jjtGetChild(
+							i).jjtAccept(this, false));
+				}
+				col.set((BValue<?>) node.jjtGetChild(num - 2).jjtAccept(this,
+						false), value);
+			} catch (BegicRunTimeException e) {
+				e.printStackTrace();
+				System.exit(1);
+			}
+		}
+
 		return value;
+	}
+
+	@Override
+	public Object visit(ASTConstantAssignment node, Object data) {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 
 	@Override
@@ -445,7 +473,7 @@ public class BegicVisitor implements BegicParserVisitor {
 		String funcName = ((Token) node.jjtGetValue()).image;
 		BFunction func = BFunctionFactory.getInstance().getFunction(funcName);
 		List<BValue<?>> args = new ArrayList<BValue<?>>();
-		for (int i = 1; i < num; i++) {
+		for (int i = 0; i < num; i++) {
 			args.add((BValue<?>) node.jjtGetChild(i).jjtAccept(this, data));
 		}
 		BValue<?> ret = null;
@@ -533,6 +561,11 @@ public class BegicVisitor implements BegicParserVisitor {
 		}
 		return value;
 	}
+
+//	@Override
+//	public Object visit(ASTEnpty node, Object data) {
+//		return new BEnpty();
+//	}
 
 	@Override
 	public Object visit(ASTColor node, Object data) {

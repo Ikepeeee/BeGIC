@@ -1,5 +1,9 @@
 package jp.tolz.begic.prototype.interpreter.commands;
 
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+
 import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
 import jp.tolz.begic.prototype.interpreter.values.BFloat;
 
@@ -13,8 +17,19 @@ class BWindow extends BCommand {
 
 	@Override
 	public void exec(BArgs bargs) {
-		frame.setSize(((BFloat) bargs.get(0)).getValue().intValue(),
-				((BFloat) bargs.get(1)).getValue().intValue());
+		frame.setVisible(true);
+		if (frame.getContentPane().getPreferredSize().getWidth() != ((BFloat) bargs
+				.get(0)).getValue().intValue()
+				|| frame.getContentPane().getPreferredSize().getHeight() != ((BFloat) bargs
+						.get(1)).getValue().intValue()) {
+			frame.setResizable(true);
+			frame.getContentPane().setPreferredSize(
+					new Dimension(
+							((BFloat) bargs.get(0)).getValue().intValue(),
+							((BFloat) bargs.get(1)).getValue().intValue()));
+			frame.pack();
+			frame.setResizable(false);
+		}
 	}
 
 }

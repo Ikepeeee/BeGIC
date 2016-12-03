@@ -18,21 +18,28 @@ public class BColor extends BValue<Color> {
 		switch (color) {
 		case "red":
 			setValue(Color.RED);
+			break;
 		case "blue":
 			setValue(Color.BLUE);
+			break;
 		case "yellow":
 			setValue(Color.YELLOW);
+			break;
 		case "green":
 			setValue(Color.GREEN);
+			break;
 		case "black":
 			setValue(Color.BLACK);
+			break;
 		case "white":
 			setValue(Color.WHITE);
+			break;
 		default:
 			int r = Integer.parseUnsignedInt(color.substring(1, 3), 16);
 			int g = Integer.parseUnsignedInt(color.substring(2, 4), 16);
 			int b = Integer.parseUnsignedInt(color.substring(4, 6), 16);
 			setValue(new Color(r, g, b));
+			break;
 		}
 	}
 

@@ -2,7 +2,6 @@ package jp.tolz.begic.prototype.interpreter.commands;
 
 import java.util.HashMap;
 
-import jp.tolz.begic.prototype.interpreter.commands.base.BArgs;
 import jp.tolz.begic.prototype.interpreter.exception.BegicRunTimeException;
 
 /**
@@ -48,10 +47,6 @@ public class BCommandFactory {
 			if (!commands.containsKey("puts"))
 				commands.put("puts", new BPuts());
 			return commands.get("puts");
-		case "input":
-			if (!commands.containsKey("input"))
-				commands.put("input", new BInput());
-			return commands.get("input");
 		case "line":
 			if (!commands.containsKey("line"))
 				commands.put("line", new BLine());
@@ -60,6 +55,14 @@ public class BCommandFactory {
 			if (!commands.containsKey("window"))
 				commands.put("window", new BWindow());
 			return commands.get("window");
+		case "have":
+			if (!commands.containsKey("have"))
+				commands.put("have", new BHave());
+			return commands.get("have");
+		case "point":
+			if (!commands.containsKey("point"))
+				commands.put("point", new BPoint());
+			return commands.get("point");
 		default:
 			break;
 		}

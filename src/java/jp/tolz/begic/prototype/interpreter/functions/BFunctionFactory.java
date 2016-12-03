@@ -2,8 +2,6 @@ package jp.tolz.begic.prototype.interpreter.functions;
 
 import java.util.HashMap;
 
-import jp.tolz.begic.prototype.interpreter.values.BValue;
-
 /**
  * 関数のインスタンス管理を行います。SingletonとFlyweightパターンを利用しています。
  * 
@@ -37,6 +35,20 @@ public class BFunctionFactory {
 		switch (name) {
 		case "sin":
 			return new BSin();
+		case "cos":
+			return new BCos();
+		case "tan":
+			return new BTan();
+		case "sinh":
+			return new BSinh();
+		case "cosh":
+			return new BCosh();
+		case "tanh":
+			return new BTanh();
+		case "sqrt":
+			return new BSqrt();
+		case "exp":
+			return new BExp();
 		default:
 			break;
 		}

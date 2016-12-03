@@ -47,11 +47,13 @@ TOKEN :
   < EQ : "==" >
 | < NEQ : "!=" >
 | < ASSIGN : "=" >
+| < CONSTANT_ASSIGN : ":=" >
 | < EXCHANGE : "<->" >
 | < GT : ">" >
 | < LT : "<" >
-| < LE: "<=" >
-| < GE: ">=" >
+| < LE : "<=" >
+| < GE : ">=" >
+| < PUSH : "<<" >
 | < NOT : "not" >
 | < QUESTION : "?" >
 | < OR : "or" >
@@ -76,8 +78,9 @@ TOKEN :
   | "box"
   | "print"
   | "write"
-  | "input"
   | "window"
+  | "have"
+  | "point"
   >
 }
 
@@ -104,6 +107,7 @@ TOKEN :
 TOKEN :
 {
   < BFUNCTION :
+//  "gets"
   "sin"
 | "cos"
 | "tan"
@@ -177,6 +181,7 @@ TOKEN :
       )
   >
 | < BOOLEAN : "true" | "false" >
+//| < ENPTY : "enpty" >
 | < IDENTIFIER : (["a"-"z","A"-"Z","_","."])+ (["0"-"9"])* >
 }
 
@@ -191,7 +196,7 @@ SimpleNode Program() :
   try {
 /*@egen*/
   (    (         Command()
-      |  LOOKAHEAD(2) Assingment()
+      |  LOOKAHEAD(2) Assignment()
 	  |  LOOKAHEAD(2) Exchange()
       |  Call()
       |  IfStatement()
@@ -488,7 +493,7 @@ void Block() :
   ("{"|"do")
   ((
        Command()
-    |  LOOKAHEAD(2) Assingment()
+    |  LOOKAHEAD(2) Assignment()
     |  LOOKAHEAD(2) Exchange() 
     |  Call()
     |  Break()
@@ -567,21 +572,48 @@ void Next() :
 /*@egen*/
 }
 
-void Assingment() :
-{/*@bgen(jjtree) Assingment */
-  ASTAssingment jjtn000 = new ASTAssingment(JJTASSINGMENT);
+void Assignment() :
+{/*@bgen(jjtree) Assignment */
+  ASTAssignment jjtn000 = new ASTAssignment(JJTASSIGNMENT);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
-/*@egen*/ Token t = null; }
-{/*@bgen(jjtree) Assingment */
+/*@egen*/}
+{/*@bgen(jjtree) Assignment */
   try {
 /*@egen*/
-  t = < IDENTIFIER >  < ASSIGN > Operation()/*@bgen(jjtree)*/
-                                             {
-                                               jjtree.closeNodeScope(jjtn000, true);
-                                               jjtc000 = false;
-                                             }
-/*@egen*/ { jjtn000.jjtSetValue(t); }/*@bgen(jjtree)*/
+  Identifier() ( "[" Operation() "]" )* < ASSIGN > Operation()/*@bgen(jjtree)*/
+  } catch (Throwable jjte000) {
+    if (jjtc000) {
+      jjtree.clearNodeScope(jjtn000);
+      jjtc000 = false;
+    } else {
+      jjtree.popNode();
+    }
+    if (jjte000 instanceof RuntimeException) {
+      throw (RuntimeException)jjte000;
+    }
+    if (jjte000 instanceof ParseException) {
+      throw (ParseException)jjte000;
+    }
+    throw (Error)jjte000;
+  } finally {
+    if (jjtc000) {
+      jjtree.closeNodeScope(jjtn000, true);
+    }
+  }
+/*@egen*/
+}
+
+void ConstantAssignment() :
+{/*@bgen(jjtree) ConstantAssignment */
+  ASTConstantAssignment jjtn000 = new ASTConstantAssignment(JJTCONSTANTASSIGNMENT);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+/*@egen*/}
+{/*@bgen(jjtree) ConstantAssignment */
+  try {
+/*@egen*/
+  Identifier() < CONSTANT_ASSIGN > Operation()/*@bgen(jjtree)*/
   } catch (Throwable jjte000) {
     if (jjtc000) {
       jjtree.clearNodeScope(jjtn000);
@@ -1072,6 +1104,7 @@ void Expression() :
 | String()
 | Color()
 | Boolean()
+//| Enpty()
 | List()
 | Hash()
 | Function()
@@ -1278,6 +1311,12 @@ void Boolean() :
   }
 /*@egen*/
 }
+
+//void Enpty() :
+//{ Token t = null; }
+//{
+//  t = < ENPTY > { jjtThis.jjtSetValue(t); }
+//}
 
 void Float() :
 {/*@bgen(jjtree) Float */

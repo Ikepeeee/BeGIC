@@ -14,8 +14,8 @@ import jp.tolz.begic.prototype.executer.BExecuter;
  *
  */
 public class Begic {
-	private static final String releaseDate = "2016/11/13";
-	private static final String version = "0.0.0";
+	private static final String releaseDate = "2016/12/03";
+	private static final String version = "0.0.1 build";
 	private static final String buildBy = "jdk1.8.0_91";
 	private static final String name = "BeGIC";
 

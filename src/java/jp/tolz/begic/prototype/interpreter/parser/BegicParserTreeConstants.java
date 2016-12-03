@@ -14,31 +14,32 @@ public interface BegicParserTreeConstants
   public int JJTBLOCK = 8;
   public int JJTBREAK = 9;
   public int JJTNEXT = 10;
-  public int JJTASSINGMENT = 11;
-  public int JJTEXCHANGE = 12;
-  public int JJTOPERATION = 13;
-  public int JJTOROP = 14;
-  public int JJTANDOP = 15;
-  public int JJTNOTOP = 16;
-  public int JJTNOT = 17;
-  public int JJTCOMPOP = 18;
-  public int JJTCOMP = 19;
-  public int JJTADDMNSOP = 20;
-  public int JJTADDMNS = 21;
-  public int JJTMULDIVOP = 22;
-  public int JJTMULDIV = 23;
-  public int JJTMODPOWOP = 24;
-  public int JJTMODPOW = 25;
-  public int JJTEXPRESSION = 26;
-  public int JJTFUNCTION = 27;
-  public int JJTLIST = 28;
-  public int JJTHASH = 29;
-  public int JJTLISTHASHFACTOR = 30;
-  public int JJTIDENTIFIER = 31;
-  public int JJTBOOLEAN = 32;
-  public int JJTFLOAT = 33;
-  public int JJTSTRING = 34;
-  public int JJTCOLOR = 35;
+  public int JJTASSIGNMENT = 11;
+  public int JJTCONSTANTASSIGNMENT = 12;
+  public int JJTEXCHANGE = 13;
+  public int JJTOPERATION = 14;
+  public int JJTOROP = 15;
+  public int JJTANDOP = 16;
+  public int JJTNOTOP = 17;
+  public int JJTNOT = 18;
+  public int JJTCOMPOP = 19;
+  public int JJTCOMP = 20;
+  public int JJTADDMNSOP = 21;
+  public int JJTADDMNS = 22;
+  public int JJTMULDIVOP = 23;
+  public int JJTMULDIV = 24;
+  public int JJTMODPOWOP = 25;
+  public int JJTMODPOW = 26;
+  public int JJTEXPRESSION = 27;
+  public int JJTFUNCTION = 28;
+  public int JJTLIST = 29;
+  public int JJTHASH = 30;
+  public int JJTLISTHASHFACTOR = 31;
+  public int JJTIDENTIFIER = 32;
+  public int JJTBOOLEAN = 33;
+  public int JJTFLOAT = 34;
+  public int JJTSTRING = 35;
+  public int JJTCOLOR = 36;
 
 
   public String[] jjtNodeName = {
@@ -53,7 +54,8 @@ public interface BegicParserTreeConstants
     "Block",
     "Break",
     "Next",
-    "Assingment",
+    "Assignment",
+    "ConstantAssignment",
     "Exchange",
     "Operation",
     "OrOp",
@@ -80,4 +82,4 @@ public interface BegicParserTreeConstants
     "Color",
   };
 }
-/* JavaCC - OriginalChecksum=e3bf94c7cb53f80bcd75a52d80ccad49 (do not edit this line) */
+/* JavaCC - OriginalChecksum=d0c4b812758065e39283688ec74c5cf5 (do not edit this line) */

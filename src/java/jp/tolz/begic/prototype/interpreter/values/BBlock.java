@@ -5,9 +5,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 
 import jp.tolz.begic.prototype.interpreter.exception.BegicRunTimeException;
 import jp.tolz.begic.prototype.interpreter.parser.ASTBlock;
@@ -82,7 +79,7 @@ public class BBlock extends BValue<ASTBlock> {
 //		ASTBlock otherNode = (ASTBlock) deepCopy(other.value);
 		ASTBlock thisNode = this.value;
 		ASTBlock otherNode = (ASTBlock) other.value;
-		System.out.println(otherNode);
+//		System.out.println(otherNode);
 		for (int i = 0; i < otherNode.jjtGetNumChildren(); i++) {
 			Node n = otherNode.jjtGetChild(i);
 			thisNode.jjtAddChild(n, thisNode.jjtGetNumChildren());

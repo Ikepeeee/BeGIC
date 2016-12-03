@@ -201,8 +201,11 @@ public class BHash extends BValue<LinkedHashMap<BValue, BValue>> implements
 
 	@Override
 	public BValue set(BValue key, BValue value) throws BegicRunTimeException {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		for (BValue k : this.value.keySet()) {
+			if (((BBoolean) k.eq(key)).value)
+				this.value.put(k, value);
+		}
+		return value;
 	}
 
 	@Override

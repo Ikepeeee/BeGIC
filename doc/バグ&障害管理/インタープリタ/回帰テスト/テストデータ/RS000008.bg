@@ -1,0 +1,59 @@
+/*
+ * No:					RS000008
+ * Name:				if文に関する基本的テスト8
+ * Description:			入れ子になったif文
+ * First Creator:		fjking
+ * First Create Date:	2016/11/15
+ * Last Updater:		
+ * Last Update Date:
+*/
+
+if true{
+	print "S000008if true - "
+	
+	if true{
+		print "if true - "
+		
+		if true{
+			print "if true\n"
+		}
+		else{
+			print "else\n"
+		}
+	}
+	else{
+		puts "else - "
+		
+		if true{
+			print "if true\n"
+		}
+		else{
+			print "else\n"
+		}
+	}
+}
+else{
+	puts "S000008 else -"
+	
+	if true{
+		print "if true - "
+		
+		if true{
+			print "if true\n"
+		}
+		else{
+			print "else\n"
+		}
+	}
+	else{
+		puts "else - "
+		
+		if true{
+			print "if true\n"
+		}
+		else{
+			print "else\n"
+		}
+	}
+}
+puts "S000008if true - if true - if true　とのみ表示されている"

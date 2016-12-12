@@ -1,0 +1,23 @@
+/*
+ * No:					RS000011
+ * Name:				while文に関する基本的テスト3
+ * Description:			if文のブロックとなったbreak
+ * First Creator:		fjking
+ * First Create Date:	2016/11/20
+ * Last Updater:	
+ * Last Update Date:
+*/
+
+while true{
+	if true{
+		puts "S000011if true"
+		break
+	}
+	else{
+		puts "S000011 else"
+		break
+	}
+	puts "S000011"
+	break
+}
+puts "S000011if true とのみ表示されている"

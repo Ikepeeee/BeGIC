@@ -1,0 +1,14 @@
+/*
+ * No:					RS000009
+ * Name:				while文に関する基本的テスト1
+ * Description:			falseならブロックを抜け出すこと
+ * First Creator:		fjking
+ * First Create Date:	2016/11/20
+ * Last Updater:	
+ * Last Update Date:
+*/
+
+while false{
+	puts "S000009"
+}
+puts "S000009　が表示されていないこと"

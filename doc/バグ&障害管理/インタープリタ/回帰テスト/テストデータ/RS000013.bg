@@ -1,0 +1,20 @@
+/*
+ * No:					RS000013
+ * Name:				while文に関する基本的テスト5
+ * Description:			while文nextを含む
+ * First Creator:		fjking
+ * First Create Date:	2016/11/20
+ * Last Updater:	
+ * Last Update Date:
+*/
+
+print "S000013"
+a = 0
+while (a<5){
+	print " ."
+	a = a + 1
+	next
+	break
+}
+print "\n"
+puts "S000013 . . . . . と表示されている"

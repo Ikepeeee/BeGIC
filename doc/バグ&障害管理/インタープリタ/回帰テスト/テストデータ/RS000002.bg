@@ -4,11 +4,11 @@
  * Description:			false‚È‚ç“à•”‚Ìˆ—‚ªÀs‚³‚ê‚È‚¢
  * First Creator:		tolz
  * First Create Date:	2016/11/07
- * Last Updater:		
- * Last Update Date:
+ * Last Updater:		fjking
+ * Last Update Date:	2016/11/14
 */
 
-if true {
+if false {
 	puts "S000002"
 }
 puts "S000002‚ª•\¦‚³‚ê‚Ä‚¢‚È‚¢‚±‚Æ"

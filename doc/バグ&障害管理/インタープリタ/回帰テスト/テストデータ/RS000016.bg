@@ -1,0 +1,17 @@
+/*
+ * No:					RS000016
+ * Name:				for文に関する基本的テスト2
+ * Description:			for文breakを含む
+ * First Creator:		fjking
+ * First Create Date:	2016/12/11
+ * Last Updater:	
+ * Last Update Date:
+*/
+
+print "S000016for"
+for i=0 to 5 step 1{
+	print "-",i
+	break
+}
+print "\n"
+puts "S000016for-0 と表示されている"

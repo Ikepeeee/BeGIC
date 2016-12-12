@@ -1,0 +1,17 @@
+/*
+ * No:					RS000007
+ * Name:				if文に関する基本的テスト7
+ * Description:			elsifを含む処理(trueとtrue)
+ * First Creator:		fjking
+ * First Create Date:	2016/11/14
+ * Last Updater:		
+ * Last Update Date:
+*/
+
+if true {
+	puts "S000007if true"
+}
+elsif true{
+	puts "S000007elsif true"
+}
+puts "S000007if true　のみが表示されていること"

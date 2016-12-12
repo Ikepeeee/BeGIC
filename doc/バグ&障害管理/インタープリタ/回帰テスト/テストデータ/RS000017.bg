@@ -1,0 +1,18 @@
+/*
+ * No:					RS000017
+ * Name:				for文に関する基本的テスト3
+ * Description:			for文nextを含む
+ * First Creator:		fjking
+ * First Create Date:	2016/12/11
+ * Last Updater:	
+ * Last Update Date:
+*/
+
+print "S000017for"
+for i=0 to 5 step 1{
+	print "-",i
+	next
+	break
+}
+print "\n"
+puts "S000017for-0-1-2-3-4 と表示されている"

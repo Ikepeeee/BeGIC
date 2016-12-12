@@ -1,0 +1,20 @@
+/*
+ * No:					RS000019
+ * Name:				for文に関する基本的テスト5
+ * Description:			多重for文
+ * First Creator:		fjking
+ * First Create Date:	2016/12/11
+ * Last Updater:	
+ * Last Update Date:
+*/
+
+print "S000019for"
+for i=1 to 4 step 1{
+	print i,"-"
+	for j=1 to 4 step 1{
+		print j
+	}
+	print ", "
+}
+print "\n"
+puts "S000019for1-123, 2-123, 3-123, と表示されている"

@@ -1,0 +1,16 @@
+/*
+ * No:					RS000015
+ * Name:				for文に関する基本的テスト1
+ * Description:			for文数値による単純なくり返し
+ * First Creator:		fjking
+ * First Create Date:	2016/12/11
+ * Last Updater:	
+ * Last Update Date:
+*/
+
+print "S000015for"
+for i=0 to 5 step 1{
+	print "-",i
+}
+print "\n"
+puts "S000015for-0-1-2-3-4 と表示されている"

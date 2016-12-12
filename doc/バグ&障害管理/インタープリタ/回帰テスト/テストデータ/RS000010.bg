@@ -1,0 +1,15 @@
+/*
+ * No:					RS000010
+ * Name:				while文に関する基本的テスト2
+ * Description:			ブロック内に直接書いたbreak
+ * First Creator:		fjking
+ * First Create Date:	2016/11/20
+ * Last Updater:	
+ * Last Update Date:
+*/
+
+while true{
+	break
+	puts "S000010"
+}
+puts "S000010　が表示されていないこと"

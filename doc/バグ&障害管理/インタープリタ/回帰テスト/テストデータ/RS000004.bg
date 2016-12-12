@@ -1,0 +1,16 @@
+/*
+ * No:					RS000004
+ * Name:				if文に関する基本的テスト4
+ * Description:			falseのときのelseを含む処理
+ * First Creator:		fjking
+ * First Create Date:	2016/11/14
+ * Last Updater:		
+ * Last Update Date:
+*/
+if false {
+	puts "S000004if false"
+}
+else{
+	puts "S000004else"
+}
+puts "S000004else　のみが表示されていること"

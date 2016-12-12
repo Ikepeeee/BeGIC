@@ -1,0 +1,20 @@
+/*
+ * No:					RS000014
+ * Name:				while文に関する基本的テスト6
+ * Description:			多重while文
+ * First Creator:		fjking
+ * First Create Date:	2016/11/20
+ * Last Updater:	
+ * Last Update Date:
+*/
+
+while true{
+	print "S000014while-"
+		while true{
+			print "while-break-"
+			break
+		}
+	print "break\n"
+	break
+}
+puts "S000014while-while-break-break と表示されている"

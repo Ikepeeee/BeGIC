@@ -1,0 +1,38 @@
+/*
+ * No:					RS000012
+ * Name:				while文に関する基本的テスト4
+ * Description:			while文多重のif文が含まれる
+ * First Creator:		fjking
+ * First Create Date:	2016/11/20
+ * Last Updater:	
+ * Last Update Date:
+*/
+
+while true{
+	if true{
+		print "S000012if true - "
+		
+		if true{
+			print "if true\n"
+			break
+		}
+		else{
+			puts "else\n"
+			break
+		}
+	}
+	else{
+		puts "S000008 else -"
+		
+		if true{
+			print "if true\n"
+			break
+		}
+		else{
+			puts "else\n"
+			break
+		}
+	}
+puts "S000012"
+}
+puts "S000012if true - if true とのみ表示されている"

@@ -1,0 +1,16 @@
+/*
+ * No:					RS000003
+ * Name:				if文に関する基本的テスト3
+ * Description:			trueのときのelseを含む処理
+ * First Creator:		fjking
+ * First Create Date:	2016/11/14
+ * Last Updater:		
+ * Last Update Date:
+*/
+if true {
+	puts "S000003if true"
+}
+else{
+	puts "S000003else"
+}
+puts "S000003if true　のみが表示されていること"

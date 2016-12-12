@@ -1,0 +1,17 @@
+/*
+ * No:					RS000005
+ * Name:				if文に関する基本的テスト5
+ * Description:			elsifを含む処理(trueとfalse)
+ * First Creator:		fjking
+ * First Create Date:	2016/11/14
+ * Last Updater:		
+ * Last Update Date:
+*/
+
+if true {
+	puts "S000005if true"
+}
+elsif false{
+	puts "S000005elsif false"
+}
+puts "S000005if true　のみが表示されていること"

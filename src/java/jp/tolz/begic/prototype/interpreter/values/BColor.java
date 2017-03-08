@@ -6,6 +6,7 @@ import jp.tolz.begic.prototype.interpreter.exception.BegicRunTimeException;
 
 public class BColor extends BValue<Color> {
 	private Integer amount = null;
+	private static final BColor WHITE = new BColor("white");
 
 	public BColor(int r, int g, int b) {
 		setValue(new Color(r, g, b));
@@ -163,4 +164,9 @@ public class BColor extends BValue<Color> {
 		throw new BegicRunTimeException();
 	}
 
+	@Override
+	public BValue additiveIdentity() throws BegicRunTimeException {
+		return WHITE;
+	}
+	
 }

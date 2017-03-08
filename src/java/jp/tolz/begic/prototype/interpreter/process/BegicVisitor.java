@@ -234,8 +234,8 @@ public class BegicVisitor implements BegicParserVisitor {
 			try {
 				IBCollection col = (IBCollection) nameSpace.getValue(t.image);
 				for (int i = 1; i < num - 2; i++) {
-					col = (IBCollection) col.get((BValue<?>) node.jjtGetChild(
-							i).jjtAccept(this, false));
+					col = (IBCollection) col.get((BValue<?>) node
+							.jjtGetChild(i).jjtAccept(this, false));
 				}
 				col.set((BValue<?>) node.jjtGetChild(num - 2).jjtAccept(this,
 						false), value);
@@ -354,10 +354,16 @@ public class BegicVisitor implements BegicParserVisitor {
 	@Override
 	public Object visit(ASTAddMnsOp node, Object data) {
 		int num = node.jjtGetNumChildren();
-		BValue<?> value = (BValue<?>) node.jjtGetChild(0).jjtAccept(this, data);
+		// - (num % 2) + 1 01îΩì]ÅBëÊ2çÄÇ™énÇ‹ÇÈî‘çÜ+1
+		int first = num % 2;
+		BValue<?> value = null;
+		Token op = null;
 		try {
-			for (int i = 1; i < num; i += 2) {
-				Token op = (Token) node.jjtGetChild(i).jjtAccept(this, data);
+			value = first == 0 ? ((BValue<?>) node.jjtGetChild(1).jjtAccept(
+					this, data)).additiveIdentity() : (BValue<?>) node
+					.jjtGetChild(0).jjtAccept(this, data);
+			for (int i = first; i < num; i += 2) {
+				op = (Token) node.jjtGetChild(i).jjtAccept(this, data);
 				BValue<?> other = (BValue<?>) node.jjtGetChild(i + 1)
 						.jjtAccept(this, data);
 				switch (op.kind) {
@@ -562,10 +568,10 @@ public class BegicVisitor implements BegicParserVisitor {
 		return value;
 	}
 
-//	@Override
-//	public Object visit(ASTEnpty node, Object data) {
-//		return new BEnpty();
-//	}
+	// @Override
+	// public Object visit(ASTEnpty node, Object data) {
+	// return new BEnpty();
+	// }
 
 	@Override
 	public Object visit(ASTColor node, Object data) {

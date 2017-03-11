@@ -1,6 +1,7 @@
 package jp.tolz.begic.prototype.interpreter.values;
 
 import java.math.BigDecimal;
+
 import jp.tolz.begic.prototype.interpreter.exception.BegicRunTimeException;
 
 public class BString extends BValue<String> {
@@ -16,7 +17,7 @@ public class BString extends BValue<String> {
 
 	@Override
 	public String toString() {
-		return replaceEscape(value.replaceAll("^\"|\"$", ""));
+		return replaceEscape(value);
 	}
 
 	private String replaceEscape(String s) {
@@ -87,7 +88,7 @@ public class BString extends BValue<String> {
 	public BValue add(BValue other) throws BegicRunTimeException {
 		if (other.type() != BValue.BSTRING)
 			throw new BegicRunTimeException();
-		return new BString(this.toString().concat(other.toString()));
+		return new BString(this.value.concat(((BString) other).value));
 	}
 
 	/**
@@ -127,6 +128,11 @@ public class BString extends BValue<String> {
 
 	@Override
 	public BValue abs() throws BegicRunTimeException {
+		throw new BegicRunTimeException();
+	}
+	
+	@Override
+	public BValue additiveIdentity() throws BegicRunTimeException {
 		throw new BegicRunTimeException();
 	}
 

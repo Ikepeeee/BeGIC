@@ -553,7 +553,8 @@ public class BegicVisitor implements BegicParserVisitor {
 
 	@Override
 	public Object visit(ASTString node, Object data) {
-		return new BString(((Token) node.jjtGetValue()).image);
+		return new BString(((Token) node.jjtGetValue()).image.substring(1,
+				((Token) node.jjtGetValue()).image.length() - 1));
 	}
 
 	@Override

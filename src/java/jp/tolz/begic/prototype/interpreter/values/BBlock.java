@@ -152,4 +152,9 @@ public class BBlock extends BValue<ASTBlock> {
 		return copy;
 
 	}
+
+	@Override
+	public BValue additiveIdentity() throws BegicRunTimeException {
+		throw new BegicRunTimeException();
+	}
 }

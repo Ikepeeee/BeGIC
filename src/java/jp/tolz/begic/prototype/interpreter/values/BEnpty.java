@@ -97,5 +97,10 @@ public class BEnpty extends BValue<Object> {
 	public int type() {
 		return BENPTY;
 	}
+	
+	@Override
+	public BValue additiveIdentity() throws BegicRunTimeException {
+		throw new BegicRunTimeException();
+	}
 
 }

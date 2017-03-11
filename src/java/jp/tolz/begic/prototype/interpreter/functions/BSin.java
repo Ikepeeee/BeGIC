@@ -10,6 +10,7 @@ import jp.tolz.begic.prototype.interpreter.values.BValue;
 class BSin implements BFunction {
 	private int[] types = new int[] { BValue.BFLOAT };
 
+	// optimize!!
 	@Override
 	public BValue<?> calc(BArgs args) throws BegicRunTimeException {
 		if (args.size() != types.length) 

@@ -31,7 +31,7 @@ public class BFunctionFactory {
 		return funcs.get(funcName);
 	}
 
-	public BFunction createFunction(String name) {
+	private BFunction createFunction(String name) {
 		switch (name) {
 		case "sin":
 			return new BSin();

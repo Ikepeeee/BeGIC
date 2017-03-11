@@ -212,5 +212,10 @@ public class BList extends BValue<ArrayList<BValue>> implements IBCollection {
 	public BValue abs() throws BegicRunTimeException {
 		throw new BegicRunTimeException();
 	}
+	
+	@Override
+	public BValue additiveIdentity() throws BegicRunTimeException {
+		throw new BegicRunTimeException();
+	}
 
 }

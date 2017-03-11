@@ -1,7 +1,5 @@
 package jp.tolz.begic.prototype.interpreter.values;
 
-import java.math.BigDecimal;
-
 import jp.tolz.begic.prototype.interpreter.exception.BegicRunTimeException;
 
 public class BString extends BValue<String> {
@@ -106,8 +104,9 @@ public class BString extends BValue<String> {
 		if (other.type() != BValue.BFLOAT)
 			throw new BegicRunTimeException();
 		String ret = "";
-		for (BFloat i = new BFloat(0); (Boolean) i.lt(((BFloat) other)).getValue(); i = (BFloat) i.add(BFloat.ONE))
-			ret = ret.concat(toString());
+		for (BFloat i = new BFloat(0); (Boolean) i.lt(((BFloat) other))
+				.getValue(); i = (BFloat) i.add(BFloat.ONE))
+			ret = ret.concat(value);
 		return new BString(ret);
 	}
 
@@ -130,7 +129,7 @@ public class BString extends BValue<String> {
 	public BValue abs() throws BegicRunTimeException {
 		throw new BegicRunTimeException();
 	}
-	
+
 	@Override
 	public BValue additiveIdentity() throws BegicRunTimeException {
 		throw new BegicRunTimeException();

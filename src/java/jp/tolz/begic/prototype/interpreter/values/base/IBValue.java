@@ -5,6 +5,12 @@ import jp.tolz.begic.prototype.interpreter.values.BValue;
 
 public interface IBValue {
 	public abstract String toString();
+	/**
+	 * 加法単位元を取得します。
+	 * @return 
+	 * @throws BegicRunTimeException 定義されない場合
+	 */
+	public abstract BValue additiveIdentity() throws BegicRunTimeException;
 	public abstract BValue and(BValue other) throws BegicRunTimeException;
 	public abstract BValue or(BValue other) throws BegicRunTimeException;
 	public abstract BValue not() throws BegicRunTimeException;

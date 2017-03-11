@@ -175,5 +175,10 @@ public class BFloat extends BValue<BigDecimal> {
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
+	
+	@Override
+	public BValue additiveIdentity() throws BegicRunTimeException {
+		return ZERO;
+	}
 
 }

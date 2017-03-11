@@ -214,4 +214,9 @@ public class BHash extends BValue<LinkedHashMap<BValue, BValue>> implements
 		return null;
 	}
 
+	@Override
+	public BValue additiveIdentity() throws BegicRunTimeException {
+		throw new BegicRunTimeException();
+	}
+
 }

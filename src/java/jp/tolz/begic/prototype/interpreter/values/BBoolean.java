@@ -114,5 +114,10 @@ public class BBoolean extends BValue<Boolean> {
 			return new BBoolean(true);
 		return new BBoolean(!this.value.equals(other.value));
 	}
+	
+	@Override
+	public BValue additiveIdentity() throws BegicRunTimeException {
+		throw new BegicRunTimeException();
+	}
 
 }

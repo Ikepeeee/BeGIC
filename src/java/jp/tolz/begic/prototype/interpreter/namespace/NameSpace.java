@@ -45,6 +45,7 @@ public class NameSpace {
 		values.put(identifier, null);
 	}
 	
+	// optimize!!
 	public void setValue(String identifier, IBValue value){
 		if(values.containsValue(value))
 			values.put(identifier, (IBValue) deepCopy(value));

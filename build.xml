@@ -4,7 +4,7 @@
 	<property name="PARSERDIR" location="src/grammer/"/>
 	
     <!-- javaソースの出力先 -->
-	<property name="OUTPUTDIR" location="src/java/jp/tolz/begic/prototype/interpreter/parser/"/>
+	<property name="OUTPUTDIR" location="src/java/jp/begic/interpreter/parser/"/>
 
     <!-- javacc.jarを置いているディレクトリ -->
     <property name="JAVACCHOME" location="lib/build"/>

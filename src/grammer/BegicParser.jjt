@@ -10,12 +10,12 @@ options
 
 /** ParserƒNƒ‰ƒX‚Ì’è‹` */
 PARSER_BEGIN(BegicParser)
-package jp.tolz.begic.prototype.interpreter.parser;
+package jp.begic.interpreter.parser;
 
 import java.util.ArrayList;
 
-import jp.tolz.begic.prototype.interpreter.values.*;
-import jp.tolz.begic.prototype.interpreter.values.base.*;
+import jp.begic.interpreter.values.*;
+import jp.begic.interpreter.values.base.*;
 
 public class BegicParser{
 }

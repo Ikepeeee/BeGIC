@@ -1,0 +1,20 @@
+/*
+ * No:					RS000020
+ * Name:				loop•¶
+ * Description:			loop•¶
+ * First Creator:		taky
+ * First Create Date:	2016/02/08
+ * Last Updater:		
+ * Last Update Date:
+*/
+
+n = 1
+loop{
+	if n>5{
+		break
+	}
+	print n," "
+	n = n + 1
+}
+puts ""
+puts "1 2 3 4 5 ‚Æ•\Ž¦‚³‚ê‚é‚±‚Æ"

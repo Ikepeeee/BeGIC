@@ -1,0 +1,29 @@
+/*
+ * No:					RV000004
+ * Name:				数値に関する基本的テスト4
+ * Description:			数値同士の乗算(整数と小数の各組合せ)
+ * First Creator:		taky
+ * First Create Date:	2016/02/07
+ * Last Updater:		
+ * Last Update Date:
+*/
+
+a = 24
+b = 12
+puts "a = 24, b = 12"
+print "a / b = ", a / b, "\n"
+
+a = 24.0
+b = 12.00
+puts "a = 24.0, b = 12.00"
+print "a / b = ", a / b, "\n"
+
+a = 1
+b = 0.01
+puts "a = 1, b = 0.01"
+print "a / b = ", a / b, "\n"
+
+a = 9.1
+b = 3
+puts "a = 9.1, b = 3"
+print "a / b = ", a / b, "\n"

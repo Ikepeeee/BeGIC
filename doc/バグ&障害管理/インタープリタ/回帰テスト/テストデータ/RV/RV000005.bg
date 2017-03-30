@@ -1,0 +1,28 @@
+/*
+ * No:					RV000005
+ * Name:				���l�Ɋւ����{�I�e�X�g3
+ * Description:			���l���m�̏�Z(�����Ə����̊e�g����)
+ * First Creator:		taky
+ * First Create Date:	2016/02/08
+ * Last Updater:
+ * Last Update Date:
+*/
+a = 3
+b = 2
+puts "a = 3, b = 2"
+print "a ^ b = ", a ^ b, "\n"
+
+a = 1.2
+b = 2.0
+puts "a = 1.2, b = 2.0"
+print "a ^ b = ", a ^ b, "\n"
+
+a = 2
+b = 2.0
+puts "a = 2, b = 2.0"
+print "a ^ b = ", a ^ b, "\n"
+
+a = 0.4
+b = 2
+puts "a = 0.4, b = 2"
+print "a ^ b = ", a ^ b, "\n"

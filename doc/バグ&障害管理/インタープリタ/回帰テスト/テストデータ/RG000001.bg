@@ -1,0 +1,26 @@
+/*
+ * No:					RG000001
+ * Name:				文字列に関する基本的テスト1
+ * Description:			文字列同士の加算
+ * First Creator:		taky
+ * First Create Date:	2016/02/08
+ * Last Updater:		
+ * Last Update Date:
+*/
+
+right = "apple"
+left = "pen"
+print "apple + pen = ", right + left , "\n"
+
+abc = "abc"
+jpn = "あいうえお"
+print "abc + jpn = ", abc + jpn, "\n"
+
+esc = "\""
+print "esc = ",  esc, "\n"
+print "esc + esc = ",  esc + esc, "\n"
+
+
+esc = "x\"x"
+print "esc = ",  esc, "\n"
+print "esc + esc = ",  esc + esc, "\n"

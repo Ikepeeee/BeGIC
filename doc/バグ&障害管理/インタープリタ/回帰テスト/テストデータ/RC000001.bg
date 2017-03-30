@@ -1,0 +1,14 @@
+/*
+ * No:					RC000001
+ * Name:				ƒRƒ}ƒ“ƒh
+ * Description:			
+ * First Creator:		taky
+ * First Create Date:	2016/02/10
+ * Last Updater:		
+ * Last Update Date:
+*/
+
+window(200,200)
+
+have(red)
+line(10,10,100,100)

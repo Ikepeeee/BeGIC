@@ -84,9 +84,13 @@ public class BString extends BValue<String> {
 
 	@Override
 	public BValue add(BValue other) throws BegicRunTimeException {
-		if (other.type() != BValue.BSTRING)
+		if (other.type() == BValue.BSTRING)
+			return new BString(this.value.concat(((BString) other).value));
+		else if (other.type() == BValue.BFLOAT)
+			return new BString(this.value.concat(((BFloat) other).value.toString()));
+		else
 			throw new BegicRunTimeException();
-		return new BString(this.value.concat(((BString) other).value));
+
 	}
 
 	/**

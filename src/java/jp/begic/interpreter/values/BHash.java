@@ -1,6 +1,5 @@
 package jp.begic.interpreter.values;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import jp.begic.interpreter.exception.BegicRunTimeException;

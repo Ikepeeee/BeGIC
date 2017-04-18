@@ -55,7 +55,6 @@ import jp.begic.interpreter.parser.Token;
 import jp.begic.interpreter.values.BBlock;
 import jp.begic.interpreter.values.BBoolean;
 import jp.begic.interpreter.values.BColor;
-import jp.begic.interpreter.values.BEnpty;
 import jp.begic.interpreter.values.BFloat;
 import jp.begic.interpreter.values.BHash;
 import jp.begic.interpreter.values.BList;

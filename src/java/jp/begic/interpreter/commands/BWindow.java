@@ -2,8 +2,6 @@ package jp.begic.interpreter.commands;
 
 import java.awt.Dimension;
 
-import javax.swing.JFrame;
-
 import jp.begic.interpreter.commands.base.BArgs;
 import jp.begic.interpreter.values.BFloat;
 

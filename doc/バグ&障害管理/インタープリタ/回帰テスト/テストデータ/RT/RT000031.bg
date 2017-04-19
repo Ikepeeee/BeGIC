@@ -1,0 +1,15 @@
+/*
+ * No:					RT000031
+ * Name:				hash + color
+ * Description:			
+ * First Creator:		taky
+ * First Create Date:	2016/04/15
+ * Last Updater:		
+ * Last Update Date:
+*/
+
+a = {"猫":"にゃーにゃー", "犬":"わんわん"}
+b = red
+puts "a=にゃーにゃー,b="red
+print "b+a=",b+a,"\n"
+ 

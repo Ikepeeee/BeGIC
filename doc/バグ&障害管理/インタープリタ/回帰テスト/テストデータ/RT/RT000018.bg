@@ -1,0 +1,15 @@
+/*
+ * No:					RT000018
+ * Name:				color + float
+ * Description:			
+ * First Creator:		taky
+ * First Create Date:	2016/04/15
+ * Last Updater:		
+ * Last Update Date:
+*/
+
+a=red
+b=10
+puts "a=red,b=10"
+print "a+b=",a+b,"\n"
+ 

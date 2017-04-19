@@ -1,0 +1,15 @@
+/*
+ * No:					RT000030
+ * Name:				hash + boolean
+ * Description:			
+ * First Creator:		taky
+ * First Create Date:	2016/04/15
+ * Last Updater:		
+ * Last Update Date:
+*/
+
+a = {"猫":"にゃーにゃー", "犬":"わんわん"}
+b=true
+puts "a={猫=にゃーにゃー, 犬=わんわん},b=true"
+print "a+b=",a+b,"\n"
+ 

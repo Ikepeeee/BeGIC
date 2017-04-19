@@ -1,0 +1,17 @@
+/*
+ * No:					RT000038
+ * Name:				list + color
+ * Description:			
+ * First Creator:		taky
+ * First Create Date:	2016/04/15
+ * Last Updater:		
+ * Last Update Date:
+*/
+
+a = [1,2,3]
+b = red
+puts "a=[1,2,3],b=red"
+print "a + b="
+puts a + b
+
+ 

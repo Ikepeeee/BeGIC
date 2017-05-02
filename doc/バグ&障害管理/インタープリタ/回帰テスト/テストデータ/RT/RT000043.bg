@@ -1,0 +1,15 @@
+/*
+ * No:					RT000043
+ * Name:				String + Block
+ * Description:			
+ * First Creator:		taky
+ * First Create Date:	2016/05/03
+ * Last Updater:		
+ * Last Update Date:
+*/
+
+a = {puts "block A"}
+b = "test"
+puts "a={puts \"block A\"}, b=\"test\""
+call b + a 
+ 

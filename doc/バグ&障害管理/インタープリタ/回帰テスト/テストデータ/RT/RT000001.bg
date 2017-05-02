@@ -1,0 +1,15 @@
+/*
+ * No:					RT000001
+ * Name:				block + block
+ * Description:			
+ * First Creator:		taky
+ * First Create Date:	2016/04/15
+ * Last Updater:		
+ * Last Update Date:
+*/
+
+a = {puts "block A"}
+b = {print "block B\n"}
+puts "a={puts \"block A\"}, b=true"
+call a + b
+ 

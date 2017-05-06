@@ -88,6 +88,8 @@ public class BString extends BValue<String> {
 			return new BString(this.value.concat(((BString) other).value));
 		else if (other.type() == BValue.BFLOAT)
 			return new BString(this.value.concat(((BFloat) other).value.toString()));
+		else if (other.type() == BValue.BBOOLEAN)
+			return new BString(this.value.concat(((BBoolean) other).value.toString()));
 		else
 			throw new BegicRunTimeException();
 

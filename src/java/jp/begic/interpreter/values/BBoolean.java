@@ -4,12 +4,12 @@ import jp.begic.interpreter.exception.BegicRunTimeException;
 
 public class BBoolean extends BValue<Boolean> {
 
-	public BBoolean(String bool) throws BegicRunTimeException{
-		if(bool.equals("true"))
+	public BBoolean(String bool) throws BegicRunTimeException {
+		if (bool.equals("true"))
 			setValue(true);
-		else if(bool.equals("false"))
+		else if (bool.equals("false"))
 			setValue(false);
-		else 
+		else
 			throw new BegicRunTimeException();
 	}
 
@@ -68,7 +68,11 @@ public class BBoolean extends BValue<Boolean> {
 
 	@Override
 	public BValue add(BValue other) throws BegicRunTimeException {
-		throw new BegicRunTimeException();
+		if (other.type() == BValue.BSTRING)
+			return new BString(this.value.toString().concat(
+					((BString) other).value.toString()));
+		else
+			throw new BegicRunTimeException();
 	}
 
 	@Override
@@ -103,18 +107,18 @@ public class BBoolean extends BValue<Boolean> {
 
 	@Override
 	public BValue eq(BValue other) throws BegicRunTimeException {
-		if(other.type() != BBOOLEAN)
+		if (other.type() != BBOOLEAN)
 			return new BBoolean(false);
 		return new BBoolean(this.value.equals(other.value));
 	}
 
 	@Override
 	public BValue neq(BValue other) throws BegicRunTimeException {
-		if(other.type() != BBOOLEAN)
+		if (other.type() != BBOOLEAN)
 			return new BBoolean(true);
 		return new BBoolean(!this.value.equals(other.value));
 	}
-	
+
 	@Override
 	public BValue additiveIdentity() throws BegicRunTimeException {
 		throw new BegicRunTimeException();

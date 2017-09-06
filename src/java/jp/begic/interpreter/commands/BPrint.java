@@ -1,6 +1,7 @@
 package jp.begic.interpreter.commands;
 
 import jp.begic.interpreter.commands.base.BArgs;
+import jp.begic.interpreter.commands.base.BCommand;
 
 /**
  * BeGIC‚Ì•W€o—Í–½—ß‚Å‚·B<br>
@@ -21,6 +22,11 @@ class BPrint extends BCommand {
 		for(int i = 0; i < args.size(); i++){
 			System.out.print(args.get(i));
 		}
+	}
+
+	@Override
+	public boolean isInUse() {
+		return false;
 	}
 
 }

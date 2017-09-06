@@ -23,6 +23,7 @@ import jp.begic.interpreter.parser.ASTCommand;
 import jp.begic.interpreter.parser.ASTComp;
 import jp.begic.interpreter.parser.ASTCompOp;
 import jp.begic.interpreter.parser.ASTConstantAssignment;
+import jp.begic.interpreter.parser.ASTEmpty;
 //import jp.begic.interpreter.parser.ASTEnpty;
 import jp.begic.interpreter.parser.ASTExchange;
 import jp.begic.interpreter.parser.ASTExpression;
@@ -143,6 +144,7 @@ public class BegicVisitor implements BegicParserVisitor {
 						break;
 				}
 			}
+			node.jjtGetChild(3).jjtAccept(this, true);
 		} catch (BegicRunTimeException e) {
 			e.printStackTrace();
 			System.exit(1);
@@ -581,6 +583,12 @@ public class BegicVisitor implements BegicParserVisitor {
 	// 通常は使われない。
 	@Override
 	public Object visit(SimpleNode node, Object data) {
+		return null;
+	}
+
+	@Override
+	public Object visit(ASTEmpty node, Object data) {
+		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
 

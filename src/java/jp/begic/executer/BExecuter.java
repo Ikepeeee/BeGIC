@@ -1,13 +1,10 @@
 package jp.begic.executer;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 
-import javax.swing.JFrame;
-
-import jp.begic.interpreter.canvas.BCanvas;
+import jp.begic.interpreter.parser.BegicParser;
+import jp.begic.interpreter.parser.ParseException;
+import jp.begic.interpreter.process.BegicVisitor;
 
 /**
  * BeGIC実行を行うクラス。 一回で実行される場合のタイプです。
@@ -19,25 +16,20 @@ public class BExecuter implements Executer {
 
 	@Override
 	public void exec(InputStream stream) {
-		BufferedReader br = new BufferedReader(new InputStreamReader(stream));
 
-		String code = "";
-		String line = null;
-
+		BegicParser parser = new BegicParser(stream);
+		BegicVisitor visitor = new BegicVisitor();
+		
 		try {
-			while ((line = br.readLine()) != null)
-				code = code.concat("\n".concat(line));
-			br.close();
-		} catch (IOException e) {
+			parser.Program().jjtAccept(visitor, null);
+
+		} catch (ParseException e) {
+			System.err.println("構文エラー");
 			e.printStackTrace();
+			System.exit(0);
 		}
-		JFrame frame = new JFrame("BeGIC Canvas");
-		BCanvas canvas = new BCanvas(frame, code);
-		frame.add(canvas);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		frame.setVisible(true);
-		frame.add(canvas);
+		
+		
 	}
 
 }

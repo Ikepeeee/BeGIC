@@ -37,9 +37,10 @@ public interface BegicParserTreeConstants
   public int JJTLISTHASHFACTOR = 31;
   public int JJTIDENTIFIER = 32;
   public int JJTBOOLEAN = 33;
-  public int JJTFLOAT = 34;
-  public int JJTSTRING = 35;
-  public int JJTCOLOR = 36;
+  public int JJTEMPTY = 34;
+  public int JJTFLOAT = 35;
+  public int JJTSTRING = 36;
+  public int JJTCOLOR = 37;
 
 
   public String[] jjtNodeName = {
@@ -77,9 +78,10 @@ public interface BegicParserTreeConstants
     "ListHashFactor",
     "Identifier",
     "Boolean",
+    "Empty",
     "Float",
     "String",
     "Color",
   };
 }
-/* JavaCC - OriginalChecksum=fc439935777779d58381213231762484 (do not edit this line) */
+/* JavaCC - OriginalChecksum=9d8e414d12b80e1f26b8d70f435f73f5 (do not edit this line) */

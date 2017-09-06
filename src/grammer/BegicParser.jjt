@@ -11,13 +11,12 @@ options
 /** Parserクラスの定義 */
 PARSER_BEGIN(BegicParser)
 package jp.begic.interpreter.parser;
-
 import java.util.ArrayList;
-
 import jp.begic.interpreter.values.*;
 import jp.begic.interpreter.values.base.*;
 
-public class BegicParser{
+public class BegicParser
+{
 }
 
 PARSER_END(BegicParser)
@@ -62,7 +61,6 @@ TOKEN :
 | < MOD : "mod" >
 }
 
-
 /* ----- COMMAND ----- */
 
 TOKEN :
@@ -76,7 +74,7 @@ TOKEN :
   | "write"
   | "window"
   | "have"
-  | "point"
+  | "point" 
   >
 }
 
@@ -103,117 +101,168 @@ TOKEN :
 TOKEN :
 {
   < BFUNCTION :
-//  "gets"
-  "sin"
-| "cos"
-| "tan"
-| "log"
-| "sinh"
-| "cosh"
-| "tanh"
-| "sqrt"
-| "exp" >
+    //  "gets"
+    "sin"
+  | "cos"
+  | "tan"
+  | "log"
+  | "sinh"
+  | "cosh"
+  | "tanh"
+  | "sqrt"
+  | "exp" >
 }
-
 
 /* ----- COMMENTS ----- */
 
 MORE :
 {
   "//" : IN_SINGLE_LINE_COMMENT
-|
-  <"/**" ~["/"]> : IN_FORMAL_COMMENT
-|
+| 
+  < "/**" ~[ "/" ] > : IN_FORMAL_COMMENT
+| 
   "/*" : IN_MULTI_LINE_COMMENT
 }
 
-<IN_SINGLE_LINE_COMMENT>
+< IN_SINGLE_LINE_COMMENT >
 SPECIAL_TOKEN :
 {
-  <SINGLE_LINE_COMMENT: "\n" | "\r" | "\r\n" > : DEFAULT
+  < SINGLE_LINE_COMMENT :
+    "\n"
+  | "\r"
+  | "\r\n" > : DEFAULT
 }
 
-<IN_FORMAL_COMMENT>
+< IN_FORMAL_COMMENT >
 SPECIAL_TOKEN :
 {
-  <FORMAL_COMMENT: "*/" > : DEFAULT
+  < FORMAL_COMMENT : "*/" > : DEFAULT
 }
 
-<IN_MULTI_LINE_COMMENT>
+< IN_MULTI_LINE_COMMENT >
 SPECIAL_TOKEN :
 {
-  <MULTI_LINE_COMMENT: "*/" > : DEFAULT
+  < MULTI_LINE_COMMENT : "*/" > : DEFAULT
 }
 
-<IN_SINGLE_LINE_COMMENT,IN_FORMAL_COMMENT,IN_MULTI_LINE_COMMENT>
+< IN_SINGLE_LINE_COMMENT, IN_FORMAL_COMMENT, IN_MULTI_LINE_COMMENT >
 MORE :
 {
-  < ~[] >
+  < ~[ ] >
 }
 
 /* ----- VALUES ----- */
 
 TOKEN :
 {
-  < STRING:
-      "\""
-      (   (~["\"","\\","\n","\r"])
-        | ("\\"
-            ( ["n","t","b","r","f","\\","'","\""]
-            )
-          )
-      )*
-      "\""
-  >
-| < FLOAT : (["0"-"9"])+("."(["0"-"9"])+)* >
-| < COLOR :
-      ( "#"(["0"-"9","A"-"F"]) {6}
-      | "red"
-      | "blue"
-      | "yellow"
-      | "green"
-      | "white"
-      | "black"
+  < STRING :
+    "\""
+    (
+      (~[ "\"", "\\", "\n", "\r" ])
+    |
+      (
+        "\\" 
+        ([ "n", "t", "b", "r", "f", "\\", "'", "\"" ]
+        )
       )
+    )*
+    "\"" 
   >
-| < BOOLEAN : "true" | "false" >
-//| < ENPTY : "enpty" >
-| < IDENTIFIER : (["a"-"z","A"-"Z","_","."])+ (["0"-"9"])* >
+| < FLOAT :
+    ([ "0"-"9" ])+
+    (
+      "." ([ "0"-"9" ])+
+    )* >
+| < COLOR :
+    (
+      "#" ([ "0"-"9", "A"-"F" ])
+      {
+        6
+      }
+    | "red"
+    | "blue"
+    | "yellow"
+    | "green"
+    | "white"
+    | "black"
+    ) 
+  >
+| < BOOLEAN :
+    "true"
+  | "false" >
+| < EMPTY : "empty" >
+| < IDENTIFIER : ([ "a"-"z", "A"-"Z", "_", "." ])+ ([ "0"-"9" ])* >
 }
 
-
 SimpleNode Program() :
-{ Token prog = null; }
 {
-  (    (         Command()
-      |  LOOKAHEAD(2) Assignment()
-	  |  LOOKAHEAD(2) Exchange()
-      |  Call()
-      |  IfStatement()
-      |  LoopStatement()
-      |  WhileStatement()
-      |  ForStatement()
-    ) (";")?
+  Token prog = null;
+}
+{
+  (
+    (
+      Command()
+    | LOOKAHEAD(2)
+      Assignment()
+    | LOOKAHEAD(2)
+      Exchange()
+    | Call()
+    | IfStatement()
+    | LoopStatement()
+    | WhileStatement()
+    | ForStatement()
+    )
+    (";")?
   )*
   < EOF >
   {
-	return jjtThis;
+    return jjtThis;
   }
 }
 
 // いまのところふつうの引数の形式にする。括弧の省略は可能。
 void Command() :
-{ Token t = null; }
 {
-  LOOKAHEAD(2) t = < BCOMMAND >  Args() { jjtThis.jjtSetValue(t); }
-| t = < BCOMMAND > { jjtThis.jjtSetValue(t); }
+  Token t = null;
+}
+{
+  LOOKAHEAD(2)
+  t = < BCOMMAND > Args()
+  {
+    jjtThis.jjtSetValue(t);
+  }
+| t = < BCOMMAND >
+  {
+    jjtThis.jjtSetValue(t);
+  }
 }
 
 void Args() :
 {}
 {
-  LOOKAHEAD(2) "(" ( Operation() ("," Operation())* )* ")" ( "," "(" ( Operation() ("," Operation())* )* ")" )*
-| Operation() ("," Operation())*
+  LOOKAHEAD(2)
+  "("
+  (
+    Operation()
+    (
+      "," Operation()
+    )*
+  )*
+  ")"
+  (
+    "," "("
+    (
+      Operation()
+      (
+        "," Operation()
+      )*
+    )*
+    ")"
+  )*
+| Operation()
+  (
+    "," Operation()
+  )*
 }
 
 void Call() :
@@ -225,7 +274,13 @@ void Call() :
 void IfStatement() :
 {}
 {
-  < IF > Operation() Block() ( < ELSIF > Operation() Block() )* ( < ELSE > Block() )?
+  < IF > Operation() Block()
+  (
+    < ELSIF > Operation() Block()
+  )*
+  (
+    < ELSE > Block()
+  )?
 }
 
 void LoopStatement() :
@@ -241,7 +296,9 @@ void WhileStatement() :
 }
 
 void ForStatement() :
-{ Token t = null; }
+{
+  Token t = null;
+}
 {
   < FOR > t = < IDENTIFIER > < ASSIGN > Operation() < TO > Operation() < STEP > Operation() Block()
   {
@@ -252,38 +309,63 @@ void ForStatement() :
 void Block() :
 {}
 {
-  ("{"|"do")
-  ((
-       Command()
-    |  LOOKAHEAD(2) Assignment()
-    |  LOOKAHEAD(2) Exchange() 
-    |  Call()
-    |  Break()
-    |  Next()
-    |  IfStatement()
-    |  LoopStatement()
-    |  WhileStatement()
-    |  ForStatement()
-  ) (";")?)*
-  ("}"|"end")
+  (
+    "{"
+  | "do"
+  )
+  (
+    (
+      Command()
+    | LOOKAHEAD(2)
+      Assignment()
+    | LOOKAHEAD(2)
+      Exchange()
+    | Call()
+    | Break()
+    | Next()
+    | IfStatement()
+    | LoopStatement()
+    | WhileStatement()
+    | ForStatement()
+    )
+    (";")?
+  )*
+  (
+    "}"
+  | "end"
+  )
 }
 
 void Break() :
-{ Token t = null; }
 {
-  t = < BREAK > { jjtThis.jjtSetValue(t); }
+  Token t = null;
+}
+{
+  t = < BREAK >
+  {
+    jjtThis.jjtSetValue(t);
+  }
 }
 
 void Next() :
-{ Token t = null;}
 {
-  t = < NEXT > { jjtThis.jjtSetValue(t); }
+  Token t = null;
+}
+{
+  t = < NEXT >
+  {
+    jjtThis.jjtSetValue(t);
+  }
 }
 
 void Assignment() :
 {}
 {
-  Identifier() ( "[" Operation() "]" )* < ASSIGN > Operation()
+  Identifier()
+  (
+    "[" Operation() "]"
+  )*
+  < ASSIGN > Operation()
 }
 
 void ConstantAssignment() :
@@ -301,165 +383,304 @@ void Exchange() :
 void Operation() :
 {}
 {
-  OrOp() 
+  OrOp()
 }
 
 void OrOp() #OrOp(>1) :
 {}
 {
-  AndOp() ( < OR > AndOp() )*
+  AndOp()
+  (
+    < OR >
+    AndOp()
+  )*
 }
 
 void AndOp() #AndOp(>1) :
 {}
 {
-  NotOp() ( < AND > NotOp() )*
+  NotOp()
+  (
+    < AND >
+    NotOp()
+  )*
 }
 
 void NotOp() #NotOp(>1) :
-{ Token t = null; }
 {
-  ( Not() )* CompOp()
+  Token t = null;
+}
+{
+  (
+    Not()
+  )*
+  CompOp()
 }
 
 void Not() :
-{ Token t = null; }
 {
-  t = < NOT > { jjtThis.jjtSetValue(t); }
+  Token t = null;
+}
+{
+  t = < NOT >
+  {
+    jjtThis.jjtSetValue(t);
+  }
 }
 
-void CompOp() #CompOp(>1):
+void CompOp() #CompOp(>1) :
 {}
 {
-  AddMnsOp() ( Comp() AddMnsOp() )?
+  AddMnsOp()
+  (
+    Comp() AddMnsOp()
+  )?
 }
 
 void Comp() :
-{ Token t = null; }
 {
-  t = < EQ > { jjtThis.jjtSetValue(t); }
-| t = < LT > { jjtThis.jjtSetValue(t); }
-| t = < GT > { jjtThis.jjtSetValue(t); }
-| t = < LE > { jjtThis.jjtSetValue(t); }
-| t = < GE > { jjtThis.jjtSetValue(t); }
-| t = < NEQ > { jjtThis.jjtSetValue(t); }
+  Token t = null;
+}
+{
+  t = < EQ >
+  {
+    jjtThis.jjtSetValue(t);
+  }
+| t = < LT >
+  {
+    jjtThis.jjtSetValue(t);
+  }
+| t = < GT >
+  {
+    jjtThis.jjtSetValue(t);
+  }
+| t = < LE >
+  {
+    jjtThis.jjtSetValue(t);
+  }
+| t = < GE >
+  {
+    jjtThis.jjtSetValue(t);
+  }
+| t = < NEQ >
+  {
+    jjtThis.jjtSetValue(t);
+  }
 }
 
-void AddMnsOp() #AddMnsOp(>1):
+void AddMnsOp() #AddMnsOp(>1) :
 {}
 {
-  ( AddMns() )? MulDivOp() ( AddMns() MulDivOp() )*
+  MulDivOp()
+  (
+    AddMns() MulDivOp()
+  )*
 }
 
 void AddMns() :
-{ Token t = null; }
 {
-  t = < PLUS > { jjtThis.jjtSetValue(t); }
-| t = < MINUS > { jjtThis.jjtSetValue(t); }
+  Token t = null;
+}
+{
+  t = < PLUS >
+  {
+    jjtThis.jjtSetValue(t);
+  }
+| t = < MINUS >
+  {
+    jjtThis.jjtSetValue(t);
+  }
 }
 
-
-void MulDivOp() #MulDivOp(>1):
+void MulDivOp() #MulDivOp(>1) :
 {}
 {
-  ModPowOp() ( MulDiv() ModPowOp() )*
+  ModPowOp()
+  (
+    MulDiv() ModPowOp()
+  )*
 }
 
 void MulDiv() :
-{ Token t = null; }
 {
-  t = < STAR > { jjtThis.jjtSetValue(t); }
-| t = < SLASH > { jjtThis.jjtSetValue(t); }
+  Token t = null;
+}
+{
+  t = < STAR >
+  {
+    jjtThis.jjtSetValue(t);
+  }
+| t = < SLASH >
+  {
+    jjtThis.jjtSetValue(t);
+  }
 }
 
-void ModPowOp() #ModPowOp(>1):
+void ModPowOp() #ModPowOp(>1) :
 {}
 {
-  Expression() ( ModPow() Expression())*
+  Expression()
+  (
+    ModPow() Expression()
+  )*
 }
 
 void ModPow() :
-{ Token t = null; }
 {
-  t = < MOD > { jjtThis.jjtSetValue(t); }
-| t = < POWER > { jjtThis.jjtSetValue(t); }
+  Token t = null;
+}
+{
+  t = < MOD >
+  {
+    jjtThis.jjtSetValue(t);
+  }
+| t = < POWER >
+  {
+    jjtThis.jjtSetValue(t);
+  }
 }
 
 void Expression() :
 {}
 {
-  LOOKAHEAD(2) ListHashFactor()
-| LOOKAHEAD(3) Block()
-| LOOKAHEAD(2) Identifier()
-| Float()
-| String()
-| Color()
-| Boolean()
-//| Enpty()
-| List()
-| Hash()
-| Function()
-| "(" Operation() ")"
+  (
+    < PLUS >
+  | < MINUS >
+  )?
+  (
+    LOOKAHEAD(2)
+    ListHashFactor()
+  | LOOKAHEAD(3)
+    Block()
+  | LOOKAHEAD(2)
+    Identifier()
+  | Float()
+  | String()
+  | Color()
+  | Boolean()
+  | Empty()
+  | List()
+  | Hash()
+  | Function()
+  | "(" Operation() ")"
+  )
 }
 
 void Function() :
-{ Token t = null; }
 {
-  t = < BFUNCTION > "(" ( Operation() ( "," Operation() )* )? ")"
-  { jjtThis.jjtSetValue(t); }
-    
+  Token t = null;
+}
+{
+  t = < BFUNCTION > "("
+  (
+    Operation()
+    (
+      "," Operation()
+    )*
+  )?
+  ")"
+  {
+    jjtThis.jjtSetValue(t);
+  }
 }
 
 void List() :
 {}
 {
-  "[" ( Operation() ("," Operation())* )? "]"
+  "["
+  (
+    Operation()
+    (
+      "," Operation()
+    )*
+  )?
+  "]"
 }
 
 void Hash() :
 {}
 {
-  "{" ( Operation() ":" Operation() (","  Operation() ":" Operation() )* )? "}"
+  "{"
+  (
+    Operation() ":" Operation()
+    (
+      "," Operation() ":" Operation()
+    )*
+  )?
+  "}"
 }
 
 void ListHashFactor() :
 {}
 {
-  Identifier() ( "[" Operation() "]" )+
+  Identifier()
+  (
+    "[" Operation() "]"
+  )+
 }
 
 void Identifier() :
-{ Token t = null; }
 {
-  t = < IDENTIFIER > { jjtThis.jjtSetValue(t); }
+  Token t = null;
+}
+{
+  t = < IDENTIFIER >
+  {
+    jjtThis.jjtSetValue(t);
+  }
 }
 
 void Boolean() :
-{ Token t = null; }
 {
-  t = < BOOLEAN > { jjtThis.jjtSetValue(t); }
+  Token t = null;
+}
+{
+  t = < BOOLEAN >
+  {
+    jjtThis.jjtSetValue(t);
+  }
 }
 
-//void Enpty() :
-//{ Token t = null; }
-//{
-//  t = < ENPTY > { jjtThis.jjtSetValue(t); }
-//}
+void Empty() :
+{
+  Token t = null;
+}
+{
+  t = < EMPTY >
+  {
+    jjtThis.jjtSetValue(t);
+  }
+}
 
 void Float() :
-{ Token t = null; }
 {
-  t = < FLOAT > { jjtThis.jjtSetValue(t); }  
+  Token t = null;
+}
+{
+  t = < FLOAT >
+  {
+    jjtThis.jjtSetValue(t);
+  }
 }
 
 void String() :
-{ Token t = null; }
 {
-  t = < STRING > { jjtThis.jjtSetValue(t); }
+  Token t = null;
+}
+{
+  t = < STRING >
+  {
+    jjtThis.jjtSetValue(t);
+  }
 }
 
 void Color() :
-{ Token t = null; }
 {
-  t = < COLOR > { jjtThis.jjtSetValue(t); }  
+  Token t = null;
+}
+{
+  t = < COLOR >
+  {
+    jjtThis.jjtSetValue(t);
+  }
 }

@@ -111,6 +111,9 @@ public class BegicParserDefaultVisitor implements BegicParserVisitor{
   public Object visit(ASTBoolean node, Object data){
     return defaultVisit(node, data);
   }
+  public Object visit(ASTEmpty node, Object data){
+    return defaultVisit(node, data);
+  }
   public Object visit(ASTFloat node, Object data){
     return defaultVisit(node, data);
   }
@@ -121,4 +124,4 @@ public class BegicParserDefaultVisitor implements BegicParserVisitor{
     return defaultVisit(node, data);
   }
 }
-/* JavaCC - OriginalChecksum=95dd3eb243b58467f3e9b8b4aee1c4cf (do not edit this line) */
+/* JavaCC - OriginalChecksum=ecbd2e2d8e482edacb487836adf319c8 (do not edit this line) */

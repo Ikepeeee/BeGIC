@@ -1,6 +1,7 @@
 package jp.begic.interpreter.values;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import jp.begic.interpreter.exception.BegicRunTimeException;
 import jp.begic.interpreter.values.base.IBCollection;
@@ -92,12 +93,22 @@ public class BHash extends BValue<LinkedHashMap<BValue, BValue>> implements
 		throw new BegicRunTimeException();
 	}
 
-	// 未実装!!
 	@Override
 	public BValue add(BValue other) throws BegicRunTimeException {
-		if (other.type() != BValue.BHASH)
-			throw new BegicRunTimeException();
-		return null;
+		// 基本的に足す側のキーが足される側のキーの内に含まれる場合に演算が可能
+		// そうでない場合はキーを追加して演算は可能であるが警告を発する。
+//		if (other.type() == BValue.BHASH) {
+//			for(Map.Entry<BValue, BValue> thisentry : this.value.entrySet()) {
+//				if(((BHash) other).value.containsKey(thisentry.getKey())
+//			}
+//			
+//			for(Map.Entry<BValue, BValue> otherentry : ((BHash) other).value.entrySet()){
+//				
+//			}
+//			
+//			return null;
+//		} else
+			throw new BegicRunTimeException("undefined operation: hash + not hash");
 	}
 
 	@Override
@@ -216,6 +227,18 @@ public class BHash extends BValue<LinkedHashMap<BValue, BValue>> implements
 	@Override
 	public BValue additiveIdentity() throws BegicRunTimeException {
 		throw new BegicRunTimeException();
+	}
+
+	@Override
+	public BValue containsKey(BValue key) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue containsValue(BValue value) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
 	}
 
 }

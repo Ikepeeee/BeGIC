@@ -102,7 +102,7 @@ public class BString extends BValue<String> {
 	public BValue sub(BValue other) throws BegicRunTimeException {
 		if (other.type() != BValue.BSTRING)
 			throw new BegicRunTimeException();
-		return new BString(this.value.replaceAll((String) value, ""));
+		return new BString(this.value.replaceAll((String) other.value, ""));
 	}
 
 	@Override

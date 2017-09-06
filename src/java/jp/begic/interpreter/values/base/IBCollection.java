@@ -12,5 +12,7 @@ public interface IBCollection {
 	public BValue first() throws BegicRunTimeException;
 	public BValue get(BValue key) throws BegicRunTimeException;
 	public BValue set(BValue key, BValue value) throws BegicRunTimeException;
+	public BValue containsKey(BValue key) throws BegicRunTimeException;
+	public BValue containsValue(BValue value) throws BegicRunTimeException;
 	public BValue size() throws BegicRunTimeException;
 }

@@ -19,7 +19,7 @@ public abstract class BValue<T> implements IBValue, Serializable {
 	public static final int BSTRING = 1005;
 	public static final int BLIST = 1006;
 	public static final int BHASH = 1007;
-	public static final int BENPTY = 9001;
+	public static final int BEMPTY = 9001;
 
 	protected T value = null;
 

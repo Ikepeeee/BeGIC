@@ -218,4 +218,16 @@ public class BList extends BValue<ArrayList<BValue>> implements IBCollection {
 		throw new BegicRunTimeException();
 	}
 
+	@Override
+	public BValue containsKey(BValue key) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public BValue containsValue(BValue value) throws BegicRunTimeException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
 }

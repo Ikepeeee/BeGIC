@@ -1,7 +1,10 @@
 package jp.begic.interpreter.commands;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
+import jp.begic.interpreter.commands.base.BCommand;
 import jp.begic.interpreter.exception.BegicRunTimeException;
 
 /**
@@ -13,7 +16,16 @@ import jp.begic.interpreter.exception.BegicRunTimeException;
 public class BCommandFactory {
 
 	/* flyweight */
-	HashMap<String, BCommand> commands = new HashMap<String, BCommand>();
+	HashMap<String, BCommand> commands = new HashMap<String, BCommand>(){
+		{
+			put("print", new BPrint());
+			put("puts", new BPuts());
+			put("line", new BLine());
+			put("window", new BWindow());
+			put("have", new BHave());
+			put("point", new BPoint());
+		}	
+	};
 
 	/* singleton */
 	private BCommandFactory() {
@@ -38,34 +50,15 @@ public class BCommandFactory {
 //		} catch (ClassNotFoundException e) {
 //			throw new BegicRunTimeException("『" + commandName + "』" + "コマンドは未定義です。");
 //		} 
-		switch (commandName) {
-		case "print":
-			if (!commands.containsKey("print"))
-				commands.put("print", new BPrint());
-			return commands.get("print");
-		case "puts":
-			if (!commands.containsKey("puts"))
-				commands.put("puts", new BPuts());
-			return commands.get("puts");
-		case "line":
-			if (!commands.containsKey("line"))
-				commands.put("line", new BLine());
-			return commands.get("line");
-		case "window":
-			if (!commands.containsKey("window"))
-				commands.put("window", new BWindow());
-			return commands.get("window");
-		case "have":
-			if (!commands.containsKey("have"))
-				commands.put("have", new BHave());
-			return commands.get("have");
-		case "point":
-			if (!commands.containsKey("point"))
-				commands.put("point", new BPoint());
-			return commands.get("point");
-		default:
-			break;
-		}
-		throw new BegicRunTimeException("『" + commandName + "』" + "コマンドは未定義です。");
+		
+
+		if (!commands.containsKey(commandName))
+			throw new BegicRunTimeException("『" + commandName + "』" + "コマンドは未定義です。");
+		
+		// コマンドの使用が解除されるまで待機
+		while(commands.get(commandName).isInUse());
+		
+		return commands.get(commandName);
+		
 	}
 }

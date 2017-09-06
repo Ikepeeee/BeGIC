@@ -3,48 +3,46 @@ package jp.begic.interpreter.canvas;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.swing.JFrame;
 
-import jp.begic.interpreter.commands.BCommand;
-import jp.begic.interpreter.parser.BegicParser;
-import jp.begic.interpreter.parser.ParseException;
-import jp.begic.interpreter.process.BegicVisitor;
+import jp.begic.interpreter.commands.base.BDrawCommand;
 
 /**
- * BeGIC用のキャンパスです。 BDrawerを雇って描写させます。
+ * BeGIC用のキャンバスです。 BDrawerを雇って描写させます。
  * 
  * @author Toru Ikeda
  *
  */
 public class BCanvas extends Canvas {
-	private String code = null;
 	private JFrame frame = null;
+	private Queue<BDrawCommand> drawList = new LinkedBlockingQueue<>(1);
 	
-	public BCanvas(JFrame frame, String code) {
+	public BCanvas(JFrame frame) {
 		this.frame = frame;
-		this.code = code;
 		this.setBackground(Color.WHITE);
+	}
+	
+	public void push(BDrawCommand cmd) {
+		while(!drawList.offer(cmd));
+	}
+	
+	private BDrawCommand pop() {
+		BDrawCommand cmd = null;
+		while((cmd = drawList.poll()) == null);
+		return cmd;
 	}
 
 	@Override
 	public void paint(Graphics g) {
 		g.setColor(Color.black);
-
-		// 描写の呼び出し
-		InputStream stream = new ByteArrayInputStream(code.getBytes());
-		BegicParser parser = new BegicParser(stream);
-		BegicVisitor visitor = new BegicVisitor();
-		BCommand.set(frame, this, g);
-		try {
-			parser.Program().jjtAccept(visitor, null);
-
-		} catch (ParseException e) {
-			System.err.println("構文エラー");
-			e.printStackTrace();
-			System.exit(0);
+		// コマンドがキャンバスを編集できる情報を提供
+		BDrawCommand.set(frame, this, g);
+		while (true) {
+			BDrawCommand cmd = pop();
+			cmd.draw();
 		}
 
 	}

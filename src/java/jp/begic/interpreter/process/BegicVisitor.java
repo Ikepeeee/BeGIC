@@ -56,6 +56,7 @@ import jp.begic.interpreter.parser.Token;
 import jp.begic.interpreter.values.BBlock;
 import jp.begic.interpreter.values.BBoolean;
 import jp.begic.interpreter.values.BColor;
+import jp.begic.interpreter.values.BEmpty;
 import jp.begic.interpreter.values.BFloat;
 import jp.begic.interpreter.values.BHash;
 import jp.begic.interpreter.values.BList;
@@ -588,8 +589,7 @@ public class BegicVisitor implements BegicParserVisitor {
 
 	@Override
 	public Object visit(ASTEmpty node, Object data) {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		return BEmpty.getInstance();
 	}
 
 }

@@ -4,15 +4,27 @@ import jp.begic.interpreter.exception.BegicRunTimeException;
 
 /**
  * 空値を表すクラス。識別子に該当する値がないことを示します。
+ * 
  * @author Toru Ikeda
  *
  */
 public class BEmpty extends BValue<Object> {
-	
-	public BEmpty() {
+
+	private BEmpty() {
 		setValue(null);
 	}
-	
+
+	private static BEmpty instance = new BEmpty();
+
+	public static BEmpty getInstance() {
+		return instance;
+	}
+
+	@Override
+	public String toString() {
+		return "empty";
+	}
+
 	@Override
 	public BValue and(BValue other) throws BegicRunTimeException {
 		throw new BegicRunTimeException("operation with enpty object.");
@@ -97,7 +109,7 @@ public class BEmpty extends BValue<Object> {
 	public int type() {
 		return BEMPTY;
 	}
-	
+
 	@Override
 	public BValue additiveIdentity() throws BegicRunTimeException {
 		throw new BegicRunTimeException();

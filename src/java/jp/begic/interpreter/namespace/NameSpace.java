@@ -7,51 +7,55 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
+import jp.begic.interpreter.values.BEmpty;
 import jp.begic.interpreter.values.base.IBValue;
 
 /**
- * コマンドおよび変数の名前を管理します。
- * 文字列から変数を呼び出せます。
+ * コマンドおよび変数の名前を管理します。 文字列から変数を呼び出せます。
  * またコマンドと値が1対1対応であることを保証し、値のアドレスから識別子を呼び出せます。
+ * 
  * @author Toru Ikeda
  *
  */
 public class NameSpace {
 	private HashMap<String, IBValue> values = new HashMap<String, IBValue>();
-	
-	public boolean hasName(String identifier){
+
+	public boolean hasName(String identifier) {
 		return values.containsKey(identifier);
 	}
-	
-	public IBValue getValue(String identifier){
+
+	public IBValue getValue(String identifier) {
+		if (!values.containsKey(identifier))
+			return BEmpty.getInstance();
 		return values.get(identifier);
 	}
-	
+
 	/**
 	 * 値から識別子を取得します。値はIBValue::eqではなく、Javaのアドレスが一致したときです。
+	 * 
 	 * @param value
 	 * @return 該当の識別子の文字列。見つからない場合はnull。
 	 */
-	public String getIdentifer(IBValue value){
-		for(String iden : values.keySet()){
-			if(value == values.get(iden)){
+	public String getIdentifer(IBValue value) {
+		for (String iden : values.keySet()) {
+			if (value == values.get(iden)) {
 				return iden;
 			}
 		}
 		return null;
 	}
-	
-	public void register(String identifier){
+
+	public void register(String identifier) {
 		values.put(identifier, null);
 	}
-	
+
 	// optimize!!
-	public void setValue(String identifier, IBValue value){
-		if(values.containsValue(value))
+	public void setValue(String identifier, IBValue value) {
+		if (values.containsValue(value))
 			values.put(identifier, (IBValue) deepCopy(value));
 		values.put(identifier, value);
 	}
-	
+
 	private static Object deepCopy(Object o) {
 		Object copy = null;
 
@@ -73,5 +77,5 @@ public class NameSpace {
 		return copy;
 
 	}
-	
+
 }

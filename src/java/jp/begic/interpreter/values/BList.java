@@ -69,14 +69,14 @@ public class BList extends BValue<ArrayList<BValue>> implements IBCollection {
 	
 	@Override
 	public BValue get(BValue i) throws BegicRunTimeException {
-		if(i.type() != BFLOAT)
+		if(i.type() != BDECIMAL)
 			throw new BegicRunTimeException();
 		return this.value.get(Integer.valueOf(i.toString()));
 	}
 	
 	@Override
 	public BValue set(BValue key, BValue value) throws BegicRunTimeException {
-		if(key.type() != BFLOAT)
+		if(key.type() != BDECIMAL)
 			throw new BegicRunTimeException();
 		this.value.set(Integer.valueOf(key.toString()), value);
 		return value;
@@ -84,7 +84,7 @@ public class BList extends BValue<ArrayList<BValue>> implements IBCollection {
 
 	@Override
 	public BValue size() {
-		return new BFloat(this.value.size());
+		return new BDecimal(this.value.size());
 	}
 	
 	@Override

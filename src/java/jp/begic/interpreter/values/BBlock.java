@@ -94,12 +94,12 @@ public class BBlock extends BValue<ASTBlock> {
 
 	@Override
 	public BValue mul(BValue other) throws BegicRunTimeException {
-		if (other.type() != BFLOAT)
+		if (other.type() != BDECIMAL)
 			throw new BegicRunTimeException();
 //		ASTBlock thisNode = (ASTBlock) deepCopy(this.value);
 		ASTBlock thisNode = this.value;
 		int size = thisNode.jjtGetNumChildren();
-		int num = ((BFloat) other).value.intValue();
+		int num = ((BDecimal) other).value.intValue();
 		for (int i = 0; i < num - 1; i++) {
 //			ASTBlock copy = (ASTBlock) deepCopy(this.value);
 			ASTBlock copy = this.value;

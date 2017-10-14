@@ -4,12 +4,12 @@ import java.math.BigDecimal;
 
 import jp.begic.interpreter.commands.base.BArgs;
 import jp.begic.interpreter.exception.BegicRunTimeException;
-import jp.begic.interpreter.values.BFloat;
+import jp.begic.interpreter.values.BDecimal;
 import jp.begic.interpreter.values.BValue;
 
 class BTanh implements BFunction {
 
-	private int[] types = new int[] { BValue.BFLOAT };
+	private int[] types = new int[] { BValue.BDECIMAL };
 
 	@Override
 	public BValue<?> calc(BArgs args) throws BegicRunTimeException {
@@ -18,7 +18,7 @@ class BTanh implements BFunction {
 		if (args.get(0).type() != types[0])
 			throw new BegicRunTimeException("tanhÇÃà¯êîÇÃå^Ç™ïsê≥Ç≈Ç∑ÅB");
 		BigDecimal arg = (BigDecimal) args.get(0).getValue();
-		return new BFloat(new BigDecimal(Math.tanh(arg.doubleValue())));
+		return new BDecimal(new BigDecimal(Math.tanh(arg.doubleValue())));
 	}
 
 	@Override
@@ -28,7 +28,7 @@ class BTanh implements BFunction {
 
 	@Override
 	public int returnType() {
-		return BValue.BFLOAT;
+		return BValue.BDECIMAL;
 	}
 
 }

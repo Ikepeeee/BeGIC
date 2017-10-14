@@ -49,6 +49,8 @@ public class BFunctionFactory {
 			return new BSqrt();
 		case "exp":
 			return new BExp();
+		case "input":
+			return new BInput();
 		default:
 			break;
 		}

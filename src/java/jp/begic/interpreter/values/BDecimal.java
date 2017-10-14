@@ -5,35 +5,35 @@ import java.math.BigInteger;
 
 import jp.begic.interpreter.exception.BegicRunTimeException;
 
-public class BFloat extends BValue<BigDecimal> {
-	public static final BFloat ZERO = new BFloat(0);
-	public static final BFloat ONE = new BFloat(1);
+public class BDecimal extends BValue<BigDecimal> {
+	public static final BDecimal ZERO = new BDecimal(0);
+	public static final BDecimal ONE = new BDecimal(1);
 	
-	public BFloat(String value) {
+	public BDecimal(String value) {
 		setValue(new BigDecimal(value));
 	}
 
-	public BFloat(float value) {
+	public BDecimal(float value) {
 		setValue(new BigDecimal(value));
 	}
 
-	public BFloat(double value) {
+	public BDecimal(double value) {
 		setValue(new BigDecimal(value));
 	}
 
-	public BFloat(int value) {
+	public BDecimal(int value) {
 		setValue(new BigDecimal(value));
 	}
 
-	public BFloat(long value) {
+	public BDecimal(long value) {
 		setValue(new BigDecimal(value));
 	}
 
-	public BFloat(BigInteger value) {
+	public BDecimal(BigInteger value) {
 		setValue(new BigDecimal(value.toString()));
 	}
 
-	public BFloat(BigDecimal add) {
+	public BDecimal(BigDecimal add) {
 		setValue(add);
 	}
 
@@ -44,7 +44,7 @@ public class BFloat extends BValue<BigDecimal> {
 
 	@Override
 	public int type() {
-		return BFLOAT;
+		return BDECIMAL;
 	}
 
 	@Override
@@ -64,42 +64,42 @@ public class BFloat extends BValue<BigDecimal> {
 
 	@Override
 	public BValue eq(BValue other) throws BegicRunTimeException {
-		if (other.type() != BFLOAT)
+		if (other.type() != BDECIMAL)
 			return new BBoolean(false);
 		return new BBoolean(this.value.compareTo((BigDecimal) other.value) == 0);
 	}
 
 	@Override
 	public BValue neq(BValue other) throws BegicRunTimeException {
-		if (other.type() != BFLOAT)
+		if (other.type() != BDECIMAL)
 			return new BBoolean(true);
 		return new BBoolean(this.value.compareTo((BigDecimal) other.value) != 0);
 	}
 
 	@Override
 	public BValue ge(BValue other) throws BegicRunTimeException {
-		if (other.type() != BFLOAT)
+		if (other.type() != BDECIMAL)
 			throw new BegicRunTimeException();
 		return new BBoolean(this.value.compareTo((BigDecimal) other.value) >= 0);
 	}
 
 	@Override
 	public BValue le(BValue other) throws BegicRunTimeException {
-		if (other.type() != BFLOAT)
+		if (other.type() != BDECIMAL)
 			throw new BegicRunTimeException();
 		return new BBoolean(this.value.compareTo((BigDecimal) other.value) <= 0);
 	}
 
 	@Override
 	public BValue gt(BValue other) throws BegicRunTimeException {
-		if (other.type() != BFLOAT)
+		if (other.type() != BDECIMAL)
 			throw new BegicRunTimeException();
 		return new BBoolean(this.value.compareTo((BigDecimal) other.value) > 0);
 	}
 
 	@Override
 	public BValue lt(BValue other) throws BegicRunTimeException {
-		if (other.type() != BFLOAT)
+		if (other.type() != BDECIMAL)
 			throw new BegicRunTimeException();
 		return new BBoolean(this.value.compareTo((BigDecimal) other.value) < 0);
 	}
@@ -107,8 +107,8 @@ public class BFloat extends BValue<BigDecimal> {
 	@Override
 	public BValue add(BValue other) throws BegicRunTimeException {
 		switch (other.type()) {
-		case BFLOAT:
-			return new BFloat(this.value.add((BigDecimal) other.value));
+		case BDECIMAL:
+			return new BDecimal(this.value.add((BigDecimal) other.value));
 		case BSTRING:
 			return new BString(this.value.toString().concat(other.toString()));
 		default:
@@ -118,16 +118,16 @@ public class BFloat extends BValue<BigDecimal> {
 
 	@Override
 	public BValue sub(BValue other) throws BegicRunTimeException {
-		if (other.type() == BFLOAT)
-			return new BFloat(this.value.subtract((BigDecimal) other.value));
+		if (other.type() == BDECIMAL)
+			return new BDecimal(this.value.subtract((BigDecimal) other.value));
 		throw new BegicRunTimeException();
 	}
 
 	@Override
 	public BValue mul(BValue other) throws BegicRunTimeException {
 		switch (other.type()) {
-		case BFLOAT:
-			return new BFloat(this.value.multiply((BigDecimal) other.value));
+		case BDECIMAL:
+			return new BDecimal(this.value.multiply((BigDecimal) other.value));
 		case BSTRING:
 			String s = "";
 			for (BigDecimal i = new BigDecimal(0); i.compareTo(this.value) < 0; i = i
@@ -144,25 +144,25 @@ public class BFloat extends BValue<BigDecimal> {
 
 	@Override
 	public BValue div(BValue other) throws BegicRunTimeException {
-		if (other.type() != BFLOAT)
+		if (other.type() != BDECIMAL)
 			throw new BegicRunTimeException();
-		return new BFloat(this.value.divide((BigDecimal) other.value, BigDecimal.ROUND_HALF_EVEN));
+		return new BDecimal(this.value.divide((BigDecimal) other.value, BigDecimal.ROUND_HALF_EVEN));
 	}
 
 	@Override
 	public BValue mod(BValue other) throws BegicRunTimeException {
-		if (other.type() != BFLOAT)
+		if (other.type() != BDECIMAL)
 			throw new BegicRunTimeException();
-		return new BFloat(this.value.toBigInteger().mod(
+		return new BDecimal(this.value.toBigInteger().mod(
 				((BigDecimal) other.value).toBigInteger()));
 	}
 
 	@Override
 	public BValue pow(BValue other) throws BegicRunTimeException {
-		if (other.type() != BFLOAT)
+		if (other.type() != BDECIMAL)
 			throw new BegicRunTimeException();
 		int n = Integer.valueOf(((BigDecimal) other.value).toString().replaceAll("\\..*", ""));
-		return new BFloat(this.value.pow(n));
+		return new BDecimal(this.value.pow(n));
 	}
 
 	/**

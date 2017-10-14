@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import jp.begic.interpreter.canvas.BCanvas;
 import jp.begic.interpreter.commands.base.BArgs;
 import jp.begic.interpreter.commands.base.BDrawCommand;
-import jp.begic.interpreter.values.BFloat;
+import jp.begic.interpreter.values.BDecimal;
 
 /**
  * 描画用のウインドウのサイズの変更を行います。 ウインドウの表示は実行時に自動的に生成されます。
@@ -46,8 +46,8 @@ class BWindow extends BDrawCommand {
 					// }
 
 					frame.setResizable(true);
-					frame.getContentPane().setPreferredSize(new Dimension(((BFloat) bargs.get(0)).getValue().intValue(),
-							((BFloat) bargs.get(1)).getValue().intValue()));
+					frame.getContentPane().setPreferredSize(new Dimension(((BDecimal) bargs.get(0)).getValue().intValue(),
+							((BDecimal) bargs.get(1)).getValue().intValue()));
 					frame.pack();
 					frame.setResizable(false);
 

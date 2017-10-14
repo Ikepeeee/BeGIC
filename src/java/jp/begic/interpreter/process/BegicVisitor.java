@@ -23,11 +23,11 @@ import jp.begic.interpreter.parser.ASTCommand;
 import jp.begic.interpreter.parser.ASTComp;
 import jp.begic.interpreter.parser.ASTCompOp;
 import jp.begic.interpreter.parser.ASTConstantAssignment;
+import jp.begic.interpreter.parser.ASTDecimal;
 import jp.begic.interpreter.parser.ASTEmpty;
 //import jp.begic.interpreter.parser.ASTEnpty;
 import jp.begic.interpreter.parser.ASTExchange;
 import jp.begic.interpreter.parser.ASTExpression;
-import jp.begic.interpreter.parser.ASTFloat;
 import jp.begic.interpreter.parser.ASTForStatement;
 import jp.begic.interpreter.parser.ASTFunction;
 import jp.begic.interpreter.parser.ASTHash;
@@ -57,7 +57,7 @@ import jp.begic.interpreter.values.BBlock;
 import jp.begic.interpreter.values.BBoolean;
 import jp.begic.interpreter.values.BColor;
 import jp.begic.interpreter.values.BEmpty;
-import jp.begic.interpreter.values.BFloat;
+import jp.begic.interpreter.values.BDecimal;
 import jp.begic.interpreter.values.BHash;
 import jp.begic.interpreter.values.BList;
 import jp.begic.interpreter.values.BString;
@@ -549,8 +549,8 @@ public class BegicVisitor implements BegicParserVisitor {
 	}
 
 	@Override
-	public Object visit(ASTFloat node, Object data) {
-		return new BFloat((((Token) node.jjtGetValue()).image));
+	public Object visit(ASTDecimal node, Object data) {
+		return new BDecimal((((Token) node.jjtGetValue()).image));
 	}
 
 	@Override

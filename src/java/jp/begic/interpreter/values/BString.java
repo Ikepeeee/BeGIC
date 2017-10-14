@@ -86,8 +86,8 @@ public class BString extends BValue<String> {
 	public BValue add(BValue other) throws BegicRunTimeException {
 		if (other.type() == BValue.BSTRING)
 			return new BString(this.value.concat(((BString) other).value));
-		else if (other.type() == BValue.BFLOAT)
-			return new BString(this.value.concat(((BFloat) other).value.toString()));
+		else if (other.type() == BValue.BDECIMAL)
+			return new BString(this.value.concat(((BDecimal) other).value.toString()));
 		else if (other.type() == BValue.BBOOLEAN)
 			return new BString(this.value.concat(((BBoolean) other).value.toString()));
 		else
@@ -107,11 +107,11 @@ public class BString extends BValue<String> {
 
 	@Override
 	public BValue mul(BValue other) throws BegicRunTimeException {
-		if (other.type() != BValue.BFLOAT)
+		if (other.type() != BValue.BDECIMAL)
 			throw new BegicRunTimeException();
 		String ret = "";
-		for (BFloat i = new BFloat(0); (Boolean) i.lt(((BFloat) other))
-				.getValue(); i = (BFloat) i.add(BFloat.ONE))
+		for (BDecimal i = new BDecimal(0); (Boolean) i.lt(((BDecimal) other))
+				.getValue(); i = (BDecimal) i.add(BDecimal.ONE))
 			ret = ret.concat(value);
 		return new BString(ret);
 	}

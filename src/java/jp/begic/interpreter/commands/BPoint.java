@@ -2,7 +2,7 @@ package jp.begic.interpreter.commands;
 
 import jp.begic.interpreter.commands.base.BArgs;
 import jp.begic.interpreter.commands.base.BDrawCommand;
-import jp.begic.interpreter.values.BFloat;
+import jp.begic.interpreter.values.BDecimal;
 
 class BPoint extends BDrawCommand {
 	private BArgs bargs = null;
@@ -15,8 +15,8 @@ class BPoint extends BDrawCommand {
 
 	@Override
 	public void draw() {
-		g.drawLine(((BFloat) bargs.get(0)).getValue().intValue(), ((BFloat) bargs.get(1)).getValue().intValue(),
-				((BFloat) bargs.get(0)).getValue().intValue(), ((BFloat) bargs.get(1)).getValue().intValue());
+		g.drawLine(((BDecimal) bargs.get(0)).getValue().intValue(), ((BDecimal) bargs.get(1)).getValue().intValue(),
+				((BDecimal) bargs.get(0)).getValue().intValue(), ((BDecimal) bargs.get(1)).getValue().intValue());
 		bargs = null;
 	}
 

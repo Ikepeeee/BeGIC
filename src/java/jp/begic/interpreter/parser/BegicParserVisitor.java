@@ -39,8 +39,8 @@ public interface BegicParserVisitor
   public Object visit(ASTIdentifier node, Object data);
   public Object visit(ASTBoolean node, Object data);
   public Object visit(ASTEmpty node, Object data);
-  public Object visit(ASTFloat node, Object data);
+  public Object visit(ASTDecimal node, Object data);
   public Object visit(ASTString node, Object data);
   public Object visit(ASTColor node, Object data);
 }
-/* JavaCC - OriginalChecksum=90ffcdbcf3f0358660b948c18a675e7d (do not edit this line) */
+/* JavaCC - OriginalChecksum=c23a1b74923671097d62f08766ff3a7a (do not edit this line) */

@@ -51,6 +51,10 @@ public class BFunctionFactory {
 			return new BExp();
 		case "input":
 			return new BInput();
+		case "asString":
+			return new BAsString();
+		case "asDecimal":
+			return new BAsDecimal();
 		default:
 			break;
 		}

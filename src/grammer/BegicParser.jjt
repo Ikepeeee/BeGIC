@@ -110,7 +110,10 @@ TOKEN :
   | "cosh"
   | "tanh"
   | "sqrt"
-  | "exp" >
+  | "exp"
+  | "input"
+  | "asString"
+  | "asDecimal">
 }
 
 /* ----- COMMENTS ----- */
@@ -168,7 +171,7 @@ TOKEN :
     )*
     "\"" 
   >
-| < FLOAT :
+| < DECIMAL :
     ([ "0"-"9" ])+
     (
       "." ([ "0"-"9" ])+
@@ -554,7 +557,7 @@ void Expression() :
     Block()
   | LOOKAHEAD(2)
     Identifier()
-  | Float()
+  | Decimal()
   | String()
   | Color()
   | Boolean()
@@ -652,12 +655,12 @@ void Empty() :
   }
 }
 
-void Float() :
+void Decimal() :
 {
   Token t = null;
 }
 {
-  t = < FLOAT >
+  t = < DECIMAL >
   {
     jjtThis.jjtSetValue(t);
   }

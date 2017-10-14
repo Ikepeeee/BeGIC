@@ -38,7 +38,7 @@ public interface BegicParserTreeConstants
   public int JJTIDENTIFIER = 32;
   public int JJTBOOLEAN = 33;
   public int JJTEMPTY = 34;
-  public int JJTFLOAT = 35;
+  public int JJTDECIMAL = 35;
   public int JJTSTRING = 36;
   public int JJTCOLOR = 37;
 
@@ -79,9 +79,9 @@ public interface BegicParserTreeConstants
     "Identifier",
     "Boolean",
     "Empty",
-    "Float",
+    "Decimal",
     "String",
     "Color",
   };
 }
-/* JavaCC - OriginalChecksum=9d8e414d12b80e1f26b8d70f435f73f5 (do not edit this line) */
+/* JavaCC - OriginalChecksum=b8cb3b58e72f66f757883bbb5e3f7565 (do not edit this line) */

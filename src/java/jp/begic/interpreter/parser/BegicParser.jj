@@ -114,7 +114,10 @@ TOKEN :
   | "cosh"
   | "tanh"
   | "sqrt"
-  | "exp" >
+  | "exp"
+  | "input"
+  | "asString"
+  | "asDecimal">
 }
 
 /* ----- COMMENTS ----- */
@@ -172,7 +175,7 @@ TOKEN :
     )*
     "\"" 
   >
-| < FLOAT :
+| < DECIMAL :
     ([ "0"-"9" ])+
     (
       "." ([ "0"-"9" ])+
@@ -1263,7 +1266,7 @@ void Expression() :
     Block()
   | LOOKAHEAD(2)
     Identifier()
-  | Float()
+  | Decimal()
   | String()
   | Color()
   | Boolean()
@@ -1541,18 +1544,18 @@ void Empty() :
 /*@egen*/
 }
 
-void Float() :
-{/*@bgen(jjtree) Float */
-  ASTFloat jjtn000 = new ASTFloat(JJTFLOAT);
+void Decimal() :
+{/*@bgen(jjtree) Decimal */
+  ASTDecimal jjtn000 = new ASTDecimal(JJTDECIMAL);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
 /*@egen*/
   Token t = null;
 }
-{/*@bgen(jjtree) Float */
+{/*@bgen(jjtree) Decimal */
   try {
 /*@egen*/
-  t = < FLOAT >/*@bgen(jjtree)*/
+  t = < DECIMAL >/*@bgen(jjtree)*/
   {
     jjtree.closeNodeScope(jjtn000, true);
     jjtc000 = false;

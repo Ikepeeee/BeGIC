@@ -20,4 +20,4 @@ class ASTIfStatement extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=b82b52a0199443548d56b6349a177e07 (do not edit this line) */
+/* JavaCC - OriginalChecksum=662ea440a03656f46bb017f456de556c (do not edit this line) */

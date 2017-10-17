@@ -38,4 +38,4 @@ interface Node {
   /** Accept the visitor. **/
   public Object jjtAccept(BegicParserVisitor visitor, Object data);
 }
-/* JavaCC - OriginalChecksum=74f7a29c3af0699b91de3036397682dd (do not edit this line) */
+/* JavaCC - OriginalChecksum=41fb132a7113c59bcc86a048078754f0 (do not edit this line) */

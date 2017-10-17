@@ -20,4 +20,4 @@ class ASTComp extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=e2ddc4f3cbb9f7a1896d00a7e79ade84 (do not edit this line) */
+/* JavaCC - OriginalChecksum=1e7f59954c0273a62246d336de3697f2 (do not edit this line) */

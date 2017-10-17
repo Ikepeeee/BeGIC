@@ -20,4 +20,4 @@ class ASTFunction extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=a542abcb6f569e8a268f83c7e466c414 (do not edit this line) */
+/* JavaCC - OriginalChecksum=a965a137ea5d9f3f9b9aca1aa8f0261a (do not edit this line) */

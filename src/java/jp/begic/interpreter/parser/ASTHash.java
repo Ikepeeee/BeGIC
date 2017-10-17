@@ -20,4 +20,4 @@ class ASTHash extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=4122ce153fe94f9235a189fc7aca1289 (do not edit this line) */
+/* JavaCC - OriginalChecksum=3f57b26ce9d16a064de8518724ca1021 (do not edit this line) */

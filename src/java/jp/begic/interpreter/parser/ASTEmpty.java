@@ -20,4 +20,4 @@ class ASTEmpty extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=a9e5a087de53a1f0655bc8ba6330dfd6 (do not edit this line) */
+/* JavaCC - OriginalChecksum=26233456f93d7c52760a41b226cf3b1c (do not edit this line) */

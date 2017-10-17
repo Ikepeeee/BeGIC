@@ -20,4 +20,4 @@ class ASTNotOp extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=a4dae268e223052d2d2819d519c5a352 (do not edit this line) */
+/* JavaCC - OriginalChecksum=f6a08fde8e0139c3ee2788d5f794ed7d (do not edit this line) */

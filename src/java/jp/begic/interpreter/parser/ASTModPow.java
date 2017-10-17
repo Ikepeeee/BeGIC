@@ -20,4 +20,4 @@ class ASTModPow extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=608e4ff546e58e8e154ad5e49ae6f88d (do not edit this line) */
+/* JavaCC - OriginalChecksum=d6d662f9c336ce6d5a61ef7d23ddfc39 (do not edit this line) */

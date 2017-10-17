@@ -20,4 +20,4 @@ class ASTWhileStatement extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=244cf5bbf41e4bbe586998a0b0f2d119 (do not edit this line) */
+/* JavaCC - OriginalChecksum=5f8795ecd94d7480bdd05f3408c53f9a (do not edit this line) */

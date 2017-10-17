@@ -20,4 +20,4 @@ class ASTCall extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=3508967602f683acf018f87c6dd89751 (do not edit this line) */
+/* JavaCC - OriginalChecksum=cf3525fba3ba57216246598685e7f529 (do not edit this line) */

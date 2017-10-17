@@ -20,4 +20,4 @@ class ASTOrOp extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=6d4e4f9252db0cf5ff9adbf0be9d5d82 (do not edit this line) */
+/* JavaCC - OriginalChecksum=3a7f62d20263b5a7d9ed052e3f6bb86a (do not edit this line) */

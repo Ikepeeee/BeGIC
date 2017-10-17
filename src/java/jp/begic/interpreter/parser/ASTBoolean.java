@@ -20,4 +20,4 @@ class ASTBoolean extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=40016f548f5b07b19a6208cd7ae4b53c (do not edit this line) */
+/* JavaCC - OriginalChecksum=cec8390a1c7b0fb97e178adf20eddea6 (do not edit this line) */

@@ -20,4 +20,4 @@ class ASTAndOp extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=89ede1676bbf7abd15146814b2937424 (do not edit this line) */
+/* JavaCC - OriginalChecksum=fc72015196cb4f28b2fd0ae82b1fceff (do not edit this line) */

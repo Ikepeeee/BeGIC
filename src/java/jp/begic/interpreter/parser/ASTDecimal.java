@@ -20,4 +20,4 @@ class ASTDecimal extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=1657cccdc39fd557ce42a6f76028ca07 (do not edit this line) */
+/* JavaCC - OriginalChecksum=b05a46975f6ee5996eb9eb3ad01f23fa (do not edit this line) */

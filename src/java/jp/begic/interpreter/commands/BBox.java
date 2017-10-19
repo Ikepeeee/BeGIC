@@ -9,7 +9,7 @@ import jp.begic.interpreter.values.BDecimal;
  * @author toru
  *
  */
-public class BCircle extends BDrawCommand {
+public class BBox extends BDrawCommand {
 
 	private BArgs bargs = null;
 
@@ -21,10 +21,22 @@ public class BCircle extends BDrawCommand {
 
 	@Override
 	public void draw() {
-		int x = ((BDecimal) bargs.get(0)).getValue().intValue();
-		int y = ((BDecimal) bargs.get(1)).getValue().intValue();
-		int r = ((BDecimal) bargs.get(2)).getValue().intValue();
-		g.drawArc(x - r, y - r, r * 2, r * 2, 0, 360);
+		int x1 = ((BDecimal) bargs.get(0)).getValue().intValue();
+		int y1 = ((BDecimal) bargs.get(1)).getValue().intValue();
+		int x2 = ((BDecimal) bargs.get(2)).getValue().intValue();
+		int y2 = ((BDecimal) bargs.get(3)).getValue().intValue();
+		if(x2 < x1) {
+			int temp = x1;
+			x1 = x2;
+			x2 = temp;
+		}
+		if(y2 < y1) {
+			int temp = y1;
+			y1 = y2;
+			y2 = temp;
+		}
+		g.drawRect(x1, y1, x2 - x1, y2 - y1);
+
 		bargs = null;
 	}
 

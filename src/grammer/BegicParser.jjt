@@ -75,6 +75,8 @@ TOKEN :
   | "window"
   | "have"
   | "point" 
+  | "background"
+  | "sleep"
   >
 }
 
@@ -111,6 +113,7 @@ TOKEN :
   | "tanh"
   | "sqrt"
   | "exp"
+  | "rand"
   | "input"
   | "asString"
   | "asDecimal">
@@ -178,7 +181,7 @@ TOKEN :
     )* >
 | < COLOR :
     (
-      "#" ([ "0"-"9", "A"-"F" ])
+      "#" ([ "0"-"9", "A"-"F", "a"-"f" ])
       {
         6
       }

@@ -24,6 +24,10 @@ public class BCommandFactory {
 			put("window", new BWindow());
 			put("have", new BHave());
 			put("point", new BPoint());
+			put("circle", new BCircle());
+			put("box", new BBox());
+			put("background", new BBackground());
+			put("sleep", new BSleep());
 		}	
 	};
 

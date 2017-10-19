@@ -79,6 +79,8 @@ TOKEN :
   | "window"
   | "have"
   | "point" 
+  | "background"
+  | "sleep"
   >
 }
 

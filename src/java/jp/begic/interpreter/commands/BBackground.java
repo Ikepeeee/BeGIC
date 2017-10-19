@@ -1,15 +1,12 @@
 package jp.begic.interpreter.commands;
 
+import java.awt.Color;
+
 import jp.begic.interpreter.commands.base.BArgs;
 import jp.begic.interpreter.commands.base.BDrawCommand;
-import jp.begic.interpreter.values.BDecimal;
+import jp.begic.interpreter.values.BColor;
 
-/**
- * â~Çï`é ÇµÇ‹Ç∑ÅB
- * @author toru
- *
- */
-public class BCircle extends BDrawCommand {
+public class BBackground extends BDrawCommand {
 
 	private BArgs bargs = null;
 
@@ -21,10 +18,12 @@ public class BCircle extends BDrawCommand {
 
 	@Override
 	public void draw() {
-		int x = ((BDecimal) bargs.get(0)).getValue().intValue();
-		int y = ((BDecimal) bargs.get(1)).getValue().intValue();
-		int r = ((BDecimal) bargs.get(2)).getValue().intValue();
-		g.drawArc(x - r, y - r, r * 2, r * 2, 0, 360);
+		Color col = ((BColor) bargs.get(0)).getValue();
+		Color pre = g.getColor();
+		g.setColor(col);
+		g.fillRect(0, 0, (int) Math.ceil(canvas.getBounds().getWidth()),
+				(int) Math.ceil(canvas.getBounds().getHeight()));
+		g.setColor(pre);
 		bargs = null;
 	}
 

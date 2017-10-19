@@ -5,6 +5,7 @@ import java.util.List;
 
 import jp.begic.interpreter.commands.BCommandFactory;
 import jp.begic.interpreter.commands.base.BArgs;
+import jp.begic.interpreter.commands.base.BDrawCommand;
 import jp.begic.interpreter.exception.BegicRunTimeException;
 import jp.begic.interpreter.functions.BFunction;
 import jp.begic.interpreter.functions.BFunctionFactory;

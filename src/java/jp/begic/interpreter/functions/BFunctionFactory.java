@@ -57,6 +57,8 @@ public class BFunctionFactory {
 			return new BAsDecimal();
 		case "rand":
 			return new BRand();
+		case "size":
+			return new BSize();
 		default:
 			break;
 		}

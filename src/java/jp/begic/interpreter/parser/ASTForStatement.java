@@ -20,4 +20,4 @@ class ASTForStatement extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=67b9dfe29875493abdfce2adfc627477 (do not edit this line) */
+/* JavaCC - OriginalChecksum=522794ea6c1f51a881c426087a24df95 (do not edit this line) */

@@ -124,4 +124,4 @@ public class BegicParserDefaultVisitor implements BegicParserVisitor{
     return defaultVisit(node, data);
   }
 }
-/* JavaCC - OriginalChecksum=3ff17cc8cdf4412793c57e6a385350e4 (do not edit this line) */
+/* JavaCC - OriginalChecksum=735264991eebcddd669f6cdbb06535d9 (do not edit this line) */

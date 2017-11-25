@@ -20,4 +20,4 @@ class ASTString extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=934d57577c0bf3b0fc697fe0fe8af626 (do not edit this line) */
+/* JavaCC - OriginalChecksum=84c5e624913906414d9ac7d61a6ea413 (do not edit this line) */

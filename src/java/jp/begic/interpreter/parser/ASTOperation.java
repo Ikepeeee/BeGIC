@@ -20,4 +20,4 @@ class ASTOperation extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=e3c266813956fe007f1fae28613f8b30 (do not edit this line) */
+/* JavaCC - OriginalChecksum=ef2855305c519aa9c918e12c47d5173d (do not edit this line) */

@@ -77,6 +77,9 @@ TOKEN :
   | "point" 
   | "background"
   | "sleep"
+  | "fill_circle"
+  | "fill_box"
+  | "add"
   >
 }
 
@@ -116,7 +119,8 @@ TOKEN :
   | "rand"
   | "input"
   | "asString"
-  | "asDecimal">
+  | "asDecimal"
+  | "size">
 }
 
 /* ----- COMMENTS ----- */
@@ -191,6 +195,11 @@ TOKEN :
     | "green"
     | "white"
     | "black"
+    | "orange"
+    | "pink"
+    | "cyan"
+    | "magenta"
+    | "gray"
     ) 
   >
 | < BOOLEAN :
@@ -335,7 +344,7 @@ void Block() :
     | ForStatement()
     )
     (";")?
-  )*
+  )+
   (
     "}"
   | "end"

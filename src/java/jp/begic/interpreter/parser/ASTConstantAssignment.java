@@ -20,4 +20,4 @@ class ASTConstantAssignment extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=52d90761d0e79c1fb666cb2bd41bdeac (do not edit this line) */
+/* JavaCC - OriginalChecksum=a0659ff837ea47b3014232c662961a99 (do not edit this line) */

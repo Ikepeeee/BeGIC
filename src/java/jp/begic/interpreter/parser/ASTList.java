@@ -20,4 +20,4 @@ class ASTList extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=ca0e94ffbe63b20f9df481bbfbcf1dd6 (do not edit this line) */
+/* JavaCC - OriginalChecksum=5b760d68d2255be59b9d43901791419c (do not edit this line) */

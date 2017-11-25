@@ -20,4 +20,4 @@ class ASTColor extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=a6122065e37c6a0a0b1ba71b7d7060f1 (do not edit this line) */
+/* JavaCC - OriginalChecksum=b31df71dd9063c4cfe4498ce8e731c86 (do not edit this line) */

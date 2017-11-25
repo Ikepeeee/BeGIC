@@ -20,4 +20,4 @@ class ASTNext extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=c3be79c63c3176c706a853936b635f2a (do not edit this line) */
+/* JavaCC - OriginalChecksum=e2ac56b87104cd5489c4d9054d054cdf (do not edit this line) */

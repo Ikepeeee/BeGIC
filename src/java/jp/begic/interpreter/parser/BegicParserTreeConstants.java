@@ -84,4 +84,4 @@ public interface BegicParserTreeConstants
     "Color",
   };
 }
-/* JavaCC - OriginalChecksum=5a03d0417a96af9e156e19213a98cf47 (do not edit this line) */
+/* JavaCC - OriginalChecksum=b8cb3b58e72f66f757883bbb5e3f7565 (do not edit this line) */

@@ -20,4 +20,4 @@ class ASTArgs extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=52dd20ef94187f4609752b5dca690fa9 (do not edit this line) */
+/* JavaCC - OriginalChecksum=0a70018a60f2a94c6f7224c4044adbf2 (do not edit this line) */

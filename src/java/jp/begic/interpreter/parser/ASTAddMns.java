@@ -20,4 +20,4 @@ class ASTAddMns extends SimpleNode {
     visitor.visit(this, data);
   }
 }
-/* JavaCC - OriginalChecksum=564b6a78256a944cc9648fb30396949a (do not edit this line) */
+/* JavaCC - OriginalChecksum=796e0db5e729ae36c768b59c10aa8db7 (do not edit this line) */

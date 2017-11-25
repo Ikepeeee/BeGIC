@@ -43,4 +43,4 @@ public interface BegicParserVisitor
   public Object visit(ASTString node, Object data);
   public Object visit(ASTColor node, Object data);
 }
-/* JavaCC - OriginalChecksum=ec952078dc87ef8f0cfe2c718eab0dea (do not edit this line) */
+/* JavaCC - OriginalChecksum=c23a1b74923671097d62f08766ff3a7a (do not edit this line) */

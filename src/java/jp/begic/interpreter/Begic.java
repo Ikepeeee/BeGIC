@@ -14,9 +14,9 @@ import jp.begic.executer.BExecuter;
  *
  */
 public class Begic {
-	private static final String releaseDate = "2017/04/18";
-	private static final String version = "1.0.0 (pre.1)";
-	private static final String buildBy = "jdk1.8.0_121";
+	private static final String releaseDate = "2017/11/25";
+	private static final String version = "1.0.0";
+	private static final String buildBy = "jdk1.8.0_91";
 	private static final String name = "BeGIC";
 
 	public static void main(String[] args) {

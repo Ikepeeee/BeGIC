@@ -19,7 +19,7 @@ public class BExecuter implements Executer {
 
 		BegicParser parser = new BegicParser(stream);
 		BegicVisitor visitor = new BegicVisitor();
-		
+
 		try {
 			parser.Program().jjtAccept(visitor, null);
 

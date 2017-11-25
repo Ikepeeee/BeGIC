@@ -5,16 +5,17 @@ import java.awt.Color;
 import jp.begic.interpreter.exception.BegicRunTimeException;
 
 public class BColor extends BValue<Color> {
-	private Integer amount = null;
+	private Double amount = null;
 	private static final BColor WHITE = new BColor("white");
 
 	public BColor(int r, int g, int b) {
+		amount = 1.0;
 		setValue(new Color(r, g, b));
 	}
 
 	public BColor(String color) {
 		// èâä˙ÇÃó Ç1Ç∆Ç∑ÇÈÅB
-		amount = 1;
+		amount = 1.0;
 
 		switch (color) {
 		case "red":
@@ -28,6 +29,21 @@ public class BColor extends BValue<Color> {
 			break;
 		case "green":
 			setValue(Color.GREEN);
+			break;
+		case "orange":
+			setValue(Color.ORANGE);
+			break;
+		case "pink":
+			setValue(Color.PINK);
+			break;
+		case "cyan":
+			setValue(Color.CYAN);
+			break;
+		case "magenta":
+			setValue(Color.MAGENTA);
+			break;
+		case "gray":
+			setValue(Color.GRAY);
 			break;
 		case "black":
 			setValue(Color.BLACK);
@@ -51,7 +67,10 @@ public class BColor extends BValue<Color> {
 
 	@Override
 	public String toString() {
-		return value.toString();
+		return "[".concat("red=").concat(String.valueOf(value.getRed()))
+				.concat(", green=").concat(String.valueOf(value.getGreen()))
+				.concat(", blue=").concat(String.valueOf(value.getBlue()))
+				.concat(", amount=").concat(String.valueOf(amount)).concat("]");
 	}
 
 	@Override
@@ -108,9 +127,11 @@ public class BColor extends BValue<Color> {
 			double rate = ((double) this.amount)
 					/ (this.amount + ((BColor) other).amount);
 			int r = (int) (rate * ((double) this.value.getRed()) + ((1.0 - rate) * (double) ((BColor) other).value
-					.getRed()));
-			int g = this.value.getGreen() + ((BColor) other).value.getGreen();
-			int b = this.value.getBlue() + ((BColor) other).value.getBlue();
+					.getRed())) % 256;
+			int g = (int) (rate * ((double) this.value.getGreen()) + ((1.0 - rate) * (double) ((BColor) other).value
+					.getGreen())) % 256;
+			int b = (int) (rate * ((double) this.value.getBlue()) + ((1.0 - rate) * (double) ((BColor) other).value
+					.getBlue())) % 256;
 			return new BColor(r, g, b);
 		default:
 			throw new BegicRunTimeException();
@@ -129,13 +150,20 @@ public class BColor extends BValue<Color> {
 
 	@Override
 	public BValue mul(BValue other) throws BegicRunTimeException {
-		if (other.type() != BCOLOR)
+		if (other.type() == BCOLOR) {
+			int r = (this.value.getRed() * ((BColor) other).value.getRed()) % 256;
+			int g = this.value.getGreen() * ((BColor) other).value.getGreen()
+					% 256;
+			int b = this.value.getBlue() * ((BColor) other).value.getBlue()
+					% 256;
+			return new BColor(r, g, b);
+		} else if (other.type() == BDECIMAL) {
+			amount = ((BDecimal) other).getValue().doubleValue();
+			return this;
+		} else {
 			throw new BegicRunTimeException();
+		}
 
-		int r = this.value.getRed() * ((BColor) other).value.getRed();
-		int g = this.value.getGreen() * ((BColor) other).value.getGreen();
-		int b = this.value.getBlue() * ((BColor) other).value.getBlue();
-		return new BColor(r, g, b);
 	}
 
 	@Override
@@ -168,5 +196,5 @@ public class BColor extends BValue<Color> {
 	public BValue additiveIdentity() throws BegicRunTimeException {
 		return WHITE;
 	}
-	
+
 }

@@ -1,7 +1,6 @@
 package jp.begic.interpreter.values;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import jp.begic.interpreter.exception.BegicRunTimeException;
 import jp.begic.interpreter.values.base.IBCollection;

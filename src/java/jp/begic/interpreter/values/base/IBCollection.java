@@ -3,7 +3,7 @@ package jp.begic.interpreter.values.base;
 import jp.begic.interpreter.exception.BegicRunTimeException;
 import jp.begic.interpreter.values.BValue;
 
-public interface IBCollection {
+public interface IBCollection extends IBValue {
 	public BValue push(BValue key, BValue value) throws BegicRunTimeException;
 	public BValue unshift(BValue key, BValue value) throws BegicRunTimeException;
 	public BValue pop() throws BegicRunTimeException;

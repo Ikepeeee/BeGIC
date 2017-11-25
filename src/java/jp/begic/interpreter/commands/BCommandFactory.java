@@ -1,8 +1,6 @@
 package jp.begic.interpreter.commands;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 import jp.begic.interpreter.commands.base.BCommand;
 import jp.begic.interpreter.exception.BegicRunTimeException;
@@ -28,6 +26,9 @@ public class BCommandFactory {
 			put("box", new BBox());
 			put("background", new BBackground());
 			put("sleep", new BSleep());
+			put("add", new BAdd());
+			put("fill_box", new BFillBox());
+			put("fill_circle", new BFillCircle());
 		}	
 	};
 

@@ -23,27 +23,42 @@ public class IBExecuter implements Executer {
 
 		BegicVisitor visitor = new BegicVisitor();
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		try {
-			while (true) {
-				String line = null;
-				System.out.print("begic > ");
+
+		int lineNum = 1;
+		while (true) {
+			String line = null;
+			System.out.printf("begic: %03dL > ", lineNum);
+			try {
+				line = br.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.exit(0);
+			}
+
+			if (line.matches("exit.*"))
+				break;
+			
+			while (line.matches(".*?//")) {
 				try {
-					line = br.readLine();
+					System.out.printf("begic: %03dL > ", lineNum);
+					line += br.readLine();
 				} catch (IOException e) {
 					e.printStackTrace();
 					System.exit(0);
 				}
-
-				if (line.matches("exit.*"))
-					break;
-				BegicParser parser = new BegicParser(new ByteArrayInputStream(
-						line.getBytes()));
-				parser.Program().jjtAccept(visitor, null);
 			}
-		} catch (ParseException e) {
-			System.err.println("構文エラー");
-			e.printStackTrace();
-			System.exit(0);
+			line = line.replaceAll("//", "\n");
+				
+			BegicParser parser = new BegicParser(new ByteArrayInputStream(
+					line.getBytes()));
+			try {
+				parser.Program().jjtAccept(visitor, null);
+				lineNum++;
+			} catch (ParseException e) {
+				System.err.println("構文エラー");
+				e.printStackTrace();
+				// System.exit(0);
+			}
 		}
 
 	}
